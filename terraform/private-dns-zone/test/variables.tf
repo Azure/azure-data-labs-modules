@@ -1,11 +1,11 @@
 variable "rg_name" {
   type    = string
-  default = "rg-azurelabs-modules-01"
+  default = "rg-adl-modules-test"
 }
 
 variable "rg_name_dns" {
   type    = string
-  default = "rg-azurelabs-modules-01-global-dns"
+  default = "rg-adl-modules-test-global-dns"
 }
 
 resource "random_string" "postfix" {

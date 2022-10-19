@@ -1,5 +1,5 @@
 module "cosmosdb_table" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/cosmosdb/cosmosdb-table"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/cosmosdb/cosmosdb-table"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

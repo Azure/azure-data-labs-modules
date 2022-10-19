@@ -1,5 +1,5 @@
 module "sql_database_server" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/sql-database-server"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/sql-database-server"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

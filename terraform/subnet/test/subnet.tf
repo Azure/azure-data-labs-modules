@@ -1,5 +1,5 @@
 module "subnet" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/subnet"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/subnet"
 
   rg_name = var.rg_name
   name    = "snet-test"

@@ -1,5 +1,5 @@
 module "mysql_database" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/mysql-database"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/mysql-database"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

@@ -1,5 +1,5 @@
 module "machine_learning_compute_instance" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/machine-learning/machine-learning-compute-instance"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/machine-learning/machine-learning-compute-instance"
 
   basename = random_string.postfix.result
   location = var.location

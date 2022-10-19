@@ -1,5 +1,5 @@
 module "redis_cache" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/redis-cache"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/redis-cache"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

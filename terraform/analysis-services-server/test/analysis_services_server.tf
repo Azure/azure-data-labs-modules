@@ -1,5 +1,5 @@
 module "analysis_services_server" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/analysis-services-server"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/analysis-services-server"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

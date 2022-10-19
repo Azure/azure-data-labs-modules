@@ -1,5 +1,5 @@
 module "network_security_rule" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/network-security-rule"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/network-security-rule"
 
   rg_name = var.rg_name
   name    = "TestRule"

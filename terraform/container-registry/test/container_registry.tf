@@ -1,5 +1,5 @@
 module "container_registry" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/container-registry"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/container-registry"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

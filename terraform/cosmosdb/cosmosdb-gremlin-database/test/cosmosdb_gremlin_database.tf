@@ -1,5 +1,5 @@
 module "cosmosdb_gremlin_database" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/cosmosdb/cosmosdb-gremlin-database"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/cosmosdb/cosmosdb-gremlin-database"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

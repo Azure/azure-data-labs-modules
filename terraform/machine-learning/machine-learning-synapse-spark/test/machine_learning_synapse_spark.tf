@@ -1,5 +1,5 @@
 module "machine_learning_synapse_spark" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/machine-learning/machine-learning-synapse-spark"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/machine-learning/machine-learning-synapse-spark"
 
   basename = random_string.postfix.result
   location = var.location

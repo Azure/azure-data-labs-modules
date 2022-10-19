@@ -1,5 +1,5 @@
 module "machine_learning_compute_cluster" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/machine-learning/machine-learning-compute-cluster"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/machine-learning/machine-learning-compute-cluster"
 
   location = var.location
 

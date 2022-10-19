@@ -1,5 +1,5 @@
 module "cognitive_search" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/cognitive-search"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/cognitive-search"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

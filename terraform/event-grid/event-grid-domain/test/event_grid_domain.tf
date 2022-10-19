@@ -1,5 +1,5 @@
 module "event_grid_domain" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/event-grid/event-grid-domain"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/event-grid/event-grid-domain"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

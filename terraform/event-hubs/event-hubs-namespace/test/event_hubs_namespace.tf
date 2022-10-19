@@ -1,5 +1,5 @@
 module "event_hubs_namespace" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/event-hubs/event-hubs-namespace"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/event-hubs/event-hubs-namespace"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

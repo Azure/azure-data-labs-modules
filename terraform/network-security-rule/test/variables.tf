@@ -1,4 +1,4 @@
 variable "rg_name" {
   type    = string
-  default = "rg-azurelabs-modules-01"
+  default = "rg-adl-modules-test"
 }

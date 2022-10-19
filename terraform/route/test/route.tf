@@ -1,5 +1,5 @@
 module "route" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/route"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/route"
 
   rg_name = var.rg_name
   name    = "TestRoute"

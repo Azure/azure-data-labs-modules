@@ -1,5 +1,5 @@
 module "storage_account" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/storage-account"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/storage-account"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name

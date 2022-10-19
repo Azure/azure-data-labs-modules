@@ -11,7 +11,7 @@ variable "location" {
 
 variable "rg_name" {
   type    = string
-  default = "rg-azurelabs-modules-01-we"
+  default = "rg-adl-modules-test-we"
 }
 
 variable "kind" {

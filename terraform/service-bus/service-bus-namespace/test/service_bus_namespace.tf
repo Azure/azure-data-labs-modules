@@ -1,5 +1,5 @@
 module "service_bus_namespace" {
-  source = "git::https://github.com/microsoft/azure-labs-modules.git//terraform/service-bus/service-bus-namespace"
+  source = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/service-bus/service-bus-namespace"
 
   basename = random_string.postfix.result
   rg_name  = var.rg_name
