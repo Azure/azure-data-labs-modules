@@ -9,10 +9,10 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource"
 }
 
-variable "vnet_id" {
-  type        = string
-  description = "The ID of the vnet that should be linked to the DNS zone"
-}
+# variable "vnet_id" {
+#   type        = string
+#   description = "The ID of the vnet that should be linked to the DNS zone"
+# }
 
 variable "dns_zones" {
   type        = set(string)
