@@ -54,6 +54,9 @@ jobs:
             working-directory: "${{ env.terraform_workingdir }}/test"
 
     steps:
+    - name: Check out code
+      uses: actions/checkout@main
+      
     - name: Parse Terraform Environment Variables
       env:
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
