@@ -55,7 +55,7 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
 
     - name: Parse Terraform Environment Variables
       env:
