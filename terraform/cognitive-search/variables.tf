@@ -46,3 +46,9 @@ variable "replica_count" {
   description = "The number of replica's which should be created"
   default     = 1
 }
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Whether or not public network access is allowed for this resource"
+  default     = false
+}
