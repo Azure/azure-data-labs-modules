@@ -1,5 +1,5 @@
 locals {
-  snet_name          = "snet-azurelabsmodules-01-default"
-  vnet_name          = "vnet-azurelabs-modules-01-we"
+  snet_name          = "snet-adl-modules-test-default"
+  vnet_name          = "vnet-adl-modules-test-we"
   dns_cosmos_gremlin = "privatelink.gremlin.cosmos.azure.com"
 }
