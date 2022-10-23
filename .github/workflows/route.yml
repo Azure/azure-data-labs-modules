@@ -12,10 +12,6 @@ on:
 env:
   terraform_workingdir: "terraform/route"  
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
 jobs:     
   terraform-lint:
@@ -61,13 +57,27 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+    - name: Parse Terraform Environment Variables
+      env:
+        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      run: | 
+        # Parse Azure secret into Terraform variables
+        $servicePrincipal = ($env:AZURE_CREDENTIALS | ConvertFrom-Json)
+        $env:ARM_CLIENT_ID = $servicePrincipal.clientId
+        $env:ARM_CLIENT_SECRET = $servicePrincipal.clientSecret
+        $env:ARM_SUBSCRIPTION_ID = $servicePrincipal.subscriptionId
+        $env:ARM_TENANT_ID = $servicePrincipal.tenantId
+        # Save environment variable setup for subsequent steps
+        Get-ChildItem -Path Env: -Recurse -Include ARM_*,TF_VAR_* | ForEach-Object {Write-Output "$($_.Name)=$($_.Value)"} >> $env:GITHUB_ENV
+      shell: pwsh
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
           go-version: 1.18.2
 
     - name: Url instead of
-      run: git config --local --remove-section http."https://github.com/" && git config --global url."https://foo:${GH_TOKEN}@github.com/microsoft".insteadOf "https://github.com/microsoft"
+      run: git config --local --remove-section http."https://github.com/" && git config --global url."https://foo:${GH_TOKEN}@github.com/Azure".insteadOf "https://github.com/Azure"
       env:
         GH_TOKEN: ${{ env.GH_TOKEN }}
       
