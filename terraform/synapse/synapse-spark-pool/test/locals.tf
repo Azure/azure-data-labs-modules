@@ -1,3 +1,3 @@
 locals {
-  syn_name = "syn-azurelabs-modules-01"
+  syn_name = "syn-adl-modules-test"
 }
