@@ -16,7 +16,7 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   sql_administrator_login_password = var.synadmin_password
 
   managed_virtual_network_enabled = true
-  managed_resource_group_name     = "${var.rg_name}-syn-managed-01"
+  managed_resource_group_name     = "${var.rg_name}-syn-managed"
 
   aad_admin {
     login     = var.aad_login.name
