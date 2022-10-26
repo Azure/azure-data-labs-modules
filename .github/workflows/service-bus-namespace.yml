@@ -12,6 +12,10 @@ on:
 env:
   terraform_workingdir: "terraform/service-bus/service-bus-namespace"  
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
 jobs:     
   terraform-lint:
@@ -56,24 +60,6 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v3
-
-    - name: Parse Terraform Environment Variables
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-      run: | 
-        # Parse Azure secret into Terraform variables
-        $servicePrincipal = ($env:AZURE_CREDENTIALS | ConvertFrom-Json)
-        $env:ARM_CLIENT_ID = $servicePrincipal.clientId
-        $env:ARM_CLIENT_SECRET = $servicePrincipal.clientSecret
-        $env:ARM_SUBSCRIPTION_ID = $servicePrincipal.subscriptionId
-        $env:ARM_TENANT_ID = $servicePrincipal.tenantId
-        echo "::add-mask::$env:ARM_CLIENT_ID"
-        echo "::add-mask::$env:ARM_CLIENT_SECRET"
-        echo "::add-mask::$env:ARM_SUBSCRIPTION_ID"
-        echo "::add-mask::$env:ARM_TENANT_ID"
-        # Save environment variable setup for subsequent steps
-        Get-ChildItem -Path Env: -Recurse -Include ARM_*,TF_VAR_* | ForEach-Object {Write-Output "$($_.Name)=$($_.Value)"} >> $env:GITHUB_ENV
-      shell: pwsh
 
     - name: Set up Go
       uses: actions/setup-go@v2
