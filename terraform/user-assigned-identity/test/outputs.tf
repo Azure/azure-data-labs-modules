@@ -1,3 +1,3 @@
 output "id" {
-  value = module.user_assgined_identity.id
+  value = module.user_assigned_identity.id
 }
