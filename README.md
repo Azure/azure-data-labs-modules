@@ -1,4 +1,4 @@
-# Azure Data Labs - Modules
+# [azuredatalabs] - Modules
 
 This repository includes a library of curated [Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest) modules as well as a Continuous Integration (CI) environment using [GitHub Actions](https://github.com/features/actions) for modules' validation. Modules with `TBC` are not available yet.
 
