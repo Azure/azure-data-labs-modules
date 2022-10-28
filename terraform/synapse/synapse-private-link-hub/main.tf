@@ -9,7 +9,7 @@ resource "azurerm_synapse_private_link_hub" "syn_synplh" {
   resource_group_name = var.rg_name
   location            = var.location
 
-  count = var.is_sec_module && var.module_enabled ? 1 : 0
+  count = var.module_enabled ? 1 : 0
 
   tags = var.tags
 }
@@ -34,7 +34,7 @@ resource "azurerm_private_endpoint" "synplh_pe_web" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
-  count = var.is_sec_module && var.module_enabled ? 1 : 0
+  count = var.module_enabled ? 1 : 0
 
   tags = var.tags
 }
