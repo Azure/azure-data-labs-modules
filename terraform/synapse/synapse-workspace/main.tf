@@ -38,12 +38,12 @@ resource "azurerm_synapse_workspace" "adl_syn" {
 # Virtual Network & Firewall configuration
 
 resource "azurerm_synapse_firewall_rule" "allow_my_ip" {
-  name                 = "AllowMyIp"
+  name                 = "AllowAll"
   synapse_workspace_id = azurerm_synapse_workspace.adl_syn[0].id
-  start_ip_address     = data.http.ip.body
-  end_ip_address       = data.http.ip.body
+  start_ip_address     = var.is_sec_module ? data.http.ip.body : "0.0.0.0"
+  end_ip_address       = var.is_sec_module ? data.http.ip.body : "255.255.255.255"
 
-  count = var.is_sec_module && var.module_enabled ? 1 : 0
+  count = var.module_enabled ? 1 : 0
 }
 
 resource "azurerm_role_assignment" "syn_ws_sa_role_si_sbdc" {
