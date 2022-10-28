@@ -24,6 +24,12 @@ variable "module_enabled" {
   description = "Variable to enable or disable the module"
 }
 
+variable "is_sec_module" {
+  type        = bool
+  description = "Is secure module?"
+  default = true
+}
+
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"

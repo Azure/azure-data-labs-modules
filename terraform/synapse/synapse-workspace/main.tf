@@ -80,7 +80,8 @@ resource "azurerm_private_endpoint" "syn_ws_pe_dev" {
     private_dns_zone_ids = var.private_dns_zone_ids_dev
   }
 
-  count = var.module_enabled ? 1 : 0
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
+
   tags  = var.tags
 }
 
@@ -102,7 +103,8 @@ resource "azurerm_private_endpoint" "syn_ws_pe_sql" {
     private_dns_zone_ids = var.private_dns_zone_ids_sql
   }
 
-  count = var.module_enabled ? 1 : 0
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
+
   tags  = var.tags
 }
 
@@ -123,8 +125,9 @@ resource "azurerm_private_endpoint" "syn_ws_pe_sqlondemand" {
     name                 = "private-dns-zone-group-sqlondemand"
     private_dns_zone_ids = var.private_dns_zone_ids_sql
   }
+  
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
 
-  count = var.module_enabled ? 1 : 0
   tags  = var.tags
 }
 

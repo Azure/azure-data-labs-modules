@@ -97,7 +97,7 @@ resource "azurerm_private_endpoint" "st_pe_blob" {
     private_dns_zone_ids = var.private_dns_zone_ids_blob
   }
 
-  count = var.module_enabled ? 1 : 0
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
 
   tags = var.tags
 }
@@ -120,8 +120,8 @@ resource "azurerm_private_endpoint" "st_pe_file" {
     private_dns_zone_ids = var.private_dns_zone_ids_file
   }
 
-  count = var.module_enabled ? 1 : 0
-
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
+  
   tags = var.tags
 }
 

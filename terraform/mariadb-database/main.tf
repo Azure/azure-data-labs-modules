@@ -53,6 +53,7 @@ resource "azurerm_private_endpoint" "sql_pe_mariadb" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
-  count = var.module_enabled ? 1 : 0
-  tags  = var.tags
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
+
+  tags = var.tags
 }

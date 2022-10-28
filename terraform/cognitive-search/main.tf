@@ -39,5 +39,7 @@ resource "azurerm_private_endpoint" "srch_pe" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
+  count = var.is_sec_module ? 1 : 0
+
   tags = var.tags
 }

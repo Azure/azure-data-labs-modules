@@ -53,4 +53,6 @@ resource "azurerm_private_endpoint" "studio_pe" {
     name                 = "private-dns-zone-group-studio"
     private_dns_zone_ids = var.private_dns_zone_ids_portal
   }
+
+  count = var.is_sec_module ? 1 : 0
 }

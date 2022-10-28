@@ -19,6 +19,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource"
 }
 
+variable "is_sec_module" {
+  type        = bool
+  description = "Is secure module?"
+  default = true
+}
+
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"

@@ -8,7 +8,7 @@ resource "azurerm_private_dns_zone" "adl_pdnsz" {
   tags = var.tags
 }
 
-/* resource "azurerm_private_dns_zone_virtual_network_link" "vnet-link-ex" {
+resource "azurerm_private_dns_zone_virtual_network_link" "vnet-link-ex" {
   for_each              = azurerm_private_dns_zone.adl_pdnsz
   name                  = "${each.value.name}-vnetlink"
   resource_group_name   = var.rg_name
@@ -18,4 +18,4 @@ resource "azurerm_private_dns_zone" "adl_pdnsz" {
   depends_on = [
     azurerm_private_dns_zone.adl_pdnsz
   ]
-} */
+}

@@ -19,6 +19,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource"
 }
 
+variable "is_sec_module" {
+  type        = bool
+  description = "Is secure module?"
+  default = true
+}
+
 variable "listen" {
   type        = bool
   description = " Grants listen access to this this Authorization Rule"
