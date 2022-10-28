@@ -15,7 +15,7 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   sql_administrator_login          = var.synadmin_username
   sql_administrator_login_password = var.synadmin_password
 
-  managed_virtual_network_enabled = true
+  managed_virtual_network_enabled = var.is_sec_module ? true : false
   managed_resource_group_name     = "${var.rg_name}-syn-managed"
 
   aad_admin {
@@ -36,10 +36,10 @@ resource "azurerm_synapse_workspace" "adl_syn" {
 # Virtual Network & Firewall configuration
 
 resource "azurerm_synapse_firewall_rule" "allow_my_ip" {
-  name                 = "AllowMyPublicIp"
+  name                 = "AllowIps"
   synapse_workspace_id = azurerm_synapse_workspace.adl_syn[0].id
-  start_ip_address     = data.http.ip.body
-  end_ip_address       = data.http.ip.body
+  start_ip_address     = var.is_sec_module ? data.http.ip.body : "0.0.0.0"
+  end_ip_address       = var.is_sec_module ? data.http.ip.body : "255.255.255.255"
 
   count = var.module_enabled ? 1 : 0
 }

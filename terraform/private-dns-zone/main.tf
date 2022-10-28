@@ -5,15 +5,19 @@ resource "azurerm_private_dns_zone" "adl_pdnsz" {
   name                = each.value
   resource_group_name = var.rg_name
 
+  count = var.is_sec_module ? 1 : 0
+
   tags = var.tags
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "vnet-link-ex" {
-  for_each              = azurerm_private_dns_zone.adl_pdnsz
+  for_each              = azurerm_private_dns_zone.adl_pdnsz[0]
   name                  = "${each.value.name}-vnetlink"
   resource_group_name   = var.rg_name
   private_dns_zone_name = each.value.name
   virtual_network_id    = var.vnet_id
+
+  count = var.is_sec_module ? 1 : 0
 
   depends_on = [
     azurerm_private_dns_zone.adl_pdnsz
