@@ -10,7 +10,7 @@ module "storage_account" {
   private_dns_zone_ids_file = [data.azurerm_private_dns_zone.st_file.id]
   private_dns_zone_ids_dfs  = [data.azurerm_private_dns_zone.st_dfs.id]
 
-  hns_enabled                         = false
+  hns_enabled                         = true
   firewall_default_action             = "Deny"
   firewall_ip_rules                   = [data.http.ip.body]
   firewall_bypass                     = ["AzureServices"]
