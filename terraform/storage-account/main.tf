@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "adl_st" {
 
   min_tls_version = var.min_tls_version
 
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = true #var.is_sec_module ? false : true
 
   queue_properties {
     logging {
