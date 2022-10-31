@@ -1,0 +1,20 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+name: Run tfsec
+description: --
+
+runs:
+  using: "composite"
+  steps:
+  - name: Run tfsec with reviewdog output
+    uses: reviewdog/action-tfsec@master
+    with:
+        github_token: ${{ env.GH_TOKEN }}
+        working_directory: "${{ env.terraform_workingdir }}" # Change working directory
+        level: info # Get more output from reviewdog
+        reporter: github-pr-review # Change reviewdog reporter
+        filter_mode: nofilter # Check all files, not just the diff
+        fail_on_error: false # Fail action if errors are found
+        flags: -tee # Add debug flag to reviewdog
+        tfsec_flags: "" # Optional

@@ -1,0 +1,82 @@
+name: Module:service-bus-topic
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/service-bus-topic.yml'
+      - 'terraform/service-bus/service-bus-topic/**'
+      - '.github/actions/**'
+
+env:
+  terraform_workingdir: "terraform/service-bus/service-bus-topic"  
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+jobs:     
+  terraform-lint:
+    name: Run Terraform lint
+    runs-on: ubuntu-latest
+    defaults:
+         run:
+          working-directory: "${{ env.terraform_workingdir }}"
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: false
+
+  terraform-sec:
+    name: Run Terraform tfsec
+    needs: 
+      - terraform-lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@main
+
+    - name: Run tfsec with reviewdog output on the PR
+      uses: ./.github/actions/run-terraform-sec
+
+  terratest:
+    name: Run Terratest
+    needs: 
+      - terraform-sec
+    runs-on: ubuntu-latest
+
+    defaults:
+          run:
+            working-directory: "${{ env.terraform_workingdir }}/test"
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+          go-version: 1.18.2
+
+    - name: Url instead of
+      run: git config --local --remove-section http."https://github.com/" && git config --global url."https://foo:${GH_TOKEN}@github.com/Azure".insteadOf "https://github.com/Azure"
+      env:
+        GH_TOKEN: ${{ env.GH_TOKEN }}
+      
+    - name: Setup Dependencies
+      run:  go mod init test && go mod tidy
+      env:
+        GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+      
+    - name: Unit-test
+      run: go test -v -timeout 45m
+      env:
+        GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
