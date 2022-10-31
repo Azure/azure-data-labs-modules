@@ -11,7 +11,7 @@ variable "location" {
 
 variable "rg_name" {
   type    = string
-  default = "rg-adl-modules-test-we"
+  default = "rg-adl-modules-test-01-we"
 }
 
 variable "kind" {
