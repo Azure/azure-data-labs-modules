@@ -11,7 +11,7 @@ variable "location" {
 
 variable "rg_name" {
   type    = string
-  default = "rg-adl-modules-test"
+  default = "rg-adl-modules-test-01"
 }
 
 variable "jumphost_username" {
