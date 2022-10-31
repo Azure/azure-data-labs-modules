@@ -8,7 +8,7 @@ module "storage_account" {
   subnet_id                 = data.azurerm_subnet.snet_default.id
   private_dns_zone_ids_blob = [data.azurerm_private_dns_zone.st_blob.id]
   private_dns_zone_ids_file = [data.azurerm_private_dns_zone.st_file.id]
-  # private_dns_zone_ids_dfs  = [data.azurerm_private_dns_zone.st_dfs.id]
+  private_dns_zone_ids_dfs  = [data.azurerm_private_dns_zone.st_dfs.id]
 
   hns_enabled                         = false
   firewall_default_action             = "Deny"
@@ -39,11 +39,11 @@ data "azurerm_private_dns_zone" "st_file" {
   resource_group_name = var.rg_name_dns
 }
 
+data "azurerm_private_dns_zone" "st_dfs" {
+  name                = local.dns_st_dfs
+  resource_group_name = var.rg_name_dns
+}
+
 data "http" "ip" {
   url = "https://ifconfig.me"
 }
-
-# data "azurerm_private_dns_zone" "st_dfs" {
-#   name                = local.dns_st_dfs
-#   resource_group_name = var.rg_name_dns
-# }

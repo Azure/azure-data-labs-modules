@@ -99,7 +99,7 @@ variable "private_dns_zone_ids_file" {
   description = "Specifies the list of Private DNS Zones to include"
 }
 
-# variable "private_dns_zone_ids_dfs" {
-#   type        = list(string)
-#   description = "Specifies the list of Private DNS Zones to include"
-# }
+variable "private_dns_zone_ids_dfs" {
+  type        = list(string)
+  description = "Specifies the list of Private DNS Zones to include"
+}

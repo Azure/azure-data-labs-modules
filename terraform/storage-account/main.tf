@@ -127,23 +127,25 @@ resource "azurerm_private_endpoint" "st_pe_file" {
   tags = var.tags
 }
 
-# resource "azurerm_private_endpoint" "st_pe_dfs" {
-#   name                = "pe-${azurerm_storage_account.adl_st.name}-dfs"
-#   location            = var.location
-#   resource_group_name = var.rg_name
-#   subnet_id           = var.subnet_id
+resource "azurerm_private_endpoint" "st_pe_dfs" {
+  name                = "pe-${azurerm_storage_account.adl_st[0].name}-dfs"
+  location            = var.location
+  resource_group_name = var.rg_name
+  subnet_id           = var.subnet_id
 
-#   private_service_connection {
-#     name                           = "psc-dfs-${var.basename}"
-#     private_connection_resource_id = azurerm_storage_account.adl_st.id
-#     subresource_names              = ["dfs"]
-#     is_manual_connection           = false
-#   }
+  private_service_connection {
+    name                           = "psc-dfs-${var.basename}"
+    private_connection_resource_id = azurerm_storage_account.adl_st[0].id
+    subresource_names              = ["dfs"]
+    is_manual_connection           = false
+  }
 
-#   private_dns_zone_group {
-#     name                 = "private-dns-zone-group-dfs"
-#     private_dns_zone_ids = var.private_dns_zone_ids_dfs
-#   }
+  private_dns_zone_group {
+    name                 = "private-dns-zone-group-dfs"
+    private_dns_zone_ids = var.private_dns_zone_ids_dfs
+  }
 
-#   tags = var.tags
-# }
+  count = var.is_sec_module && var.module_enabled ? 1 : 0
+
+  tags = var.tags
+}
