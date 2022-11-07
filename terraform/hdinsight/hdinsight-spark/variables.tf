@@ -115,7 +115,7 @@ variable "filesystem_id" {
 variable "storage_account_is_default" {
   type        = bool
   description = "Is this the Default Storage Account for the HDInsight Hadoop Cluster?"
-  default = true
+  default     = true
 }
 
 variable "managed_identity_resource_id" {
