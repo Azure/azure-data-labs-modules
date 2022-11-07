@@ -22,7 +22,7 @@ module "hdinsight_spark" {
   tier                                    = "Standard"
 
   storage_resource_id          = module.local_storage_account.id
-  filesystem_id                = module.local_storage_account.id
+  filesystem_id                = module.local_storage_account.adls_id
   storage_account_is_default   = true
   managed_identity_resource_id = module.local_user_managed_identity.id
 
