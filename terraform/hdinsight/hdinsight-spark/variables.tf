@@ -19,6 +19,17 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource"
 }
 
+variable "subnet_id" {
+  type        = string
+  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+}
+
+variable "virtual_network_id" {
+  type        = string
+  description = "The ID of the vnet"
+}
+
+
 variable "cluster_version" {
   type        = string
   description = "Specifies the Version of HDInsights which should be used for this Cluster"
@@ -96,6 +107,12 @@ variable "metastore_sku" {
     oozie  = "S0"
   }
 }
+
+variable "storage_resource_id" {
+  type        = string
+  description = "The ID of the Storage Account"
+}
+
 
 # variable "autoscale_schedules" {
 #   type = list(object({
