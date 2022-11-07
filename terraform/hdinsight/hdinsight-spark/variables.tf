@@ -87,12 +87,6 @@ variable "roles_zookeeper_node_vm_size" {
   description = "The Size of the Virtual Machine which should be used as the Zookeeper Nodes"
 }
 
-variable "storage_account_is_default" {
-  type        = bool
-  description = "Is this the Default Storage Account for the HDInsight Cluster?"
-  default     = true
-}
-
 variable "tier" {
   type        = string
   description = "Specifies the Tier which should be used for this HDInsight Cluster"
@@ -113,6 +107,66 @@ variable "storage_resource_id" {
   description = "The ID of the Storage Account"
 }
 
+variable "filesystem_id" {
+  type        = string
+  description = "The ID of the Gen2 Filesystem"
+}
+
+variable "storage_account_is_default" {
+  type        = bool
+  description = "Is this the Default Storage Account for the HDInsight Hadoop Cluster?"
+  default = true
+}
+
+variable "managed_identity_resource_id" {
+  type        = string
+  description = " The ID of Managed Identity to use for accessing the Gen2 filesystem"
+}
+
+variable "ambari_database_name" {
+  type        = string
+  description = "The external Hive metastore's existing SQL database"
+}
+
+variable "ambari_database_administrator_login" {
+  type        = string
+  description = "The external Ambari metastore's existing SQL server admin username"
+}
+
+variable "ambari_database_administrator_login_password" {
+  type        = string
+  description = "The external Ambari metastore's existing SQL server admin password"
+}
+
+variable "hive_database_name" {
+  type        = string
+  description = "The external Hive metastore's existing SQL database"
+}
+
+variable "hive_database_administrator_login" {
+  type        = string
+  description = "The external Hive metastore's existing SQL server admin username"
+}
+
+variable "hive_database_administrator_login_password" {
+  type        = string
+  description = "The external Hive metastore's existing SQL server admin password"
+}
+
+variable "oozie_database_name" {
+  type        = string
+  description = "The external Hive metastore's existing SQL database"
+}
+
+variable "oozie_database_administrator_login" {
+  type        = string
+  description = "The external Hive metastore's existing SQL server admin username"
+}
+
+variable "oozie_database_administrator_login_password" {
+  type        = string
+  description = "The external Hive metastore's existing SQL server admin password"
+}
 
 # variable "autoscale_schedules" {
 #   type = list(object({
