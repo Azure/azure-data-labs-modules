@@ -20,10 +20,10 @@ resource "azurerm_subnet" "adb_snet_public" {
 
     service_delegation {
       actions = [
-          "Microsoft.Network/virtualNetworks/subnets/join/action",
-          "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-          "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-        ]
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      ]
       name = "Microsoft.Databricks/workspaces"
     }
   }
@@ -40,10 +40,10 @@ resource "azurerm_subnet" "adb_snet_private" {
 
     service_delegation {
       actions = [
-          "Microsoft.Network/virtualNetworks/subnets/join/action",
-          "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-          "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
-        ]
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action",
+      ]
       name = "Microsoft.Databricks/workspaces"
     }
   }
