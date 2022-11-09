@@ -10,7 +10,6 @@ terraform.tfvars
 
 tests/
 app-service/
-hdinsight/
 databricks/
 stream-analytics-cluster/
 sql-managed-instance/
