@@ -28,6 +28,12 @@ locals {
 
   merged_network_profile = merge(local.network_profile, var.network_profile)
 
+  api_server_authorized_ip_ranges = [
+    "0.0.0.0/0"
+  ]
+
+  merged_api_server_authorized_ip_ranges = merge(local.api_server_authorized_ip_ranges, var.api_server_authorized_ip_ranges)
+
 }
 
 resource "azurerm_kubernetes_cluster" "adl_aks" {
@@ -63,5 +69,8 @@ resource "azurerm_kubernetes_cluster" "adl_aks" {
     # load_balancer_profile = local.merged_network_profile.load_balancer_profile
     # nat_gateway_profile   = local.merged_network_profile.nat_gateway_profile
   }
+
+  api_server_authorized_ip_ranges   = var.api_server_authorized_ip_ranges
+  role_based_access_control_enabled = var.role_based_access_control_enabled
 
 }

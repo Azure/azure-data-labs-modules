@@ -56,4 +56,16 @@ variable "network_profile" {
         nat_gateway_profile = - (Optional) A nat_gateway_profile block. This can only be specified when load_balancer_sku is set to standard and outbound_type is set to managedNATGateway or userAssignedNATGateway.
   EOT
 }
+variable "api_server_authorized_ip_ranges" {
+  type        = list(string)
+  description = "The IP ranges to allow for incoming traffic to the server nodes. By default 0.0.0.0/0"
+}
+
+variable "role_based_access_control_enabled" {
+  type        = bool
+  default     = true
+  description = "(Optional) - Whether Role Based Access Control for the Kubernetes Cluster should be enabled. Defaults to true. Changing this forces a new resource to be created."
+}
+
+
 
