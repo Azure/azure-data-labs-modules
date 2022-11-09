@@ -32,8 +32,6 @@ locals {
     "0.0.0.0/0"
   ]
 
-  merged_api_server_authorized_ip_ranges = merge(local.api_server_authorized_ip_ranges, var.api_server_authorized_ip_ranges)
-
 }
 
 resource "azurerm_kubernetes_cluster" "adl_aks" {
