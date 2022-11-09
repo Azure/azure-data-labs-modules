@@ -1,14 +1,14 @@
 
-output "aks_id" {
+output "id" {
   value = module.aks.id
 }
 
-output "aks_name" {
+output "name" {
   value = module.aks.name
 }
 
 
-output "aks_all" {
-  value     = module.aks
+output "all" {
+  value     = module.aks.all
   sensitive = true
 }

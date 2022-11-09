@@ -1,13 +1,13 @@
-output "aks_id" {
+output "id" {
   value = azurerm_kubernetes_cluster.adl_aks.id
 }
 
-output "aks_name" {
+output "name" {
   value = azurerm_kubernetes_cluster.adl_aks.name
 }
 
 
-output "aks_all" {
+output "all" {
   value     = azurerm_kubernetes_cluster.adl_aks
   sensitive = true
 }
