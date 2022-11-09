@@ -6,15 +6,15 @@ resource "random_string" "postfix" {
 
 variable "location" {
   type    = string
-  default = "West Europe"
+  default = "North Europe"
 }
 
 variable "rg_name" {
   type    = string
-  default = "rg-adl-modules-test-01-we"
+  default = "rg-adl-modules-test-01"
 }
 
 variable "rg_name_dns" {
   type    = string
-  default = "rg-adl-modules-test-01-global-dns-we"
+  default = "rg-adl-modules-test-01-global-dns"
 }
