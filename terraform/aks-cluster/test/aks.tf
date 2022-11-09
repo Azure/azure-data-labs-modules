@@ -1,5 +1,5 @@
 module "aks" {
-  source     = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/aks-cluster"
+  source     = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/aks-cluster?ref=feature/AKS_TFModule"
   basename   = random_string.postfix.result
   rg_name    = var.rg_name
   location   = var.location
