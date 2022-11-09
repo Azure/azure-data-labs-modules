@@ -1,14 +1,14 @@
 
 output "aks_id" {
-  value = module.adl_aks.id
+  value = module.aks.id
 }
 
 output "aks_name" {
-  value = module.adl_aks.name
+  value = module.aks.name
 }
 
 
 output "aks_all" {
-  value     = module.adl_aks
+  value     = module.aks
   sensitive = true
 }
