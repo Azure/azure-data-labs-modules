@@ -58,6 +58,7 @@ variable "network_profile" {
 }
 variable "api_server_authorized_ip_ranges" {
   type        = list(string)
+  default     = []
   description = "The IP ranges to allow for incoming traffic to the server nodes. By default 0.0.0.0/0"
 }
 
