@@ -8,7 +8,7 @@ This repository includes a library of curated [Terraform](https://registry.terra
 
 | Name | Status |
 | - | - |
-| [Azure Kubernetes Service] | [![Module:aks-cluster](https://github.com/Azure/azure-data-labs-modules/actions/workflows/aks-cluster.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/aks-cluster.yml) |
+| [Azure Kubernetes Service](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/aks-cluster) | [![Module:aks-cluster](https://github.com/Azure/azure-data-labs-modules/actions/workflows/aks-cluster.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/aks-cluster.yml) |
 | [Analysis Services Server](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/analysis-services-server) | [![Module:analysis-services-server](https://github.com/Azure/azure-data-labs-modules/actions/workflows/analysis-services-server.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/analysis-services-server.yml) |
 | [Application Insights](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/application-insights) | [![Module:application-insights](https://github.com/Azure/azure-data-labs-modules/actions/workflows/application-insights.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/application-insights.yml) |
 | [Bastion Host](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/bastion-host) | [![Module:bastion-host](https://github.com/Azure/azure-data-labs-modules/actions/workflows/bastion-host.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/bastion-host.yml) |
