@@ -26,10 +26,10 @@ func TestModule(t *testing.T) {
 	// Check if the outputs exist
 	assert := assert.New(t)
 	id := terraform.Output(t, terraformOptions, "id")
-	assert.NotNil(aks_id)
+	assert.NotNil(id)
     name := terraform.Output(t, terraformOptions, "name")
-	assert.NotNil(aks_name)
+	assert.NotNil(name)
 	all := terraform.Output(t, terraformOptions, "all")
-	assert.NotNil(aks_all)
+	assert.NotNil(all)
 
 }
