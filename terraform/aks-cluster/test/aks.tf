@@ -1,0 +1,16 @@
+module "aks" {
+  source = "../"
+
+  basename   = random_string.postfix.result
+  rg_name    = var.rg_name
+  location   = var.location
+  dns_prefix = "azdatalbsaks"
+
+  default_node_pool = {
+    name       = "default"
+    node_count = 3
+    vm_size    = "Standard_D2_v2"
+  }
+
+  tags = {}
+}
