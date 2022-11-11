@@ -4,7 +4,7 @@ resource "azurerm_cosmosdb_table" "adl_cosmos_table" {
   name                = var.basename
   resource_group_name = var.rg_name
   account_name        = var.cosmosdb_account_name
-  throughput          = 400
+  throughput          = var.throughput
 }
 
 resource "azurerm_private_endpoint" "table_pe" {

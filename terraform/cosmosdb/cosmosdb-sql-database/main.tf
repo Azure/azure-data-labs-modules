@@ -4,7 +4,7 @@ resource "azurerm_cosmosdb_sql_database" "adl_cosmos_sql" {
   name                = var.basename
   resource_group_name = var.rg_name
   account_name        = var.cosmosdb_account_name
-  throughput          = 400
+  throughput          = var.throughput
 }
 
 resource "azurerm_private_endpoint" "sql_pe" {
