@@ -24,7 +24,7 @@ variable "address_prefixes" {
   description = "value"
 }
 
-variable "enforce_private_link_endpoint_network_policies" {
+variable "private_endpoint_network_policies_enabled" {
   type        = bool
   description = "value"
   default     = false
@@ -51,5 +51,5 @@ variable "service_endpoint_policy_ids" {
 variable "subnet_delegation" {
   description = "Subnet delegation block"
   type        = map(list(any))
-  default     = {}
+  default = {}
 }
