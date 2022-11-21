@@ -13,7 +13,7 @@ module "subnet" {
 module "local_vnet" {
   source = "../../virtual-network"
 
-  rg_name = var.rg_name
+  rg_name  = var.rg_name
   basename = random_string.postfix.result
   location = var.location
 

@@ -51,5 +51,5 @@ variable "service_endpoint_policy_ids" {
 variable "subnet_delegation" {
   description = "Subnet delegation block"
   type        = map(list(any))
-  default = {}
+  default     = {}
 }
