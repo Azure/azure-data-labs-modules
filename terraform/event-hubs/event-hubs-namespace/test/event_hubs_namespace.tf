@@ -5,23 +5,41 @@ module "event_hubs_namespace" {
   rg_name  = var.rg_name
   location = var.location
 
-  subnet_id            = data.azurerm_subnet.snet_default.id
-  private_dns_zone_ids = [data.azurerm_private_dns_zone.ev_namespace.id]
+  subnet_id            = module.local_snet_default.id
+  private_dns_zone_ids = [module.local_pdnsz_ehn.list[local.dns_ev_namespace].id]
 
   module_enabled = true
 
   tags = {}
 }
 
-# Data dependencies
+# Module dependencies
 
-data "azurerm_subnet" "snet_default" {
-  name                 = local.snet_name
-  virtual_network_name = local.vnet_name
-  resource_group_name  = var.rg_name
+module "local_vnet" {
+  source = "../../../virtual-network"
+
+  rg_name  = var.rg_name
+  basename = random_string.postfix.result
+  location = var.location
+
+  address_space = ["10.0.0.0/16"]
 }
 
-data "azurerm_private_dns_zone" "ev_namespace" {
-  name                = local.dns_ev_namespace
-  resource_group_name = var.rg_name_dns
+module "local_snet_default" {
+  source = "../../../subnet"
+
+  rg_name          = var.rg_name
+  name             = "vnet-${random_string.postfix.result}-ehn-default"
+  vnet_name        = module.local_vnet.name
+  address_prefixes = ["10.0.6.0/24"]
+}
+
+# DNS zones
+
+module "local_pdnsz_ehn" {
+  source = "../../../private-dns-zone"
+
+  rg_name   = var.rg_name
+  dns_zones = [local.dns_ev_namespace]
+  vnet_id   = module.local_vnet.id
 }

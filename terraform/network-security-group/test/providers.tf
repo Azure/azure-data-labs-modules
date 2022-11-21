@@ -3,18 +3,17 @@ terraform {
     resource_group_name  = "rg-adl-terraform-state"
     storage_account_name = "stadlterraformstate"
     container_name       = "default"
-    key                  = "loganalyticsworkspace.terraform.tfstate"
+    key                  = "networksecuritygroup.terraform.tfstate"
   }
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "= 3.31.0"
+      version = "= 3.32.0"
     }
   }
 
 }
-
 provider "azurerm" {
   features {}
 }

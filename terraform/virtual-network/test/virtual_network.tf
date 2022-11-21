@@ -2,10 +2,21 @@ module "virtual_network" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
-  location = var.location
+  rg_name  = module.local_rg.name
+  location = local.location
 
   address_space = ["10.0.0.0/16"]
 
-  tags = {}
+  tags = local.tags
+}
+
+# Module dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = local.location
+
+  tags = local.tags
 }

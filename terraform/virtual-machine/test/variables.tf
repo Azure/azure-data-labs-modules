@@ -4,16 +4,6 @@ resource "random_string" "postfix" {
   upper   = false
 }
 
-variable "location" {
-  type    = string
-  default = "North Europe"
-}
-
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01"
-}
-
 variable "jumphost_username" {
   type        = string
   description = "VM username"

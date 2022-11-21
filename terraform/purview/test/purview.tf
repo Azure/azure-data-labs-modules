@@ -5,27 +5,48 @@ module "purview" {
   rg_name  = var.rg_name
   location = var.location
 
-  subnet_id                    = data.azurerm_subnet.snet_default.id
-  private_dns_zone_ids_account = [data.azurerm_private_dns_zone.pview_portal.id]
-  private_dns_zone_ids_portal  = [data.azurerm_private_dns_zone.pview_acount.id]
+  subnet_id                    = module.local_snet_default.id
+  private_dns_zone_ids_account = [module.local_pdnsz_pview_portal.list[local.dns_pview_portal].id]
+  private_dns_zone_ids_portal  = [module.local_pdnsz_pview_account.list[local.dns_pview_account].id]
 
   tags = {}
 }
 
-# Data dependencies
+# Module dependencies
 
-data "azurerm_subnet" "snet_default" {
-  name                 = local.snet_name
-  virtual_network_name = local.vnet_name
-  resource_group_name  = var.rg_name
+module "local_vnet" {
+  source = "../../virtual-network"
+
+  rg_name  = var.rg_name
+  basename = random_string.postfix.result
+  location = var.location
+
+  address_space = ["10.0.0.0/16"]
 }
 
-data "azurerm_private_dns_zone" "pview_portal" {
-  name                = local.dns_pview_portal
-  resource_group_name = var.rg_name_dns
+module "local_snet_default" {
+  source = "../../subnet"
+
+  rg_name          = var.rg_name
+  name             = "vnet-${random_string.postfix.result}-pur-default"
+  vnet_name        = module.local_vnet.name
+  address_prefixes = ["10.0.6.0/24"]
 }
 
-data "azurerm_private_dns_zone" "pview_acount" {
-  name                = local.dns_pview_account
-  resource_group_name = var.rg_name_dns
+# DNS zones
+
+module "local_pdnsz_pview_portal" {
+  source = "../../private-dns-zone"
+
+  rg_name   = var.rg_name
+  dns_zones = [local.dns_pview_portal]
+  vnet_id   = module.local_vnet.id
+}
+
+module "local_pdnsz_pview_account" {
+  source = "../../private-dns-zone"
+
+  rg_name   = var.rg_name
+  dns_zones = [local.dns_pview_account]
+  vnet_id   = module.local_vnet.id
 }
