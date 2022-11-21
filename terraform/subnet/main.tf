@@ -7,7 +7,7 @@ resource "azurerm_subnet" "adl_snet" {
   address_prefixes     = var.address_prefixes
 
   private_endpoint_network_policies_enabled     = var.private_endpoint_network_policies_enabled
-  enforce_private_link_service_network_policies = var.enforce_private_link_service_network_policies
+  private_link_service_network_policies_enabled = var.private_link_service_network_policies_enabled
 
   service_endpoints           = var.service_endpoints
   service_endpoint_policy_ids = length(var.service_endpoint_policy_ids) > 0 ? var.service_endpoint_policy_ids : null

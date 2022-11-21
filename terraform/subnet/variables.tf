@@ -30,7 +30,7 @@ variable "private_endpoint_network_policies_enabled" {
   default     = false
 }
 
-variable "enforce_private_link_service_network_policies" {
+variable "private_link_service_network_policies_enabled" {
   type        = bool
   description = "value"
   default     = false
