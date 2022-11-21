@@ -4,7 +4,7 @@ module "sql_database" {
   basename    = random_string.postfix.result
   rg_name     = var.rg_name
   location    = var.location
-  server_name = var.server_name == "" ? module.local_sql_database_server[0].name : var.server_name
+  server_name = module.local_sql_database_server.name
 
   collation                        = "SQL_LATIN1_GENERAL_CP1_CI_AS"
   edition                          = "Standard"
@@ -18,9 +18,5 @@ module "sql_database" {
 # Module dependencies
 
 module "local_sql_database_server" {
-  source        = "../../sql-database-server/test"
-  rg_name       = var.rg_name
-  location      = var.location
-  is_sec_module = false
-  module_enabled = var.server_name == "" ? true : false
+  source = "../../sql-database-server/test"
 }
