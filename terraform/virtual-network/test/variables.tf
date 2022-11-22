@@ -3,3 +3,8 @@ resource "random_string" "postfix" {
   special = false
   upper   = false
 }
+
+variable "location" {
+  type    = string
+  default = "North Europe"
+}

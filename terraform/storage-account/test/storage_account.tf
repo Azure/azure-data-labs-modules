@@ -2,7 +2,7 @@ module "storage_account" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 
   subnet_id                 = module.local_snet_default.id
@@ -22,12 +22,21 @@ module "storage_account" {
   tags = {}
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_vnet" {
   source = "../../virtual-network"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -37,7 +46,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-st-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -48,7 +57,7 @@ module "local_snet_default" {
 module "local_pdnsz_st_blob" {
   source = "../../private-dns-zone"
 
-  rg_name   = var.rg_name
+  rg_name   = module.local_rg.name
   dns_zones = [local.dns_st_blob]
   vnet_id   = module.local_vnet.id
 }
@@ -56,7 +65,7 @@ module "local_pdnsz_st_blob" {
 module "local_pdnsz_st_dfs" {
   source = "../../private-dns-zone"
 
-  rg_name   = var.rg_name
+  rg_name   = module.local_rg.name
   dns_zones = [local.dns_st_dfs]
   vnet_id   = module.local_vnet.id
 }
@@ -64,7 +73,7 @@ module "local_pdnsz_st_dfs" {
 module "local_pdnsz_st_file" {
   source = "../../private-dns-zone"
 
-  rg_name   = var.rg_name
+  rg_name   = module.local_rg.name
   dns_zones = [local.dns_st_file]
   vnet_id   = module.local_vnet.id
 }

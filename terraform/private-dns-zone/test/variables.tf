@@ -9,11 +9,6 @@ variable "location" {
   default = "North Europe"
 }
 
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01"
-}
-
 variable "dns_zones" {
   type        = set(string)
   description = "List of Private DNS Zones utilized by Azure Private Link resources"

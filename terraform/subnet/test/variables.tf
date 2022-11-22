@@ -9,11 +9,6 @@ variable "location" {
   default = "North Europe"
 }
 
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01"
-}
-
 variable "address_prefixes" {
   type        = list(string)
   description = "value"

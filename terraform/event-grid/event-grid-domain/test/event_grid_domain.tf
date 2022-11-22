@@ -2,7 +2,7 @@ module "event_grid_domain" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 
   subnet_id            = module.local_snet_default.id
@@ -11,12 +11,21 @@ module "event_grid_domain" {
   tags = {}
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_vnet" {
   source = "../../../virtual-network"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -26,7 +35,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source = "../../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-evd-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -37,7 +46,7 @@ module "local_snet_default" {
 module "local_pdnsz_ev_domain" {
   source = "../../../private-dns-zone"
 
-  rg_name   = var.rg_name
+  rg_name   = module.local_rg.name
   dns_zones = [local.dns_ev_domain]
   vnet_id   = module.local_vnet.id
 }

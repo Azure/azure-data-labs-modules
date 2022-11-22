@@ -5,12 +5,21 @@ module "subnet_route_table_association" {
   route_table_id = module.local_route_table.id
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_vnet" {
   source = "../../virtual-network"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -20,7 +29,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-rt-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -29,7 +38,7 @@ module "local_snet_default" {
 module "local_route_table" {
   source = "../../route-table"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 }

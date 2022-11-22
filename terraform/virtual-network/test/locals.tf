@@ -4,6 +4,4 @@ locals {
     Module  = "virtual-network"
     Toolkit = "Terraform"
   }
-
-  location = "North Europe"
 }

@@ -1,7 +1,7 @@
 locals {
   tags = {
     Project = "Azure/azure-data-labs-modules"
-    Module  = "route-table"
+    Module  = "service-bus-topic"
     Toolkit = "Terraform"
   }
 }

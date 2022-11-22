@@ -5,12 +5,21 @@ module "subnet_network_security_group_association" {
   network_security_group_id = module.local_network_security_group.id
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_vnet" {
   source = "../../virtual-network"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -20,7 +29,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-snet-nsg-association-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -30,6 +39,6 @@ module "local_network_security_group" {
   source = "../../network-security-group"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 }

@@ -2,7 +2,7 @@ module "databricks" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 
   virtual_network_id   = module.local_vnet.id
@@ -18,12 +18,21 @@ module "databricks" {
   tags = {}
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_vnet" {
-  source    = "../../virtual-network"
+  source = "../../virtual-network"
 
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -31,18 +40,18 @@ module "local_vnet" {
 }
 
 module "local_snet_default" {
-  source    = "../../subnet"
+  source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-adb-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
 }
 
 module "local_snet_public" {
-  source    = "../../subnet"
+  source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-adb-public"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.4.0/24"]
@@ -62,9 +71,9 @@ module "local_snet_public" {
 }
 
 module "local_snet_private" {
-  source    = "../../subnet"
+  source = "../../subnet"
 
-  rg_name          = var.rg_name
+  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-adb-private"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.5.0/24"]
@@ -86,22 +95,22 @@ module "local_snet_private" {
 # Network Security Group
 
 module "local_nsg" {
-  source    = "../../network-security-group"
+  source = "../../network-security-group"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 }
 
 module "local_snet_nsg_association_public" {
-  source    = "../../subnet-network-security-group-association"
+  source = "../../subnet-network-security-group-association"
 
   subnet_id                 = module.local_snet_public.id
   network_security_group_id = module.local_nsg.id
 }
 
 module "local_snet_nsg_association_private" {
-  source    = "../../subnet-network-security-group-association"
+  source = "../../subnet-network-security-group-association"
 
   subnet_id                 = module.local_snet_private.id
   network_security_group_id = module.local_nsg.id
@@ -110,9 +119,9 @@ module "local_snet_nsg_association_private" {
 # DNS Zones
 
 module "local_pdnsz_adb" {
-  source    = "../../private-dns-zone"
+  source = "../../private-dns-zone"
 
-  rg_name   = var.rg_name
+  rg_name   = module.local_rg.name
   dns_zones = [local.dns_databricks]
   vnet_id   = module.local_vnet.id
 }

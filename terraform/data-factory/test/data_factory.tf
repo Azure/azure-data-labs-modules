@@ -2,32 +2,62 @@ module "data_factory" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
 
-  subnet_id                   = data.azurerm_subnet.snet_default.id
-  private_dns_zone_ids_df     = [data.azurerm_private_dns_zone.adf_df.id]
-  private_dns_zone_ids_portal = [data.azurerm_private_dns_zone.adf_portal.id]
+  subnet_id                   = module.local_snet_default.id
+  private_dns_zone_ids_df     = [module.local_pdnsz_adf_df.list[local.dns_adf_df].id]
+  private_dns_zone_ids_portal = [module.local_pdnsz_adf_portal.list[local.dns_adf_portal].id]
 
   module_enabled = true
 
   tags = {}
 }
 
-# Data dependencies
+# Module dependencies
 
-data "azurerm_subnet" "snet_default" {
-  name                 = local.snet_name
-  virtual_network_name = local.vnet_name
-  resource_group_name  = var.rg_name
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
 }
 
-data "azurerm_private_dns_zone" "adf_df" {
-  name                = local.dns_adf_df
-  resource_group_name = var.rg_name_dns
+module "local_vnet" {
+  source = "../../virtual-network"
+
+  rg_name  = module.local_rg.name
+  basename = random_string.postfix.result
+  location = var.location
+
+  address_space = ["10.0.0.0/16"]
 }
 
-data "azurerm_private_dns_zone" "adf_portal" {
-  name                = local.dns_adf_portal
-  resource_group_name = var.rg_name_dns
+module "local_snet_default" {
+  source = "../../subnet"
+
+  rg_name          = module.local_rg.name
+  name             = "vnet-${random_string.postfix.result}-adf-default"
+  vnet_name        = module.local_vnet.name
+  address_prefixes = ["10.0.6.0/24"]
+}
+
+# DNS zones
+
+module "local_pdnsz_adf_df" {
+  source = "../../private-dns-zone"
+
+  rg_name   = module.local_rg.name
+  dns_zones = [local.dns_adf_df]
+  vnet_id   = module.local_vnet.id
+}
+
+module "local_pdnsz_adf_portal" {
+  source = "../../private-dns-zone"
+
+  rg_name   = module.local_rg.name
+  dns_zones = [local.dns_adf_portal]
+  vnet_id   = module.local_vnet.id
 }

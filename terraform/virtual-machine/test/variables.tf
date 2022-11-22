@@ -4,6 +4,11 @@ resource "random_string" "postfix" {
   upper   = false
 }
 
+variable "location" {
+  type    = string
+  default = "North Europe"
+}
+
 variable "jumphost_username" {
   type        = string
   description = "VM username"

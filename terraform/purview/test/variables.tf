@@ -8,8 +8,3 @@ variable "location" {
   type    = string
   default = "West Europe"
 }
-
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01-we"
-}
