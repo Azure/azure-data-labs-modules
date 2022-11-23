@@ -46,7 +46,7 @@ variable "cosmosdb_account_id" {
 }
 
 variable "throughput" {
-  type = number
+  type        = number
   description = "The throughput of Cassandra KeySpace (RU/s)"
-  default = 400
+  default     = 400
 }

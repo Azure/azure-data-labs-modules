@@ -28,5 +28,9 @@ module "local_rg" {
 }
 
 module "local_network_security_group" {
-  source = "../../network-security-group/test"
+  source = "../../network-security-group"
+
+  rg_name  = module.local_rg.name
+  basename = random_string.postfix.result
+  location = var.location
 }

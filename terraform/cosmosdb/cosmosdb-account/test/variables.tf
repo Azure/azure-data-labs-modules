@@ -9,11 +9,6 @@ variable "location" {
   default = "West Europe"
 }
 
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01-we"
-}
-
 variable "kind" {
   type        = string
   description = "Specifies the Kind of CosmosDB to create"

@@ -1,5 +1,9 @@
 locals {
-  snet_name    = "snet-adl-modules-test-default"
-  vnet_name    = "vnet-adl-modules-test"
-  dns_kv_vault = "privatelink.vaultcore.azure.net"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "kusto-database"
+    Toolkit = "Terraform"
+  }
+
+  dns_dec_cluster = "privatelink.northeurope.kusto.windows.net"
 }

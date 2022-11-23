@@ -1,5 +1,9 @@
 locals {
-  snet_name        = "snet-adl-modules-test-default"
-  vnet_name        = "vnet-adl-modules-test-we"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "cosmosdb-mongo-database"
+    Toolkit = "Terraform"
+  }
+
   dns_cosmos_mongo = "privatelink.mongo.cosmos.azure.com"
 }
