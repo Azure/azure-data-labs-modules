@@ -39,7 +39,7 @@ module "local_mlw" {
 module "local_storage_account" {
   source = "../../../storage-account"
 
-  basename = random_string.postfix.result
+  basename = "${random_string.postfix.resul}aml"
   rg_name  = module.local_rg.name
   location = var.location
 
@@ -117,7 +117,7 @@ module "local_synapse_spark_pool" {
 module "local_storage_account_syn" {
   source = "../../../storage-account"
 
-  basename = random_string.postfix.result
+  basename = "${random_string.postfix.resul}syn"
   rg_name  = module.local_rg.name
   location = var.location
 
