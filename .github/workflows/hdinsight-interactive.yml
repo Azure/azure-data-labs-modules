@@ -72,6 +72,6 @@ jobs:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
       
     - name: Unit-test
-      run: go test -v -timeout 90m
+      run: go test -v -timeout 120m
       env:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
