@@ -33,6 +33,7 @@ variable "is_sec_module" {
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+  default     = ""
 }
 
 variable "adls_id" {
@@ -48,16 +49,6 @@ variable "storage_account_id" {
 variable "storage_account_name" {
   type        = string
   description = "The name of the storage account associated with the syn workspace"
-}
-
-variable "key_vault_id" {
-  type        = string
-  description = "The ID of the key vault associated with the syn workspace"
-}
-
-variable "key_vault_name" {
-  type        = string
-  description = "The name of the key vault associated with the syn workspace"
 }
 
 variable "synadmin_username" {
@@ -87,9 +78,11 @@ variable "aad_login" {
 variable "private_dns_zone_ids_sql" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }
 
 variable "private_dns_zone_ids_dev" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }

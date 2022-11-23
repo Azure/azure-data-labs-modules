@@ -1,3 +1,7 @@
 locals {
-  syn_name = "syn-adl-modules-test"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "synapse-sql-pool"
+    Toolkit = "Terraform"
+  }
 }

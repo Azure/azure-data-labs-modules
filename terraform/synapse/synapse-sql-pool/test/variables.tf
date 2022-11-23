@@ -4,7 +4,30 @@ resource "random_string" "postfix" {
   upper   = false
 }
 
-variable "rg_name" {
+variable "location" {
   type    = string
-  default = "rg-adl-modules-test-01"
+  default = "North Europe"
+}
+
+variable "synadmin_username" {
+  type    = string
+  default = "sqladminuser"
+}
+
+variable "synadmin_password" {
+  type    = string
+  default = "ThisIsNotVerySecure!"
+}
+
+variable "aad_login" {
+  type = object({
+    name      = string
+    object_id = string
+    tenant_id = string
+  })
+  default = {
+    name      = "AzureAD Admin"
+    object_id = "00000000-0000-0000-0000-000000000000"
+    tenant_id = "00000000-0000-0000-0000-000000000000"
+  }
 }
