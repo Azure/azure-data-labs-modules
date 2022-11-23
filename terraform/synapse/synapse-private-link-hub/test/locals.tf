@@ -1,5 +1,9 @@
 locals {
-  snet_name   = "snet-adl-modules-test-default"
-  vnet_name   = "vnet-adl-modules-test"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "synapse-private-link-hub"
+    Toolkit = "Terraform"
+  }
+
   dns_syn_web = "privatelink.azuresynapse.net"
 }

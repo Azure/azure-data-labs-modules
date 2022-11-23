@@ -1,7 +1,7 @@
 module "network_security_rule" {
   source = "../"
 
-  rg_name = var.rg_name
+  rg_name = module.local_rg.name
   name    = "TestRule"
 
   priority                   = 100
@@ -16,8 +16,21 @@ module "network_security_rule" {
   network_security_group_name = module.local_network_security_group.name
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_network_security_group" {
-  source = "../../network-security-group/test"
+  source = "../../network-security-group"
+
+  rg_name  = module.local_rg.name
+  basename = random_string.postfix.result
+  location = var.location
 }

@@ -22,6 +22,7 @@ variable "tags" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module"
+  default     = true
 }
 
 variable "is_sec_module" {
@@ -33,6 +34,7 @@ variable "is_sec_module" {
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+  default     = ""
 }
 
 variable "account_tier" {
@@ -92,14 +94,17 @@ variable "min_tls_version" {
 variable "private_dns_zone_ids_blob" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }
 
 variable "private_dns_zone_ids_file" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }
 
 variable "private_dns_zone_ids_dfs" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }

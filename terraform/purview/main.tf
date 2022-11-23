@@ -34,6 +34,10 @@ resource "azurerm_private_endpoint" "purview_pe" {
     name                 = "private-dns-zone-group-purview"
     private_dns_zone_ids = var.private_dns_zone_ids_account
   }
+
+  count = var.is_sec_module ? 1 : 0
+
+  tags = var.tags
 }
 
 resource "azurerm_private_endpoint" "studio_pe" {
@@ -55,4 +59,6 @@ resource "azurerm_private_endpoint" "studio_pe" {
   }
 
   count = var.is_sec_module ? 1 : 0
+
+  tags = var.tags
 }

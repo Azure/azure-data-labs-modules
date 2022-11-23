@@ -1,7 +1,7 @@
 module "route" {
   source = "../"
 
-  rg_name = var.rg_name
+  rg_name = module.local_rg.name
   name    = "TestRoute"
 
   route_table_name = module.local_route_table.name
@@ -9,8 +9,21 @@ module "route" {
   next_hop_type    = "Internet"
 }
 
-# Module dependencies
+# Modules dependencies
+
+module "local_rg" {
+  source = "../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
+}
 
 module "local_route_table" {
-  source = "../../route-table/test"
+  source = "../../route-table"
+
+  rg_name  = module.local_rg.name
+  basename = random_string.postfix.result
+  location = var.location
 }

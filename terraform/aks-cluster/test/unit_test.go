@@ -31,5 +31,4 @@ func TestModule(t *testing.T) {
 	assert.NotNil(name)
 	all := terraform.Output(t, terraformOptions, "all")
 	assert.NotNil(all)
-
 }

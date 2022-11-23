@@ -23,4 +23,5 @@ variable "node_size" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable Synapse Spark pool deployment"
+  default     = true
 }

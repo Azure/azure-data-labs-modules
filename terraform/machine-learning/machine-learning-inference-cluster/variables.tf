@@ -32,5 +32,5 @@ variable "cluster_purpose" {
 
 variable "module_enabled" {
   description = "Variable to enable or disable AML synapse spark"
-  default     = false
+  default     = true
 }

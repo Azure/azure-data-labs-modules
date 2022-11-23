@@ -22,6 +22,7 @@ variable "tags" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module"
+  default     = true
 }
 
 variable "sku" {

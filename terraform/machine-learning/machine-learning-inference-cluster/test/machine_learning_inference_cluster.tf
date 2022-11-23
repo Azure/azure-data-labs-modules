@@ -4,53 +4,98 @@ module "machine_learning_inference_cluster" {
   basename = random_string.postfix.result
   location = var.location
 
-  machine_learning_workspace_id = data.azurerm_machine_learning_workspace.mlw_default.id
+  machine_learning_workspace_id = module.local_mlw.id
   kubernetes_cluster_id         = module.local_aks.id
-
-  module_enabled = true
 }
 
-# Data dependencies
+# Modules dependencies
 
-data "azurerm_subnet" "snet_aks" {
-  name                 = local.snet_name
-  virtual_network_name = local.vnet_name
-  resource_group_name  = var.rg_name
+module "local_rg" {
+  source = "../../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
 }
 
-data "azurerm_machine_learning_workspace" "mlw_default" {
-  name                = local.mlw_name
-  resource_group_name = var.rg_name
+module "local_mlw" {
+  source = "../../machine-learning-workspace"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  storage_account_id      = module.local_storage_account.id
+  key_vault_id            = module.local_key_vault.id
+  application_insights_id = module.local_application_insights.id
+  container_registry_id   = module.local_container_registry.id
+
+  is_sec_module = false
 }
 
-# Module dependencies
+# AKS Cluster
 
 module "local_aks" {
-  source = "../../../aks-cluster/test"
+  source = "../../../aks-cluster"
+
+  basename   = random_string.postfix.result
+  rg_name    = module.local_rg.name
+  location   = var.location
+  dns_prefix = "azdatalbsaks"
+
+  default_node_pool = {
+    name       = "default"
+    node_count = 3
+    vm_size    = "Standard_D2_v2"
+  }
 }
 
-# resource "azurerm_kubernetes_cluster" "adl_aks" {
-#   name                = "aks-adl-modules-test"
-#   location            = var.location
-#   resource_group_name = var.rg_name
-#   #dns_prefix_private_cluster = "adlaks1"
-#   dns_prefix = "adlaks1"
+# Storage Account
 
-#   default_node_pool {
-#     name           = "default"
-#     node_count     = 3
-#     vm_size        = "Standard_D3_v2"
-#     vnet_subnet_id = data.azurerm_subnet.snet_aks.id
-#   }
+module "local_storage_account" {
+  source = "../../../storage-account"
 
-#   identity {
-#     type = "SystemAssigned"
-#   }
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
 
-#   # network_profile {
-#   #   network_plugin     = "azure"
-#   #   dns_service_ip     = "10.0.3.10"
-#   #   service_cidr       = "10.0.3.0/24"
-#   #   docker_bridge_cidr = "172.17.0.1/16"
-#   # }
-# }
+  hns_enabled             = false
+  firewall_default_action = "Allow"
+
+  is_sec_module = false
+}
+
+# Key Vault
+
+module "local_key_vault" {
+  source = "../../../key-vault"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  is_sec_module = false
+}
+
+# Application Insights
+
+module "local_application_insights" {
+  source = "../../../application-insights"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+}
+
+# Container registry
+
+module "local_container_registry" {
+  source = "../../../container-registry"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  is_sec_module = false
+}

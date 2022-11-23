@@ -1,5 +1,9 @@
 locals {
-  snet_name = "snet-adl-modules-test-default"
-  vnet_name = "vnet-adl-modules-test"
-  dns_cr    = "privatelink.azurecr.io"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "container-registry"
+    Toolkit = "Terraform"
+  }
+
+  dns_cr = "privatelink.azurecr.io"
 }

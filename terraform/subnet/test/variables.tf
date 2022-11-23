@@ -4,7 +4,13 @@ resource "random_string" "postfix" {
   upper   = false
 }
 
-variable "rg_name" {
+variable "location" {
   type    = string
-  default = "rg-adl-modules-test-01"
+  default = "North Europe"
+}
+
+variable "address_prefixes" {
+  type        = list(string)
+  description = "value"
+  default     = ["10.0.1.0/24"]
 }

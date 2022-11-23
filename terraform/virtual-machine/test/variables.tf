@@ -9,11 +9,6 @@ variable "location" {
   default = "North Europe"
 }
 
-variable "rg_name" {
-  type    = string
-  default = "rg-adl-modules-test-01"
-}
-
 variable "jumphost_username" {
   type        = string
   description = "VM username"

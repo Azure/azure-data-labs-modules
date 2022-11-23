@@ -2,9 +2,19 @@
 
 resource "azurerm_virtual_network" "adl_vnet" {
   name                = "vnet-${var.basename}"
-  address_space       = var.address_space
   location            = var.location
   resource_group_name = var.rg_name
+
+  address_space = var.address_space
+  dns_servers   = var.dns_servers
+
+  dynamic "ddos_protection_plan" {
+    for_each = var.ddos_protection_plan
+    content {
+      id     = lookup(ddos_protection_plan.value, "id", null)
+      enable = lookup(ddos_protection_plan.value, "enable", false)
+    }
+  }
 
   tags = var.tags
 }

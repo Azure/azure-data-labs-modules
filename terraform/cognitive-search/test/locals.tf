@@ -1,5 +1,9 @@
 locals {
-  snet_name     = "snet-adl-modules-test-default"
-  vnet_name     = "vnet-adl-modules-test"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "cognitive-search"
+    Toolkit = "Terraform"
+  }
+
   dns_cs_search = "privatelink.search.windows.net"
 }

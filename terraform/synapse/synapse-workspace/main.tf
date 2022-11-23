@@ -18,13 +18,7 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   managed_virtual_network_enabled = var.is_sec_module ? true : false
   managed_resource_group_name     = "${var.rg_name}-syn-managed"
 
-  public_network_access_enabled = var.is_sec_module ? false : true
-
-  aad_admin {
-    login     = var.aad_login.name
-    object_id = var.aad_login.object_id
-    tenant_id = var.aad_login.tenant_id
-  }
+  public_network_access_enabled = true
 
   identity {
     type = "SystemAssigned"
@@ -35,13 +29,24 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   tags = var.tags
 }
 
+# AAD login
+
+resource "azurerm_synapse_workspace_aad_admin" "syn_aad_login" {
+  synapse_workspace_id = azurerm_synapse_workspace.adl_syn[0].id
+  login                = "AzureAD Admin"
+  object_id            = var.aad_login.object_id
+  tenant_id            = var.aad_login.tenant_id
+
+  count = var.set_aad_login ? 1 : 0
+}
+
 # Virtual Network & Firewall configuration
 
 resource "azurerm_synapse_firewall_rule" "allow_my_ip" {
   name                 = "AllowAll"
   synapse_workspace_id = azurerm_synapse_workspace.adl_syn[0].id
-  start_ip_address     = var.is_sec_module ? data.http.ip.body : "0.0.0.0"
-  end_ip_address       = var.is_sec_module ? data.http.ip.body : "255.255.255.255"
+  start_ip_address     = var.is_sec_module ? data.http.ip.response_body : "0.0.0.0"
+  end_ip_address       = var.is_sec_module ? data.http.ip.response_body : "255.255.255.255"
 
   count = var.module_enabled ? 1 : 0
 }
@@ -140,7 +145,7 @@ resource "azurerm_synapse_role_assignment" "syn_ws_role_default_user" {
   role_name            = "Synapse Administrator"
   principal_id         = var.aad_login.object_id
 
-  count = var.module_enabled ? 1 : 0
+  count = var.module_enabled && var.set_aad_login ? 1 : 0
 
   depends_on = [time_sleep.wait_40_seconds]
 }

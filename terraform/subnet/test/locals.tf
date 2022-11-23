@@ -1,3 +1,7 @@
 locals {
-  vnet_name = "vnet-adl-modules-test"
+  tags = {
+    Project = "Azure/azure-data-labs-modules"
+    Module  = "subnet"
+    Toolkit = "Terraform"
+  }
 }

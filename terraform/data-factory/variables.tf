@@ -22,6 +22,7 @@ variable "tags" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module"
+  default     = true
 }
 
 variable "is_sec_module" {
@@ -33,6 +34,7 @@ variable "is_sec_module" {
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+  default     = ""
 }
 
 variable "public_network_access_enabled" {
@@ -50,9 +52,11 @@ variable "managed_virtual_network_enabled" {
 variable "private_dns_zone_ids_df" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }
 
 variable "private_dns_zone_ids_portal" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
+  default     = []
 }
