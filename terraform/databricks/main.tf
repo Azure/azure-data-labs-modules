@@ -8,8 +8,8 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   sku                         = var.sku
   managed_resource_group_name = "${var.rg_name}-adb-managed"
 
-  public_network_access_enabled         = var.is_sec_module ? false : true
-  network_security_group_rules_required = var.is_sec_module ? "NoAzureDatabricksRules" : "AllRules"
+  public_network_access_enabled         = var.is_sec_module && var.public_network_enabled ? false : true
+  network_security_group_rules_required = var.is_sec_module && var.public_network_enabled ? "NoAzureDatabricksRules" : "AllRules"
 
   custom_parameters {
     no_public_ip        = var.is_sec_module ? true : false
@@ -30,7 +30,7 @@ resource "azurerm_private_endpoint" "databricks_pe_be" {
   name                = "pe-${azurerm_databricks_workspace.adl_databricks.name}-databricks-be"
   location            = var.location
   resource_group_name = var.rg_name
-  subnet_id           = var.subnet_id
+  subnet_id           = var.backend_subnet_id
 
   private_service_connection {
     name                           = "psc-databricks-be-${var.basename}"
@@ -41,10 +41,11 @@ resource "azurerm_private_endpoint" "databricks_pe_be" {
 
   private_dns_zone_group {
     name                 = "private-dns-zone-group-adb"
-    private_dns_zone_ids = var.private_dns_zone_ids
+    private_dns_zone_ids = var.backend_private_dns_zone_ids
   }
 
-  count = var.is_sec_module ? 1 : 0
+  # Only deploy if backend and frontend use different private endpoints
+  count = var.is_sec_module && (var.maximum_network_security) ? 1 : 0
 
   tags = var.tags
 }

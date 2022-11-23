@@ -105,7 +105,7 @@ module "local_synapse_workspace" {
   tags = {}
 }
 
-module "local_synapse_spark_pool" {  
+module "local_synapse_spark_pool" {
   source = "../../../synapse/synapse-spark-pool"
 
   basename             = random_string.postfix.result

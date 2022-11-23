@@ -31,6 +31,12 @@ variable "subnet_id" {
   default     = ""
 }
 
+variable "backend_subnet_id" {
+  type        = string
+  description = "Only used when maximum_network_security is true. The ID of the subnet from which private IP addresses will be allocated for the backend Private Endpoint"
+  default     = null
+}
+
 variable "public_network_enabled" {
   type        = bool
   description = "Should the Purview Account be visible to the public network?"
@@ -41,6 +47,12 @@ variable "private_dns_zone_ids" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
   default     = []
+}
+
+variable "backend_private_dns_zone_ids" {
+  type        = list(string)
+  description = "Only used when maximum_network_security is true. Specifies the list of Private DNS Zones to include for the backend"
+  default     = null
 }
 
 variable "sku" {
@@ -57,6 +69,12 @@ variable "public_subnet_name" {
 variable "private_subnet_name" {
   type        = string
   description = "The name of the Private Subnet within the Virtual Network"
+}
+
+variable "maximum_network_security" {
+  type        = bool
+  description = "Separate private endpoints for backend and frontend?"
+  default     = false
 }
 
 variable "virtual_network_id" {
