@@ -2,55 +2,74 @@ module "machine_learning_workspace" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
-
-  subnet_id = data.azurerm_subnet.snet_default.id
-  private_dns_zone_ids = [
-    data.azurerm_private_dns_zone.mlw_api.id,
-    data.azurerm_private_dns_zone.mlw_notebooks.id
-  ]
 
   storage_account_id      = module.local_storage_account.id
   key_vault_id            = module.local_key_vault.id
   application_insights_id = module.local_application_insights.id
   container_registry_id   = module.local_container_registry.id
 
-  tags = {}
+  is_sec_module = false
+  tags          = {}
 }
 
-# Data dependencies
+# Modules dependencies
 
-data "azurerm_subnet" "snet_default" {
-  name                 = local.snet_name
-  virtual_network_name = local.vnet_name
-  resource_group_name  = var.rg_name
+module "local_rg" {
+  source = "../../../resource-group"
+
+  basename = random_string.postfix.result
+  location = var.location
+
+  tags = local.tags
 }
 
-data "azurerm_private_dns_zone" "mlw_api" {
-  name                = local.dns_mlw_api
-  resource_group_name = var.rg_name_dns
-}
-
-data "azurerm_private_dns_zone" "mlw_notebooks" {
-  name                = local.dns_mlw_notebooks
-  resource_group_name = var.rg_name_dns
-}
-
-# Module dependencies
+# Storage Account
 
 module "local_storage_account" {
-  source = "../../../storage-account/test"
+  source = "../../../storage-account"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  hns_enabled             = false
+  firewall_default_action = "Allow"
+
+  is_sec_module = false
 }
+
+# Key Vault
 
 module "local_key_vault" {
-  source = "../../../key-vault/test"
+  source = "../../../key-vault"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  is_sec_module = false
 }
+
+# Application Insights
 
 module "local_application_insights" {
-  source = "../../../application-insights/test"
+  source = "../../../application-insights"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
 }
 
+# Container registry
+
 module "local_container_registry" {
-  source = "../../../container-registry/test"
+  source = "../../../container-registry"
+
+  basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
+  location = var.location
+
+  is_sec_module = false
 }
