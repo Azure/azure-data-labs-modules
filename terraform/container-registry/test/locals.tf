@@ -5,5 +5,5 @@ locals {
     Toolkit = "Terraform"
   }
 
-  dns_cr    = "privatelink.azurecr.io"
+  dns_cr = "privatelink.azurecr.io"
 }

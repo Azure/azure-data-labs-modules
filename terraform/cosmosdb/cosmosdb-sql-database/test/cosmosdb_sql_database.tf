@@ -26,7 +26,7 @@ module "local_rg" {
 }
 
 module "local_cosmosdb_account" {
-  source            = "../../cosmosdb-account"
+  source = "../../cosmosdb-account"
 
   basename = random_string.postfix.result
   rg_name  = module.local_rg.name

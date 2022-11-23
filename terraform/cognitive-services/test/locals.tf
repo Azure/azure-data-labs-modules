@@ -5,5 +5,5 @@ locals {
     Toolkit = "Terraform"
   }
 
-  dns_cog   = "privatelink.cognitiveservices.azure.com"
+  dns_cog = "privatelink.cognitiveservices.azure.com"
 }
