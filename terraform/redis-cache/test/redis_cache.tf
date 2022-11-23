@@ -8,8 +8,7 @@ module "redis_cache" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_redis.list[local.dns_redis].id]
 
-  module_enabled = true
-  tags           = {}
+  tags = {}
 }
 
 # Modules dependencies

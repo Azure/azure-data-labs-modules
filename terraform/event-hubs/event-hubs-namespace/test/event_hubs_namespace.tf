@@ -8,8 +8,6 @@ module "event_hubs_namespace" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_ehn.list[local.dns_ev_namespace].id]
 
-  module_enabled = true
-
   tags = {}
 }
 

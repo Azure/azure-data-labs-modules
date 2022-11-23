@@ -16,14 +16,8 @@ module "synapse_workspace" {
   synadmin_username = var.synadmin_username
   synadmin_password = var.synadmin_password
 
-  aad_login = {
-    name      = var.aad_login.name
-    object_id = var.aad_login.object_id
-    tenant_id = var.aad_login.data
-  }
-
+  set_aad_login = false
   is_sec_module = true
-  module_enabled = true
 
   tags = {}
 }
@@ -52,11 +46,10 @@ module "local_storage_account" {
 
   hns_enabled             = true
   firewall_default_action = "Allow"
-  firewall_ip_rules       = [data.http.ip.body]
+  firewall_ip_rules       = [data.http.ip.response_body]
   firewall_bypass         = ["AzureServices"]
 
-  is_sec_module  = true
-  module_enabled = true
+  is_sec_module = true
 }
 
 data "http" "ip" {

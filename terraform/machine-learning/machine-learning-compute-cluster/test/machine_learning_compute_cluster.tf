@@ -5,8 +5,6 @@ module "machine_learning_compute_cluster" {
 
   subnet_id                     = data.azurerm_subnet.snet_compute.id
   machine_learning_workspace_id = data.azurerm_machine_learning_workspace.mlw_default.id
-
-  module_enabled = true
 }
 
 # Data dependencies

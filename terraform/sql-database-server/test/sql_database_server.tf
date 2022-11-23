@@ -12,8 +12,7 @@ module "sql_database_server" {
   administrator_login          = "sqladminuser"
   administrator_login_password = "ThisIsNotVerySecure!"
 
-  is_sec_module  = var.is_sec_module
-  module_enabled = true
+  is_sec_module = var.is_sec_module
 
   tags = {}
 }

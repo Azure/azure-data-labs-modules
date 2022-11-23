@@ -6,8 +6,6 @@ module "machine_learning_synapse_spark" {
 
   machine_learning_workspace_id = data.azurerm_machine_learning_workspace.mlw_default.id
   synapse_spark_pool_id         = module.local_synapse_spark_pool.id
-
-  module_enabled = true
 }
 
 # Data dependencies

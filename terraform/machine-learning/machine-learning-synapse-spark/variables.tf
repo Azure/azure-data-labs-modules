@@ -26,5 +26,5 @@ variable "synapse_spark_pool_id" {
 
 variable "module_enabled" {
   description = "Variable to enable or disable AML synapse spark"
-  default     = false
+  default     = true
 }

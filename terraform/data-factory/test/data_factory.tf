@@ -9,8 +9,6 @@ module "data_factory" {
   private_dns_zone_ids_df     = [module.local_pdnsz_adf_df.list[local.dns_adf_df].id]
   private_dns_zone_ids_portal = [module.local_pdnsz_adf_portal.list[local.dns_adf_portal].id]
 
-  module_enabled = true
-
   tags = {}
 }
 

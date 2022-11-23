@@ -38,5 +38,5 @@ variable "authorization_type" {
 
 variable "module_enabled" {
   description = "Variable to enable or disable AML compute instance"
-  default     = false
+  default     = true
 }

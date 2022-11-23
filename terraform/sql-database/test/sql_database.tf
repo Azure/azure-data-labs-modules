@@ -10,8 +10,6 @@ module "sql_database" {
   edition                          = "Standard"
   requested_service_objective_name = "S0"
 
-  module_enabled = true
-
   tags = {}
 }
 
@@ -39,8 +37,6 @@ module "local_sql_database_server" {
   db_version                   = "12.0"
   administrator_login          = "sqladminuser"
   administrator_login_password = "ThisIsNotVerySecure!"
-
-  module_enabled = true
 }
 
 module "local_vnet" {

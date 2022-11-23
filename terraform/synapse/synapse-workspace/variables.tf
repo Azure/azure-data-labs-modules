@@ -22,6 +22,7 @@ variable "tags" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module"
+  default     = true
 }
 
 variable "is_sec_module" {
@@ -59,6 +60,11 @@ variable "synadmin_username" {
 variable "synadmin_password" {
   type        = string
   description = "The Password associated with the sql_administrator_login for the SQL administrator"
+}
+
+variable "set_aad_login" {
+  type    = bool
+  default = false
 }
 
 variable "aad_login" {

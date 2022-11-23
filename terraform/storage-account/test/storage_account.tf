@@ -16,8 +16,7 @@ module "storage_account" {
   firewall_bypass                     = var.firewall_bypass
   firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
 
-  is_sec_module  = var.is_sec_module
-  module_enabled = true
+  is_sec_module = var.is_sec_module
 
   tags = {}
 }

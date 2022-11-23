@@ -34,8 +34,6 @@ module "local_cosmosdb_account" {
 
   kind              = "GlobalDocumentDB"
   enable_capability = "DisableRateLimitingResponses"
-
-  module_enabled = true
 }
 
 module "local_vnet" {

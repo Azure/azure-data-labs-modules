@@ -6,8 +6,6 @@ module "machine_learning_inference_cluster" {
 
   machine_learning_workspace_id = data.azurerm_machine_learning_workspace.mlw_default.id
   kubernetes_cluster_id         = module.local_aks.id
-
-  module_enabled = true
 }
 
 # Data dependencies

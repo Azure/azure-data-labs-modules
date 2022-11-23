@@ -8,8 +8,7 @@ module "postgresql_database" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_psql.list[local.dns_psql_server].id]
 
-  module_enabled = true
-  tags           = {}
+  tags = {}
 }
 
 # Modules dependencies

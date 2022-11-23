@@ -8,8 +8,7 @@ module "mysql_database" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_mysql_server.list[local.dns_mysql_server].id]
 
-  module_enabled = true
-  tags           = {}
+  tags = {}
 }
 
 # Modules dependencies

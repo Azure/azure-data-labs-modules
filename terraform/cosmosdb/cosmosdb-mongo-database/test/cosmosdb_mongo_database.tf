@@ -34,8 +34,6 @@ module "local_cosmosdb_account" {
 
   kind              = "MongoDB"
   enable_capability = "EnableMongo"
-
-  module_enabled = true
 }
 
 module "local_vnet" {

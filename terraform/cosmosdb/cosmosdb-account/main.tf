@@ -30,7 +30,7 @@ resource "azurerm_cosmosdb_account" "adl_cosmos" {
     name = var.enable_capability
   }
 
-  ip_range_filter = data.http.ip.body
+  ip_range_filter = data.http.ip.response_body
 
   count = var.module_enabled ? 1 : 0
 

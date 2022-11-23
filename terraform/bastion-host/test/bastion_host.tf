@@ -7,8 +7,6 @@ module "bastion" {
 
   subnet_id = module.local_snet_default.id
 
-  module_enabled = true
-
   tags = {}
 }
 

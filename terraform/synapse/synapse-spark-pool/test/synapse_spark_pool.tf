@@ -3,8 +3,6 @@ module "synapse_spark_pool" {
 
   basename             = random_string.postfix.result
   synapse_workspace_id = module.local_synapse_workspace.id
-
-  module_enabled = true
 }
 
 # Module dependencies
@@ -32,14 +30,8 @@ module "local_synapse_workspace" {
   synadmin_username = var.synadmin_username
   synadmin_password = var.synadmin_password
 
-  aad_login = {
-    name      = var.aad_login.name
-    object_id = var.aad_login.object_id
-    tenant_id = var.aad_login.tenant_id
-  }
-
-  is_sec_module  = false
-  module_enabled = true
+  set_aad_login = false
+  is_sec_module = false
 
   tags = {}
 }
@@ -56,6 +48,5 @@ module "local_storage_account" {
   hns_enabled             = true
   firewall_default_action = "Allow"
 
-  is_sec_module  = false
-  module_enabled = true
+  is_sec_module = false
 }

@@ -8,8 +8,6 @@ module "cosmosdb_account" {
   kind              = var.kind
   enable_capability = var.enable_capability
 
-  module_enabled = true
-
   tags = {}
 }
 

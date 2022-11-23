@@ -5,8 +5,6 @@ module "analysis_services_server" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  module_enabled = true
-
   tags = {}
 }
 

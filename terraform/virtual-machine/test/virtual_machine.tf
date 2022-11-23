@@ -10,8 +10,6 @@ module "virtual_machine" {
   jumphost_username = var.jumphost_username
   jumphost_password = var.jumphost_password
 
-  module_enabled = true
-
   tags = {}
 }
 

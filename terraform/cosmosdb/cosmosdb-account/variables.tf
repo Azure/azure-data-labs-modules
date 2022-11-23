@@ -22,7 +22,7 @@ variable "tags" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module"
-  default     = false
+  default     = true
 }
 
 variable "offer_type" {

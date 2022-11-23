@@ -8,8 +8,7 @@ module "mariadb_database" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_mariadb_server.list[local.dns_mariadb_server].id]
 
-  module_enabled = true
-  tags           = {}
+  tags = {}
 }
 
 # Modules dependencies

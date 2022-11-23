@@ -8,8 +8,6 @@ module "synapse_private_link_hub" {
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_syn_web.list[local.dns_syn_web].id]
 
-  module_enabled = true
-
   tags = {}
 }
 
