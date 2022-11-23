@@ -15,7 +15,7 @@ module "hdinsight_interactive" {
   gateway_password                        = "This1sNotVerySecure!"
   ssh_username                            = "sshuser"
   ssh_password                            = "This1sNotVerySecure!"
-  roles_head_node_vm_size                 = "D13"
+  roles_head_node_vm_size                 = "A5"
   roles_worker_node_vm_size               = "A5"
   roles_worker_node_target_instance_count = 2
   roles_zookeeper_node_vm_size            = "Small"

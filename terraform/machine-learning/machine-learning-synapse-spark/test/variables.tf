@@ -9,7 +9,12 @@ variable "location" {
   default = "North Europe"
 }
 
-variable "rg_name" {
+variable "synadmin_username" {
   type    = string
-  default = "rg-adl-modules-test-01"
+  default = "sqladminuser"
+}
+
+variable "synadmin_password" {
+  type    = string
+  default = "ThisIsNotVerySecure!"
 }

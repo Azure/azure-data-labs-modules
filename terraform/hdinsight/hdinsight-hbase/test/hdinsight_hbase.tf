@@ -18,7 +18,7 @@ module "hdinsight_hbase" {
   roles_head_node_vm_size                 = "A6"
   roles_worker_node_vm_size               = "A5"
   roles_worker_node_target_instance_count = 2
-  roles_zookeeper_node_vm_size            = "Small"
+  roles_zookeeper_node_vm_size            = "A5"
   tier                                    = "Standard"
 
   storage_resource_id           = module.local_storage_account.id

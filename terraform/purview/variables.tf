@@ -28,7 +28,7 @@ variable "is_sec_module" {
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
-  default = ""
+  default     = ""
 }
 
 variable "public_network_enabled" {
@@ -40,11 +40,11 @@ variable "public_network_enabled" {
 variable "private_dns_zone_ids_account" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
-  default = [ ]
+  default     = []
 }
 
 variable "private_dns_zone_ids_portal" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include"
-  default = [ ]
+  default     = []
 }
