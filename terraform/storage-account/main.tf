@@ -99,7 +99,7 @@ resource "azurerm_private_endpoint" "st_pe_blob" {
     private_dns_zone_ids = var.private_dns_zone_ids_blob
   }
 
-  count = var.is_sec_module && var.module_enabled && var.private_dns_zone_ids_blob != [] ? 1 : 0
+  count = var.is_sec_module && var.module_enabled && length(var.private_dns_zone_ids_blob) != 0 ? 1 : 0
 
   tags = var.tags
 }
@@ -122,7 +122,7 @@ resource "azurerm_private_endpoint" "st_pe_file" {
     private_dns_zone_ids = var.private_dns_zone_ids_file
   }
 
-  count = var.is_sec_module && var.module_enabled && var.private_dns_zone_ids_file != [] ? 1 : 0
+  count = var.is_sec_module && var.module_enabled && length(var.private_dns_zone_ids_file) != 0 ? 1 : 0
 
   tags = var.tags
 }
@@ -145,7 +145,7 @@ resource "azurerm_private_endpoint" "st_pe_dfs" {
     private_dns_zone_ids = var.private_dns_zone_ids_dfs
   }
 
-  count = var.is_sec_module && var.module_enabled && var.private_dns_zone_ids_dfs != [] ? 1 : 0
+  count = var.is_sec_module && var.module_enabled && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
 
   tags = var.tags
 }

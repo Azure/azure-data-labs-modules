@@ -18,3 +18,17 @@ variable "synadmin_password" {
   type    = string
   default = "ThisIsNotVerySecure!"
 }
+
+variable "aad_login" {
+  description = "AAD login"
+  type = object({
+    name      = string
+    object_id = string
+    tenant_id = string
+  })
+  default = {
+    name      = "AzureAD Admin"
+    object_id = "00000000-0000-0000-0000-000000000000"
+    tenant_id = "00000000-0000-0000-0000-000000000000"
+  }
+}
