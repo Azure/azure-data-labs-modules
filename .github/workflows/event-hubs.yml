@@ -1,4 +1,4 @@
-name: Module:event-hubsent
+name: Module:event-hubs
 on:
   workflow_dispatch:
   pull_request:
