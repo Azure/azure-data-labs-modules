@@ -67,36 +67,6 @@ variable "private_dns_zone_ids" {
   default     = []
 }
 
-variable "partition_count" {
-  type        = number
-  description = "Specifies the current number of shards on the Event Hub"
-  default     = 2
-}
-
-variable "message_retention" {
-  type        = number
-  description = "Specifies the number of days to retain the events for this Event Hub"
-  default     = 1
-}
-
-variable "listen" {
-  type        = bool
-  description = " Grants listen access to this this Authorization Rule"
-  default     = true
-}
-
-variable "send" {
-  type        = bool
-  description = "Grants send access to this this Authorization Rule"
-  default     = true
-}
-
-variable "manage" {
-  type        = bool
-  description = "Grants manage access to this this Authorization Rule"
-  default     = false
-}
-
 variable "public_network_access_enabled" {
   type        = bool
   description = "Is public network access enabled for the EventHub Namespace? "

@@ -5,18 +5,9 @@ output "id" {
   )
 }
 
-output "primary_connection_string" {
+output "name" {
   value = (
-    length(azurerm_eventhub_authorization_rule.adl_evh_auth_rule) > 0 ?
-    azurerm_eventhub_authorization_rule.adl_evh_auth_rule[0].primary_connection_string : ""
+    length(azurerm_eventhub_namespace.adl_evhns) > 0 ?
+    azurerm_eventhub_namespace.adl_evhns[0].name : ""
   )
-  sensitive = true
-}
-
-output "secondary_connection_string" {
-  value = (
-    length(azurerm_eventhub_authorization_rule.adl_evh_auth_rule) > 0 ?
-    azurerm_eventhub_authorization_rule.adl_evh_auth_rule[0].secondary_connection_string : ""
-  )
-  sensitive = true
 }
