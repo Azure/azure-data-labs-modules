@@ -69,6 +69,7 @@ This repository includes a library of curated [Terraform](https://registry.terra
 | [User Assigned Identity](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/user-assigned-identity) | [![Module:user-assigned-identity](https://github.com/Azure/azure-data-labs-modules/actions/workflows/user-assigned-identity.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/user-assigned-identity.yml) |
 | [Virtual Machine](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/virtual-machine) | [![Module:virtual-machine](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-machine.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-machine.yml) |
 | [Virtual Network](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/virtual-network) | [![Module:virtual-network](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-network.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-network.yml)
+| [Virtual Network Peering](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/virtual-network-peering) | [![Module:virtual-network-peering](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-network-peering.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/virtual-network-peering.yml)
 
 ## Contributing
 
