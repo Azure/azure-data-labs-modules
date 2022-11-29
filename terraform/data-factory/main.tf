@@ -5,6 +5,10 @@ resource "azurerm_data_factory" "adl_adf" {
   location            = var.location
   resource_group_name = var.rg_name
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   public_network_enabled          = var.is_sec_module ? false : true
   managed_virtual_network_enabled = var.is_sec_module ? true : false
 
