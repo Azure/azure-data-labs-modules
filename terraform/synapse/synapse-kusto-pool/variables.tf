@@ -3,25 +3,24 @@ variable "basename" {
   description = "Basename of the module"
 }
 
-variable "synapse_workspace_id" {
+variable "location" {
   type        = string
-  description = "The ID of the Synapse workspace"
+  description = "Location of the resource group"
 }
 
-variable "node_size_family" {
-  type        = string
-  description = "The kind of nodes that the Spark Pool provides"
-  default     = "MemoryOptimized"
-}
-
-variable "node_size" {
-  type        = string
-  description = "The level of node in the Spark Pool"
-  default     = "Small"
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "A mapping of tags which should be assigned to the deployed resource"
 }
 
 variable "module_enabled" {
   type        = bool
-  description = "Variable to enable or disable Synapse Spark pool deployment"
+  description = "Variable to enable or disable the module"
   default     = true
+}
+
+variable "synapse_workspace_id" {
+  type        = string
+  description = "The ID of the Synapse workspace"
 }

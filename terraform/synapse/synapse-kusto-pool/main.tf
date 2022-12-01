@@ -14,20 +14,20 @@ resource "azapi_resource" "syn_synkp" {
 
   body = jsonencode({
     properties = {
-      enablePurge = bool
-      enableStreamingIngest = bool
+      enablePurge = true
+      enableStreamingIngest = true
       optimizedAutoscale = {
-        isEnabled = bool
-        maximum = int
-        minimum = int
-        version = int
+        isEnabled = false
+        maximum = 1
+        minimum = 1
+        version = 1
       }
-      workspaceUID = "string"
+      workspaceUID = var.synapse_workspace_id
     }
     sku = {
-      capacity = int
-      name = "string"
-      size = "string"
+      capacity = 1
+      name = "Storage optimized"
+      size = "Small"
     }
   })
 
