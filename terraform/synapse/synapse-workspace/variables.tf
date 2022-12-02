@@ -92,3 +92,12 @@ variable "private_dns_zone_ids_dev" {
   description = "Specifies the list of Private DNS Zones to include"
   default     = []
 }
+
+variable "customer_managed_key" {
+  description = "Customer managed key"
+  type = object({
+    key_versionless_id = string
+    key_name           = optional(string)
+  })
+  default = null
+}

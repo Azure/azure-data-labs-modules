@@ -20,6 +20,11 @@ resource "azurerm_synapse_workspace" "adl_syn" {
 
   public_network_access_enabled = true
 
+  customer_managed_key {
+    key_versionless_id = var.customer_managed_key.key_versionless_id
+    key_name           = try(var.customer_managed_key.key_name, null)
+  }
+
   identity {
     type = "SystemAssigned"
   }

@@ -16,6 +16,11 @@ module "synapse_workspace" {
   synadmin_username = var.synadmin_username
   synadmin_password = var.synadmin_password
 
+  customer_managed_key {
+    key_versionless_id = var.customer_managed_key.key_versionless_id
+    key_name           = try(var.customer_managed_key.key_name, null)
+  }
+
   set_aad_login = false
   is_sec_module = true
 
