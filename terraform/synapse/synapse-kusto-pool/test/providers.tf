@@ -11,9 +11,16 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "= 3.32.0"
     }
+    azapi = {
+      source = "azure/azapi"
+    }
   }
 
 }
+
 provider "azurerm" {
   features {}
+}
+
+provider "azapi" {
 }

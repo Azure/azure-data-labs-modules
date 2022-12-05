@@ -2,6 +2,7 @@ module "synapse_kusto_pool" {
   source = "../"
 
   basename             = random_string.postfix.result
+  location             = var.location
   synapse_workspace_id = module.local_synapse_workspace.id
 }
 
