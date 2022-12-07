@@ -4,32 +4,42 @@ locals {
   safe_basename = replace(var.basename, "-", "")
 }
 
+resource "random_string" "postfix" {
+  length  = 12
+  special = false
+  upper   = false
+}
+
 resource "azapi_resource" "syn_synkp" {
-  type = "Microsoft.Synapse/workspaces/kustoPools@2021-06-01-preview"
-  name = "synkp${local.safe_basename}"
-  location = var.location
+  type      = "Microsoft.Synapse/workspaces/kustoPools@2021-06-01-preview"
+  name      = "synkp${local.safe_basename}"
+  location  = var.location
   parent_id = var.synapse_workspace_id
 
   tags = var.tags
 
   body = jsonencode({
     properties = {
-      enablePurge = false,
-      enableStreamingIngest = false
+      enablePurge           = var.enable_purge,
+      enableStreamingIngest = var.enable_streaming_ingest
       optimizedAutoscale = {
-        isEnabled = false,
-        maximum = 1,
-        minimum = 1,
-        version = 1
+        isEnabled = var.optimized_autoscale_enabled,
+        maximum   = var.optimized_autoscale_maximum,
+        minimum   = var.optimized_autoscale_minimum,
+        version   = var.optimized_autoscale_version
       }
-      workspaceUID = "000000000-0000-0000-0000-0000000000"
+      workspaceUID = var.synapse_workspace_uid
     }
     sku = {
-      capacity = 2,
-      name = "Compute optimized",
-      size = "Small"
+      capacity = var.sku_capacity,
+      name     = var.sku_name,
+      size     = var.sku_size
     }
   })
 
   count = var.module_enabled ? 1 : 0
+}
+
+output "name" {
+  value = var.synapse_workspace_id
 }
