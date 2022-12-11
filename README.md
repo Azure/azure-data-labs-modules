@@ -1,6 +1,6 @@
 # Azure Data Labs - Modules
 
-This repository includes a library of curated [Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest) modules as well as a Continuous Integration (CI) environment using [GitHub Actions](https://github.com/features/actions) for modules' validation. Modules with `TBC` are not available yet.
+This repository includes a library of curated [Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest) modules as well as a Continuous Integration (CI) environment using [GitHub Actions](https://github.com/features/actions) for modules' validation. 
 
 > Ideas? Contributions? Bugs? If you'd like to add more resources or you run into any issues, feel free to [create a pull request](https://github.com/Azure/azure-data-labs-modules/pulls) or [open an issue](https://github.com/Azure/azure-data-labs-modules/issues) in this repository.
 
@@ -58,7 +58,6 @@ This repository includes a library of curated [Terraform](https://registry.terra
 | [Service Bus / Topic](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/service-bus/service-bus-topic) | [![Module:service-bus-topic](https://github.com/Azure/azure-data-labs-modules/actions/workflows/service-bus-topic.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/service-bus-topic.yml) |
 | [SQL Database](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/sql-database) | [![Module:sql-database](https://github.com/Azure/azure-data-labs-modules/actions/workflows/sql-database.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/sql-database.yml) |
 | [SQL Database Server](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/sql-database-server) | [![Module:sql-database-server](https://github.com/Azure/azure-data-labs-modules/actions/workflows/sql-database-server.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/sql-database-server.yml) |
-| [SQL Managed Instance] | TBC
 | [Storage Account](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/storage-account) | [![Module:storage-account](https://github.com/Azure/azure-data-labs-modules/actions/workflows/storage-account.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/storage-account.yml) |
 | [Subnet](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/subnet) | [![Module:subnet](https://github.com/Azure/azure-data-labs-modules/actions/workflows/subnet.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/subnet.yml) | 
 | [Subnet Network Security Group Association](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/network-security-group) | [![Module:subnet-network-security-group-association](https://github.com/Azure/azure-data-labs-modules/actions/workflows/subnet-network-security-group-association.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/subnet-network-security-group-association.yml) | 
