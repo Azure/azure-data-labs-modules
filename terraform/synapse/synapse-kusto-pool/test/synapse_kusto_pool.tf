@@ -4,7 +4,7 @@ module "synapse_kusto_pool" {
   basename              = random_string.postfix.result
   location              = var.location
   synapse_workspace_id  = module.local_synapse_workspace.id
-  synapse_workspace_uid = "e1d3b5f3-ee4d-4e36-9a37-c37108c2f700"
+  synapse_workspace_uid = "dfeaa36c-1b3e-4b05-9cf3-962a097aef3c"
 }
 
 # Module dependencies

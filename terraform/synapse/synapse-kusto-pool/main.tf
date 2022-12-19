@@ -39,7 +39,3 @@ resource "azapi_resource" "syn_synkp" {
 
   count = var.module_enabled ? 1 : 0
 }
-
-output "name" {
-  value = var.synapse_workspace_id
-}
