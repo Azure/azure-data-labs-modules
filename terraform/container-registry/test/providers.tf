@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     resource_group_name  = "rg-adl-terraform-state"
-    storage_account_name = "stadlterraformstate"
+    storage_account_name = "stadltfstate"
     container_name       = "default"
     key                  = "containerregistry.terraform.tfstate"
   }
@@ -9,7 +9,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "= 3.32.0"
+      version = "= 3.36.0"
     }
   }
 
