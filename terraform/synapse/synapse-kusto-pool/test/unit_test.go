@@ -15,7 +15,7 @@ func TestModule(t *testing.T) {
 	}
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
-	defer terraform.Destroy(t, terraformOptions)
+	// defer terraform.Destroy(t, terraformOptions)
 
 	// Is used mainly for debugging, fail early if plan is not possible
 	terraform.InitAndPlan(t, terraformOptions)
