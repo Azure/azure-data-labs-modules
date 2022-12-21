@@ -3,5 +3,5 @@ output "id" {
 }
 
 output "workspace_url" {
-  value = azurerm_databricks_workspace.adl_databricks.workspace_url
+  value = module.databricks.workspace_url
 }
