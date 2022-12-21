@@ -97,8 +97,8 @@ resource "azurerm_private_endpoint" "databricks_pe_sso" {
 }
 
 provider "databricks" {
-  alias = "adl-adb"
-  host = azurerm_databricks_workspace.adl_databricks.workspace_url
+  alias                       = "adl-adb"
+  host                        = azurerm_databricks_workspace.adl_databricks.workspace_url
   azure_workspace_resource_id = azurerm_databricks_workspace.adl_databricks.id
 }
 
@@ -113,10 +113,10 @@ resource "databricks_workspace_conf" "adb_ws_conf" {
 resource "databricks_ip_access_list" "adb_ws_allow-list" {
   provider = databricks.adl-adb
 
-  label     = "allow_in"
-  list_type = "ALLOW"
+  label        = "allow_in"
+  list_type    = "ALLOW"
   ip_addresses = var.allow_ip_list
-  depends_on = [databricks_workspace_conf.adb_ws_conf]
+  depends_on   = [databricks_workspace_conf.adb_ws_conf]
 
   count = var.enable_ip_access_list && length(var.allow_ip_list) > 0 ? 1 : 0
 }
@@ -124,10 +124,10 @@ resource "databricks_ip_access_list" "adb_ws_allow-list" {
 resource "databricks_ip_access_list" "adb_ws_block-list" {
   provider = databricks.adl-adb
 
-  label     = "block_in"
-  list_type = "BLOCK"
+  label        = "block_in"
+  list_type    = "BLOCK"
   ip_addresses = var.block_ip_list
-  depends_on = [databricks_workspace_conf.adb_ws_conf]
+  depends_on   = [databricks_workspace_conf.adb_ws_conf]
 
   count = var.enable_ip_access_list && length(var.block_ip_list) > 0 ? 1 : 0
 }
