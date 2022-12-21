@@ -16,8 +16,6 @@ func TestModule(t *testing.T) {
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
 	defer terraform.Destroy(t, terraformOptions)
-	// At the end of the test, run `terraform state rm module.databricks.databricks_workspace_conf.adb_ws_conf` to clean up state for workspace config
-	defer terraform.RunTerraformCommand(t, terraformOptions, terraform.FormatArgs(terraformOptions, "state", "rm", "module.databricks.databricks_workspace_conf.adb_ws_conf")...)
 
 	// Is used mainly for debugging, fail early if plan is not possible
 	terraform.InitAndPlan(t, terraformOptions)
