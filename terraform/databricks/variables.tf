@@ -40,7 +40,7 @@ variable "backend_subnet_id" {
 variable "public_network_enabled" {
   type        = bool
   description = "Should the Purview Account be visible to the public network?"
-  default     = false
+  default     = true
 }
 
 variable "private_dns_zone_ids" {
