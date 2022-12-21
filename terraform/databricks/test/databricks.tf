@@ -15,10 +15,17 @@ module "databricks" {
   public_subnet_network_security_group_association_id  = module.local_snet_nsg_association_public.id
   private_subnet_network_security_group_association_id = module.local_snet_nsg_association_private.id
 
+  enable_ip_access_list    = true
+  allow_ip_list            = ["${data.http.ip.body}/32"]
+
   tags = {}
 }
 
 # Modules dependencies
+
+data "http" "ip" {
+  url = "https://ifconfig.me"
+}
 
 module "local_rg" {
   source = "../../resource-group"
