@@ -47,27 +47,10 @@ jobs:
     - name: Run tfsec with reviewdog output on the PR
       uses: ./.github/actions/run-terraform-sec
 
-  terraform-tmp:
-    name: Run Terraform tmp step to delete state
-    runs-on: ubuntu-latest
-    defaults:
-         run:
-          working-directory: "${{ env.terraform_workingdir }}"
-
-    steps:
-    - uses: actions/checkout@v3
-    - uses: hashicorp/setup-terraform@v2
-
-    - name: Terraform fmt
-      id: fmt
-      run: terraform state rm module.databricks.databricks_workspace_conf.adb_ws_conf
-      continue-on-error: false
-
   terratest:
     name: Run Terratest
     needs: 
       - terraform-sec
-      - terraform-tmp
     runs-on: ubuntu-latest
 
     defaults:
