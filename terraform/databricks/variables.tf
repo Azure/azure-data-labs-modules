@@ -40,7 +40,7 @@ variable "backend_subnet_id" {
 variable "public_network_enabled" {
   type        = bool
   description = "Should the Purview Account be visible to the public network?"
-  default     = false
+  default     = true
 }
 
 variable "private_dns_zone_ids" {
@@ -90,4 +90,22 @@ variable "public_subnet_network_security_group_association_id" {
 variable "private_subnet_network_security_group_association_id" {
   type        = string
   description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the private_subnet_name field"
+}
+
+variable "enable_ip_access_list" {
+  type        = bool
+  description = "Enable IP access lists"
+  default     = false
+}
+
+variable "allow_ip_list" {
+  type        = list(string)
+  description = "Specifies the list of IPs allowed to the workspace"
+  default     = []
+}
+
+variable "block_ip_list" {
+  type        = list(string)
+  description = "Specifies the list of IPs blocked to the workspace"
+  default     = []
 }

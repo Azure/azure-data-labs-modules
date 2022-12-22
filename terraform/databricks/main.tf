@@ -8,8 +8,8 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   sku                         = var.sku
   managed_resource_group_name = "${var.rg_name}-adb-managed"
 
-  public_network_access_enabled         = var.is_sec_module && var.public_network_enabled ? false : true
-  network_security_group_rules_required = var.is_sec_module && var.public_network_enabled ? "NoAzureDatabricksRules" : "AllRules"
+  public_network_access_enabled         = var.is_sec_module && !(var.public_network_enabled) ? false : true
+  network_security_group_rules_required = var.is_sec_module ? "NoAzureDatabricksRules" : "AllRules"
 
   custom_parameters {
     no_public_ip        = var.is_sec_module ? true : false
@@ -45,7 +45,7 @@ resource "azurerm_private_endpoint" "databricks_pe_be" {
   }
 
   # Only deploy if backend and frontend use different private endpoints
-  count = var.is_sec_module && (var.maximum_network_security) ? 1 : 0
+  count = var.is_sec_module && var.maximum_network_security ? 1 : 0
 
   tags = var.tags
 }
@@ -94,4 +94,40 @@ resource "azurerm_private_endpoint" "databricks_pe_sso" {
   count = var.is_sec_module ? 1 : 0
 
   tags = var.tags
+}
+
+provider "databricks" {
+  alias                       = "adl-adb"
+  host                        = azurerm_databricks_workspace.adl_databricks.workspace_url
+  azure_workspace_resource_id = azurerm_databricks_workspace.adl_databricks.id
+}
+
+resource "databricks_workspace_conf" "adb_ws_conf" {
+  provider = databricks.adl-adb
+  custom_config = {
+    "enableIpAccessLists" : var.enable_ip_access_list
+  }
+  depends_on = [azurerm_databricks_workspace.adl_databricks]
+}
+
+resource "databricks_ip_access_list" "adb_ws_allow-list" {
+  provider = databricks.adl-adb
+
+  label        = "allow_in"
+  list_type    = "ALLOW"
+  ip_addresses = var.allow_ip_list
+  depends_on   = [databricks_workspace_conf.adb_ws_conf]
+
+  count = var.enable_ip_access_list && length(var.allow_ip_list) > 0 ? 1 : 0
+}
+
+resource "databricks_ip_access_list" "adb_ws_block-list" {
+  provider = databricks.adl-adb
+
+  label        = "block_in"
+  list_type    = "BLOCK"
+  ip_addresses = var.block_ip_list
+  depends_on   = [databricks_workspace_conf.adb_ws_conf]
+
+  count = var.enable_ip_access_list && length(var.block_ip_list) > 0 ? 1 : 0
 }

@@ -11,8 +11,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "= 3.36.0"
     }
+    databricks = {
+      source = "databricks/databricks"
+    }
   }
-
 }
 
 provider "azurerm" {
