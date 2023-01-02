@@ -15,8 +15,8 @@ variable "kind" {
   default     = "GlobalDocumentDB"
 }
 
-variable "enable_capability" {
-  type        = string
+variable "enable_capabilities" {
+  type        = list(string)
   description = "Configures the capabilities to enable for the Cosmos DB account"
-  default     = "DisableRateLimitingResponses"
+  default     = ["DisableRateLimitingResponses","EnableAggregationPipeline"]
 }

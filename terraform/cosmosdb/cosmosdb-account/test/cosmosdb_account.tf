@@ -5,8 +5,8 @@ module "cosmosdb_account" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  kind              = var.kind
-  enable_capability = var.enable_capability
+  kind                = var.kind
+  enable_capabilities = var.enable_capabilities
 
   tags = {}
 }

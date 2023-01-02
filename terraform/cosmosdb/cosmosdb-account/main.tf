@@ -26,8 +26,11 @@ resource "azurerm_cosmosdb_account" "adl_cosmos" {
     max_staleness_prefix    = 200
   }
 
-  capabilities {
-    name = var.enable_capability
+  dynamic "capabilities" {
+    for_each = var.enable_capabilities
+    content {
+      name = capabilities.value
+    }
   }
 
   ip_range_filter = data.http.ip.response_body
