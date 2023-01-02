@@ -32,8 +32,8 @@ module "local_cosmosdb_account" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  kind              = "MongoDB"
-  enable_capability = "EnableMongo"
+  kind                = "MongoDB"
+  enable_capabilities = ["EnableMongo"]
 }
 
 module "local_vnet" {

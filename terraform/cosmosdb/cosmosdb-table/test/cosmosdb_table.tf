@@ -32,8 +32,8 @@ module "local_cosmosdb_account" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  kind              = "GlobalDocumentDB"
-  enable_capability = "EnableTable"
+  kind                = "GlobalDocumentDB"
+  enable_capabilities = ["EnableTable"]
 }
 
 module "local_vnet" {

@@ -5,6 +5,8 @@ resource "azurerm_cosmosdb_cassandra_keyspace" "adl_cosmos_cassandra" {
   resource_group_name = var.rg_name
   account_name        = var.cosmosdb_account_name
   throughput          = var.throughput
+
+  count = var.module_enabled ? 1 : 0
 }
 
 resource "azurerm_private_endpoint" "cassandra_pe" {
@@ -25,7 +27,7 @@ resource "azurerm_private_endpoint" "cassandra_pe" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
-  count = var.is_sec_module ? 1 : 0
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
 
   tags = var.tags
 }

@@ -5,6 +5,8 @@ resource "azurerm_cosmosdb_sql_database" "adl_cosmos_sql" {
   resource_group_name = var.rg_name
   account_name        = var.cosmosdb_account_name
   throughput          = var.throughput
+
+  count = var.module_enabled ? 1 : 0
 }
 
 resource "azurerm_private_endpoint" "sql_pe" {
@@ -25,7 +27,7 @@ resource "azurerm_private_endpoint" "sql_pe" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
-  count = var.is_sec_module ? 1 : 0
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
 
   tags = var.tags
 }
