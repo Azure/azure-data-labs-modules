@@ -55,10 +55,10 @@ variable "kind" {
   default     = "GlobalDocumentDB"
 }
 
-variable "enable_capability" {
-  type        = string
+variable "enable_capabilities" {
+  type        = list(string)
   description = "Configures the capabilities to enable for the Cosmos DB account"
-  default     = ""
+  default     = []
 }
 
 # variable "private_dns_zone_ids_table" {
