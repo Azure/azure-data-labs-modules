@@ -13,7 +13,7 @@ output "name" {
 }
 
 output "access_key" {
-    value = (
+  value = (
     length(azurerm_storage_account.adl_st) > 0 ?
     azurerm_storage_account.adl_st[0].primary_access_key : ""
   )
