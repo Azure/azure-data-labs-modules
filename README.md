@@ -2,6 +2,8 @@
 
 This repository includes a library of curated [Terraform](https://registry.terraform.io/providers/hashicorp/azurerm/latest) modules as well as a Continuous Integration (CI) environment using [GitHub Actions](https://github.com/features/actions) for modules' validation. 
 
+All modules follows the naming convention outlined in the [Cloud Adoption Framework](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations). Resources will be prefixed with the appropriate abbreviations.
+
 > Ideas? Contributions? Bugs? If you'd like to add more resources or you run into any issues, feel free to [create a pull request](https://github.com/Azure/azure-data-labs-modules/pulls) or [open an issue](https://github.com/Azure/azure-data-labs-modules/issues) in this repository.
 
 ## Available Modules
