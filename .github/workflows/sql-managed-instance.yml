@@ -6,7 +6,7 @@ on:
       - main  
     paths:
       - '.github/workflows/sql-managed-instance.yml'
-      - 'terraform/sql-manage-instance/**'
+      - 'terraform/sql-managed-instance/**'
       - '.github/actions/**'
 
 env:
