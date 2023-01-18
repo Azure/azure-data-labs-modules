@@ -11,4 +11,3 @@ terraform.tfvars
 tests/
 app-service/
 stream-analytics-cluster/
-sql-managed-instance/
