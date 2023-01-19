@@ -18,7 +18,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source           = "../../subnet"
   rg_name          = module.local_rg.name
-  name             = "snet-${random_string.postfix.result}-sql-default"
+  name             = "snet-${random_string.postfix.result}-sqlmi-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
   subnet_delegation = {
@@ -26,6 +26,14 @@ module "local_snet_default" {
       name    = "Microsoft.Sql/managedInstances"
       actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
   }] }
+}
+
+module "local_snet_private_enpoint" {
+  source           = "../../subnet"
+  rg_name          = module.local_rg.name
+  name             = "snet-${random_string.postfix.result}-sqlmi-private-endpoint"
+  vnet_name        = module.local_vnet.name
+  address_prefixes = ["10.0.5.0/24"]
 }
 
 module "network_security_group" {
@@ -51,11 +59,13 @@ module "sql_managed_instance" {
   rg_name                        = module.local_rg.name
   location                       = var.location
   subnet_id                      = module.local_snet_default.id
+  subnet_private_enpoint_id      = module.local_snet_private_enpoint.id
   route_table_id                 = module.route_table.id
   network_security_group_id      = module.network_security_group.id
   administrator_login            = "sqladminuser"
   administrator_login_password   = "ThisIsNotVerySecure!"
   module_enabled                 = true
+  is_sec_module                  = var.is_sec_module
   tags                           = {}
   license_type                   = "BasePrice"
   sku_name                       = "GP_Gen5"
@@ -69,30 +79,6 @@ module "sql_managed_instance" {
   public_data_endpoint_enabled   = false
   storage_account_type           = "GRS"
   timezone_id                    = "UTC"
+
 }
 
-
-# # Private Endpoint configuration
-
-# resource "azurerm_private_endpoint" "sql_pe_server" {
-#   name                = "pe-${azurerm_sql_server.adl_sql[0].name}-server"
-#   location            = var.location
-#   resource_group_name = var.rg_name
-#   subnet_id           = var.subnet_id
-
-#   private_service_connection {
-#     name                           = "psc-server-${var.basename}"
-#     private_connection_resource_id = azurerm_sql_server.adl_sql[0].id
-#     subresource_names              = ["sqlServer"]
-#     is_manual_connection           = false
-#   }
-
-#   private_dns_zone_group {
-#     name                 = "private-dns-zone-group-server"
-#     private_dns_zone_ids = var.private_dns_zone_ids
-#   }
-
-#   count = var.is_sec_module && var.module_enabled ? 1 : 0
-
-#   tags = var.tags
-# }
