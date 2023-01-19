@@ -4,6 +4,8 @@ terraform {
     storage_account_name = "stadltfstate"
     container_name       = "default"
     key                  = "sqlami.terraform.tfstate"
+
+    
   }
 
   required_providers {
@@ -16,5 +18,9 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
