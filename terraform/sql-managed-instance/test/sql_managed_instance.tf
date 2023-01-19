@@ -31,7 +31,7 @@ module "local_snet_default" {
 module "network_security_group" {
   source   = "../../network-security-group"
   basename = "nsg-${random_string.postfix.result}"
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }
@@ -39,7 +39,7 @@ module "network_security_group" {
 module "route_table" {
   source   = "../../route-table"
   basename = "route-${random_string.postfix.result}"
-  rg_name  = var.rg_name
+  rg_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }
@@ -48,7 +48,7 @@ module "route_table" {
 module "sql_managed_instance" {
   source                         = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/sql-managed-instance?ref=feature/sqlami"
   basename                       = "sqlmi-${random_string.postfix.result}"
-  rg_name                        = var.rg_name
+  rg_name                        = module.local_rg.name
   location                       = var.location
   subnet_id                      = module.local_snet_default.id
   route_table_id                 = module.route_table.id
