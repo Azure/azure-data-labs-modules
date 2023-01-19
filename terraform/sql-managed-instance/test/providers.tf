@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
     resource_group_name  = "rg-adl-terraform-state"
-    storage_account_name = "stadlterraformstate"
+    storage_account_name = "stadltfstate"
     container_name       = "default"
-    key                  = "sqlmanagedinstance.terraform.tfstate"
+    key                  = "sqlami.terraform.tfstate"
   }
 
   required_providers {
