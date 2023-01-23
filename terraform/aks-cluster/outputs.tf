@@ -1,13 +1,23 @@
+
 output "id" {
-  value = azurerm_kubernetes_cluster.adl_aks.id
+  value = (
+    length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
+    azurerm_kubernetes_cluster.adl_aks[0].id : []
+  )
 }
+
 
 output "name" {
-  value = azurerm_kubernetes_cluster.adl_aks.name
+  value = (
+    length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
+    azurerm_kubernetes_cluster.adl_aks[0].name : []
+  )
 }
 
-
 output "all" {
-  value     = azurerm_kubernetes_cluster.adl_aks
+  value = (
+    length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
+    azurerm_kubernetes_cluster.adl_aks[0].* : []
+  )
   sensitive = true
 }

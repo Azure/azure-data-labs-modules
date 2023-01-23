@@ -3,9 +3,10 @@
 locals {
 
   default_node_pool = {
-    name       = "default"
-    node_count = 1
-    vm_size    = "Standard_D2_v2"
+    name           = "default"
+    node_count     = 1
+    vm_size        = "Standard_D2_v2"
+    vnet_subnet_id = var.vnet_subnet_id != "" ? var.vnet_subnet_id : null
   }
 
   merged_default_node_pool = merge(local.default_node_pool, var.default_node_pool)
@@ -36,16 +37,19 @@ locals {
 
 resource "azurerm_kubernetes_cluster" "adl_aks" {
 
-  name                = "aks-${var.basename}"
-  location            = var.location
-  resource_group_name = var.rg_name
-  tags                = var.tags
-  dns_prefix          = var.dns_prefix
+  name                    = "aks-${var.basename}"
+  location                = var.location
+  resource_group_name     = var.rg_name
+  tags                    = var.tags
+  dns_prefix              = var.dns_prefix
+  private_cluster_enabled = var.is_sec_module && var.private_cluster_enabled ? true : false
+  count                   = var.module_enabled ? 1 : 0
 
   default_node_pool {
-    name       = local.merged_default_node_pool.name
-    node_count = local.merged_default_node_pool.node_count
-    vm_size    = local.merged_default_node_pool.vm_size
+    name           = local.merged_default_node_pool.name
+    node_count     = local.merged_default_node_pool.node_count
+    vm_size        = local.merged_default_node_pool.vm_size
+    vnet_subnet_id = local.merged_default_node_pool.vnet_subnet_id
   }
 
   identity {
@@ -60,14 +64,40 @@ resource "azurerm_kubernetes_cluster" "adl_aks" {
     docker_bridge_cidr = local.merged_network_profile.docker_bridge_cidr
     outbound_type      = local.merged_network_profile.outbound_type
     pod_cidr           = local.merged_network_profile.pod_cidr
-    # pod_cidrs             = local.merged_network_profile.pod_cidrs
-    # service_cidrs         = local.merged_network_profile.service_cidrs
-    ip_versions       = local.merged_network_profile.ip_versions
-    load_balancer_sku = local.merged_network_profile.load_balancer_sku
+    pod_cidrs          = local.merged_network_profile.pod_cidrs
+    service_cidrs      = local.merged_network_profile.service_cidrs
+    ip_versions        = local.merged_network_profile.ip_versions
+    load_balancer_sku  = local.merged_network_profile.load_balancer_sku
     # load_balancer_profile = local.merged_network_profile.load_balancer_profile
     # nat_gateway_profile   = local.merged_network_profile.nat_gateway_profile
   }
 
   api_server_authorized_ip_ranges   = var.api_server_authorized_ip_ranges
   role_based_access_control_enabled = var.role_based_access_control_enabled
+}
+
+
+# Private Endpoint configuration
+
+resource "azurerm_private_endpoint" "adl_aks_pe" {
+  name                = "pe-${azurerm_kubernetes_cluster.adl_aks[0].name}"
+  location            = var.location
+  resource_group_name = var.rg_name
+  subnet_id           = var.vnet_private_endpoint_subnet_id
+
+  private_service_connection {
+    name                           = "psc-aks-${var.basename}"
+    private_connection_resource_id = azurerm_kubernetes_cluster.adl_aks[0].id
+    subresource_names              = ["management"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "private-dns-zone-group-server"
+    private_dns_zone_ids = var.private_dns_zone_ids
+  }
+
+  count = var.is_sec_module && var.module_enabled && var.private_cluster_enabled ? 1 : 0
+
+  tags = var.tags
 }

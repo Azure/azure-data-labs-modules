@@ -25,6 +25,11 @@ variable "dns_prefix" {
   description = "DNS prefix specified when creating the managed cluster. Changing this forces a new resource to be created"
 }
 
+variable "private_cluster_enabled" {
+  type        = bool
+  description = "(Optional) Should this Kubernetes Cluster have its API server only exposed on internal IP addresses? This provides a Private IP Address for the Kubernetes API on the Virtual Network where the Kubernetes Cluster is located. Defaults to false. Changing this forces a new resource to be created."
+  default     = false
+}
 
 variable "default_node_pool" {
   type        = map(string)
@@ -33,6 +38,7 @@ variable "default_node_pool" {
     "   name - (Required) The name which should be used for the default Kubernetes Node Pool. Changing this forces a new resource to be created.
         node_count - (Required) he initial number of nodes which should exist in this Node Pool. If specified this must be between 1 and 1000 and between min_count and max_count.
         vm_size - (Required) The size of the Virtual Machine, such as Standard_DS2_v2. Changing this forces a new resource to be created.
+        vnet_subnet_id = (Optional) The ID of the Subnet where this Node Pool should exist. Changing this forces a new resource to be created.
     "
   EOT
 }
@@ -66,6 +72,37 @@ variable "role_based_access_control_enabled" {
   type        = bool
   default     = true
   description = "(Optional) - Whether Role Based Access Control for the Kubernetes Cluster should be enabled. Defaults to true. Changing this forces a new resource to be created."
+}
+
+
+variable "is_sec_module" {
+  type        = bool
+  description = "Is secure module?"
+  default     = true
+}
+
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module"
+  default     = true
+}
+
+variable "vnet_subnet_id" {
+  type        = string
+  description = "The ID of the subnet from which private IP addresses will be allocated"
+  default     = null
+}
+
+variable "private_dns_zone_ids" {
+  type        = list(string)
+  description = "Specifies the list of Private DNS Zones to include"
+  default     = []
+}
+
+variable "vnet_private_endpoint_subnet_id" {
+  type        = string
+  description = "The ID of the subnet from which private IP addresses will be allocated"
+  default     = null
 }
 
 
