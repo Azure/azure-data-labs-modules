@@ -40,6 +40,6 @@ module "local_snet_default" {
   rg_name           = module.local_rg.name
   name              = "vnet-${random_string.postfix.result}-aks"
   vnet_name         = module.local_vnet.name
-  address_prefixes  = ["10.0.6.0/24"]
+  address_prefixes  = ["10.30.1.0/24"]
   subnet_delegation = {}
 }
