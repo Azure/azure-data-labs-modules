@@ -2,7 +2,7 @@
 output "id" {
   value = (
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
-    azurerm_kubernetes_cluster.adl_aks[0].id : []
+    azurerm_kubernetes_cluster.adl_aks[0].id : ""
   )
 }
 
@@ -10,7 +10,7 @@ output "id" {
 output "name" {
   value = (
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
-    azurerm_kubernetes_cluster.adl_aks[0].name : []
+    azurerm_kubernetes_cluster.adl_aks[0].name : ""
   )
 }
 
