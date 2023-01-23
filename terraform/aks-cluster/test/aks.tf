@@ -6,7 +6,7 @@ module "aks" {
   location                        = var.location
   dns_prefix                      = "azdatalbsaks"
   private_cluster_enabled         = true
-  is_sec_module                   = false
+  is_sec_module                   = true
   vnet_private_endpoint_subnet_id = module.local_snet_default.id
 
   default_node_pool = {
