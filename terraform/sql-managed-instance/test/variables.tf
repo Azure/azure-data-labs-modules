@@ -17,5 +17,5 @@ variable "rg_name_dns" {
 variable "is_sec_module" {
   type        = bool
   description = "Is secure module?"
-  default     = true
+  default     = false
 }
