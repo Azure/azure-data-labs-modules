@@ -1,5 +1,34 @@
+module "sql_managed_instance" {
+  source                         = "../"
+  
+  basename                       = "sqlmi-${random_string.postfix.result}"
+  rg_name                        = module.local_rg.name
+  location                       = var.location
+  subnet_id                      = module.local_snet_default.id
+  subnet_private_enpoint_id      = module.local_snet_private_enpoint.id
+  route_table_id                 = module.route_table.id
+  network_security_group_id      = module.network_security_group.id
+  administrator_login            = "sqladminuser"
+  administrator_login_password   = "ThisIsNotVerySecure!"
+  module_enabled                 = true
+  is_sec_module                  = var.is_sec_module
+  tags                           = {}
+  license_type                   = "BasePrice"
+  sku_name                       = "GP_Gen5"
+  storage_size_in_gb             = 32
+  vcores                         = 4
+  maintenance_configuration_name = "SQL_Default"
+  dns_zone_partner_id            = ""
+  collation                      = "SQL_Latin1_General_CP1_CI_AS"
+  minimum_tls_version            = "1.2"
+  proxy_override                 = "Default"
+  public_data_endpoint_enabled   = false
+  storage_account_type           = "GRS"
+  timezone_id                    = "UTC"
+}
 
 # Modules dependencies
+
 module "local_rg" {
   source   = "../../resource-group"
   basename = random_string.postfix.result
@@ -51,34 +80,3 @@ module "route_table" {
   location = var.location
   tags     = {}
 }
-
-// sql_managed_instance module
-module "sql_managed_instance" {
-  source                         = "git::https://github.com/Azure/azure-data-labs-modules.git//terraform/sql-managed-instance?ref=feature/sqlami"
-  basename                       = "sqlmi-${random_string.postfix.result}"
-  rg_name                        = module.local_rg.name
-  location                       = var.location
-  subnet_id                      = module.local_snet_default.id
-  subnet_private_enpoint_id      = module.local_snet_private_enpoint.id
-  route_table_id                 = module.route_table.id
-  network_security_group_id      = module.network_security_group.id
-  administrator_login            = "sqladminuser"
-  administrator_login_password   = "ThisIsNotVerySecure!"
-  module_enabled                 = true
-  is_sec_module                  = var.is_sec_module
-  tags                           = {}
-  license_type                   = "BasePrice"
-  sku_name                       = "GP_Gen5"
-  storage_size_in_gb             = 32
-  vcores                         = 4
-  maintenance_configuration_name = "SQL_Default"
-  dns_zone_partner_id            = ""
-  collation                      = "SQL_Latin1_General_CP1_CI_AS"
-  minimum_tls_version            = "1.2"
-  proxy_override                 = "Default"
-  public_data_endpoint_enabled   = false
-  storage_account_type           = "GRS"
-  timezone_id                    = "UTC"
-
-}
-
