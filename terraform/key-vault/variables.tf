@@ -40,6 +40,10 @@ variable "private_dns_zone_ids" {
 variable "sku_name" {
   type        = string
   description = "The Name of the SKU used for this Key Vault"
+  validation {
+    condition = contains(["standard", "premium"], var.sku_name)
+    error_message = "Valid values for SKU are \"standard\" or \"premium\""
+  }
   default     = "standard"
 }
 
@@ -52,6 +56,10 @@ variable "enabled_for_disk_encryption" {
 variable "soft_delete_retention_days" {
   type        = number
   description = "The number of days that items should be retained for once soft-deleted"
+  validation {
+    condition = var.soft_delete_retention_days >= 7 && var.soft_delete_retention_days <= 90
+    error_message = "Valid values for soft_delete_retention_days are in the range [7, 90]"
+  }
   default     = 90
 }
 
@@ -76,6 +84,10 @@ variable "firewall_virtual_network_subnet_ids" {
 variable "firewall_default_action" {
   type        = string
   description = "Specifies the default action of allow or deny when no other rules match"
+  validation {
+    condition = contains(["Allow", "Deny"], var.firewall_default_action)
+    error_message = "Valid values for firewall_default_action are \"Allow\" or \"Deny\""
+  }
   default     = "Deny"
 }
 
@@ -88,5 +100,9 @@ variable "firewall_ip_rules" {
 variable "firewall_bypass" {
   type        = string
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices"
+  validation {
+    condition = contains(["AzureServices", "None"], var.firewall_bypass)
+    error_message = "Valid values for firewall_bypass are \"AzureServices\" or \"None\""
+  }
   default     = "AzureServices"
 }
