@@ -11,12 +11,12 @@ variable "location" {
 
 variable "kind" {
   type        = string
-  description = "Specifies the Kind of CosmosDB to create"
+  description = "Specifies the Kind of CosmosDB to create."
   default     = "GlobalDocumentDB"
 }
 
 variable "enable_capabilities" {
   type        = list(string)
-  description = "Configures the capabilities to enable for the Cosmos DB account"
-  default     = ["DisableRateLimitingResponses","EnableAggregationPipeline"]
+  description = "Configures the capabilities to enable for the Cosmos DB account."
+  default     = ["DisableRateLimitingResponses", "EnableAggregationPipeline"]
 }

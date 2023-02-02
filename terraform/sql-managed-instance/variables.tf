@@ -1,22 +1,26 @@
 variable "basename" {
   type        = string
-  description = "Basename of the module"
+  description = "Basename of the module."
 }
 
 variable "rg_name" {
   type        = string
-  description = "Resource group name"
+  description = "Resource group name."
+  validation {
+    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+  }
 }
 
 variable "location" {
   type        = string
-  description = "Location of the resource group"
+  description = "Location of the resource group."
 }
 
 variable "tags" {
   type        = map(string)
   default     = {}
-  description = "A mapping of tags which should be assigned to the deployed resource"
+  description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
 variable "is_sec_module" {
@@ -27,35 +31,35 @@ variable "is_sec_module" {
 
 variable "module_enabled" {
   type        = bool
-  description = "Variable to enable or disable the module"
+  description = "Variable to enable or disable the module."
 }
 
 variable "subnet_id" {
   type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated"
+  description = "The ID of the subnet from which private IP addresses will be allocated."
 }
 
 variable "subnet_private_enpoint_id" {
   type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint."
 }
 
 
 
 variable "route_table_id" {
   type        = string
-  description = " The route table for associated with the subnet"
+  description = " The route table for associated with the subnet."
 }
 
 variable "network_security_group_id" {
   type        = string
-  description = " The NSG for associated with the subnet"
+  description = " The NSG for associated with the subnet."
 }
 
 
 variable "license_type" {
   type        = string
-  description = "What type of license the Managed Instance will use"
+  description = "What type of license the Managed Instance will use."
   default     = "BasePrice"
   validation {
     condition     = contains(["LicenseIncluded", "BasePrice"], var.license_type)
@@ -65,7 +69,7 @@ variable "license_type" {
 
 variable "sku_name" {
   type        = string
-  description = "Specifies the SKU Name for the SQL Managed Instance"
+  description = "Specifies the SKU Name for the SQL Managed Instance."
   default     = "GP_Gen5"
   validation {
     condition     = contains(["GP_Gen4", "GP_Gen5", "GP_Gen8IM", "GP_Gen8IH", "BC_Gen4", "BC_Gen5", "BC_Gen8IM", "BC_Gen8IH"], var.sku_name)
@@ -76,13 +80,13 @@ variable "sku_name" {
 
 variable "storage_size_in_gb" {
   type        = number
-  description = "Maximum storage space for the SQL Managed instance"
+  description = "Maximum storage space for the SQL Managed instance."
   default     = 32
 }
 
 variable "vcores" {
   type        = number
-  description = "Number of cores that should be assigned to the SQL Managed Instance"
+  description = "Number of cores that should be assigned to the SQL Managed Instance."
   default     = 4
   validation {
     condition     = contains([4, 8, 16, 24, 32, 40, 64, 80], var.vcores)
@@ -93,18 +97,18 @@ variable "vcores" {
 
 variable "administrator_login" {
   type        = string
-  description = "The administrator login name for the new server"
+  description = "The administrator login name for the new server."
 }
 
 variable "administrator_login_password" {
   type        = string
   sensitive   = true
-  description = "The password associated with the administrator_login"
+  description = "The password associated with the administrator_login."
 }
 
 variable "maintenance_configuration_name" {
   type        = string
-  description = "The name of the Public Maintenance Configuration window to apply to the SQL Managed Instance"
+  description = "The name of the Public Maintenance Configuration window to apply to the SQL Managed Instance."
   default     = "SQL_Default"
   validation {
     condition     = contains(["SQL_Default", "SQL_EastUS_MI_1", "SQL_EastUS2_MI_1", "SQL_WestUS2_MI_1", "SQL_SoutheastAsia_MI_1", "SQL_AustraliaEast_MI_1", "SQL_NorthEurope_MI_1", "SQL_SouthCentralUS_MI_1", "SQL_UKSouth_MI_1", "SQL_WestEurope_MI_1", "SQL_EastUS_MI_2", "SQL_EastUS2_MI_2", "SQL_WestUS2_MI_2", "SQL_SoutheastAsia_MI_2", "SQL_NorthEurope_MI_2", "SQL_SouthCentralUS_MI_2", "SQL_UKSouth_MI_2", "SQL_WestEurope_MI_2", "SQL_AustraliaSoutheast_MI_1", "SQL_BrazilSouth_MI_1", "SQL_CanadaCentral_MI_1", "SQL_CanadaEast_MI_1", "SQL_CentralUS_MI_1", "SQL_EastAsia_MI_1", "SQL_FranceCentral_MI_1", "SQL_GermanyWestCentral_MI_1", "SQL_CentralIndia_MI_1", "SQL_JapanEast_MI_1", "SQL_JapanWest_MI_1", "SQL_NorthCentralUS_MI_1", "SQL_UKWest_MI_1", "SQL_WestUS_MI_1", "SQL_AustraliaSoutheast_MI_2", "SQL_BrazilSouth_MI_2", "SQL_CanadaCentral_MI_2", "SQL_CanadaEast_MI_2", "SQL_CentralUS_MI_2", "SQL_EastAsia_MI_2", "SQL_FranceCentral_MI_2", "SQL_GermanyWestCentral_MI_2", "SQL_CentralIndia_MI_2", "SQL_JapanEast_MI_2", "SQL_JapanWest_MI_2", "SQL_NorthCentralUS_MI_2", "SQL_UKWest_MI_2", "SQL_WestUS_MI_2", "SQL_KoreaCentral_MI_1", "SQL_KoreaCentral_MI_2", "SQL_WestCentralUS_MI_1", "SQL_WestCentralUS_MI_2", "SQL_UAENorth_MI_1", "SQL_SwitzerlandWest_MI_1", "SQL_SwitzerlandNorth_MI_1", "SQL_UAENorth_MI_2", "SQL_SwitzerlandWest_MI_2", "SQL_SwitzerlandNorth_MI_2", "SQL_FranceSouth_MI_1", "SQL_FranceSouth_MI_2", "SQL_SouthAfricaNorth_MI_1", "SQL_KoreaSouth_MI_1", "SQL_UAECentral_MI_1", "SQL_SouthAfricaNorth_MI_2", "SQL_KoreaSouth_MI_2", "SQL_UAECentral_MI_2", "SQL_SouthIndia_MI_1", "SQL_SouthIndia_MI_2", "SQL_AustraliaCentral_MI_1", "SQL_AustraliaCentral2_MI_1", "SQL_AustraliaCentral_MI_2", "SQL_AustraliaCentral2_MI_2", "SQL_WestIndia_MI_1", "SQL_WestIndia_MI_2", "SQL_SouthAfricaWest_MI_1", "SQL_SouthAfricaWest_MI_2", "SQL_GermanyNorth_MI_1", "SQL_GermanyNorth_MI_2", "SQL_NorwayEast_MI_1", "SQL_BrazilSoutheast_MI_1", "SQL_NorwayWest_MI_1", "SQL_WestUS3_MI_1", "SQL_NorwayEast_MI_2", "SQL_BrazilSoutheast_MI_2", "SQL_NorwayWest_MI_2", "SQL_WestUS3_MI_2"], var.maintenance_configuration_name)
@@ -138,7 +142,7 @@ variable "minimum_tls_version" {
 
 variable "proxy_override" {
   type        = string
-  description = "Specifies how the SQL Managed Instance will be accessed"
+  description = "Specifies how the SQL Managed Instance will be accessed."
   default     = "Default"
   validation {
     condition     = contains(["Default", "Proxy", "Redirect"], var.proxy_override)
@@ -158,7 +162,7 @@ variable "public_data_endpoint_enabled" {
 
 variable "storage_account_type" {
   type        = string
-  description = "Specifies the storage account type used to store backups for this database"
+  description = "Specifies the storage account type used to store backups for this database."
   default     = "GRS"
   validation {
     condition     = contains(["LRS", "ZRS", "GRS"], var.storage_account_type)
@@ -168,12 +172,12 @@ variable "storage_account_type" {
 
 variable "timezone_id" {
   type        = string
-  description = "The TimeZone ID that the SQL Managed Instance will be operating in"
+  description = "The TimeZone ID that the SQL Managed Instance will be operating in."
   default     = "UTC"
 }
 
 variable "private_dns_zone_ids" {
   type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include"
+  description = "Specifies the list of Private DNS Zones to include."
   default     = []
 }

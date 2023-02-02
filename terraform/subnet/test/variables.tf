@@ -11,6 +11,6 @@ variable "location" {
 
 variable "address_prefixes" {
   type        = list(string)
-  description = "value"
+  description = "value."
   default     = ["10.0.1.0/24"]
 }

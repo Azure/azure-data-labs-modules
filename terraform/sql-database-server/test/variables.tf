@@ -10,7 +10,11 @@ variable "location" {
 }
 
 variable "rg_name_dns" {
-  type    = string
+  type = string
+  validation {
+    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+  }
   default = "rg-adl-modules-test-01-global-dns"
 }
 
@@ -22,6 +26,6 @@ variable "is_sec_module" {
 
 variable "module_enabled" {
   type        = bool
-  description = "Variable to enable or disable the module"
+  description = "Variable to enable or disable the module."
   default     = true
 }

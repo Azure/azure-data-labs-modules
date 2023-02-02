@@ -11,12 +11,12 @@ variable "location" {
 
 variable "jumphost_username" {
   type        = string
-  description = "VM username"
+  description = "VM username."
   default     = "azureuser"
 }
 
 variable "jumphost_password" {
   type        = string
-  description = "VM password"
+  description = "VM password."
   default     = "ThisIsNotVerySecure!"
 }

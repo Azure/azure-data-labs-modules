@@ -1,22 +1,26 @@
 variable "basename" {
   type        = string
-  description = "Basename of the module"
+  description = "Basename of the module."
 }
 
 variable "rg_name" {
   type        = string
-  description = "Resource group name"
+  description = "Resource group name."
+  validation {
+    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+  }
 }
 
 variable "location" {
   type        = string
-  description = "Location of the resource group"
+  description = "Location of the resource group."
 }
 
 variable "tags" {
   type        = map(string)
   default     = {}
-  description = "A mapping of tags which should be assigned to the deployed resource"
+  description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
 variable "is_sec_module" {
@@ -27,13 +31,13 @@ variable "is_sec_module" {
 
 variable "subnet_id" {
   type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated for the user access Private Endpoints"
+  description = "The ID of the subnet from which private IP addresses will be allocated for the user access Private Endpoints."
   default     = ""
 }
 
 variable "backend_subnet_id" {
   type        = string
-  description = "Only used when maximum_network_security is true. The ID of the subnet from which private IP addresses will be allocated for the backend Private Endpoint"
+  description = "Only used when maximum_network_security is true. The ID of the subnet from which private IP addresses will be allocated for the backend Private Endpoint."
   default     = null
 }
 
@@ -45,30 +49,42 @@ variable "public_network_enabled" {
 
 variable "private_dns_zone_ids" {
   type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include"
+  description = "Specifies the list of Private DNS Zones to include."
   default     = []
 }
 
 variable "backend_private_dns_zone_ids" {
   type        = list(string)
-  description = "Only used when maximum_network_security is true. Specifies the list of Private DNS Zones to include for the backend"
+  description = "Only used when maximum_network_security is true. Specifies the list of Private DNS Zones to include for the backend."
   default     = null
 }
 
 variable "sku" {
   type        = string
-  description = "The sku to use for the Databricks Workspace"
-  default     = "premium"
+  description = "The sku to use for the Databricks Workspace."
+  validation {
+    condition     = contains(["standard", "premium", "trial"], lower(var.sku))
+    error_message = "Valid values for sku are \"Standard\", \"Premium\", or \"Trial\""
+  }
+  default = "premium"
 }
 
 variable "public_subnet_name" {
   type        = string
-  description = "The name of the Public Subnet within the Virtual Network"
+  description = "The name of the Public Subnet within the Virtual Network."
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9][-\\w\\.\\(\\)]+[\\w]$", var.public_subnet_name)) && length(var.public_subnet_name) >= 1 && length(var.public_subnet_name) <= 80
+    error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+  }
 }
 
 variable "private_subnet_name" {
   type        = string
-  description = "The name of the Private Subnet within the Virtual Network"
+  description = "The name of the Private Subnet within the Virtual Network."
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9][-\\w\\.\\(\\)]+[\\w]$", var.private_subnet_name)) && length(var.private_subnet_name) >= 1 && length(var.private_subnet_name) <= 80
+    error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+  }
 }
 
 variable "maximum_network_security" {
@@ -79,33 +95,41 @@ variable "maximum_network_security" {
 
 variable "virtual_network_id" {
   type        = string
-  description = "The ID of a Virtual Network where this Databricks Cluster should be created"
+  description = "The ID of a Virtual Network where this Databricks Cluster should be created."
 }
 
 variable "public_subnet_network_security_group_association_id" {
   type        = string
-  description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the public_subnet_name field"
+  description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the public_subnet_name field."
 }
 
 variable "private_subnet_network_security_group_association_id" {
   type        = string
-  description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the private_subnet_name field"
+  description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the private_subnet_name field."
 }
 
 variable "enable_ip_access_list" {
   type        = bool
-  description = "Enable IP access lists"
+  description = "Enable IP access lists."
   default     = false
 }
 
 variable "allow_ip_list" {
   type        = list(string)
-  description = "Specifies the list of IPs allowed to the workspace"
-  default     = []
+  description = "Specifies the list of IPs allowed to the workspace."
+  validation {
+    condition     = length(var.allow_ip_list) == 0 || alltrue([for v in var.allow_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
+    error_message = "Invalid IP or IP range in CIDR format found in the list"
+  }
+  default = []
 }
 
 variable "block_ip_list" {
   type        = list(string)
-  description = "Specifies the list of IPs blocked to the workspace"
-  default     = []
+  description = "Specifies the list of IPs blocked to the workspace."
+  validation {
+    condition     = length(var.block_ip_list) == 0 || alltrue([for v in var.block_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
+    error_message = "Invalid IP or IP range in CIDR format found in the list"
+  }
+  default = []
 }
