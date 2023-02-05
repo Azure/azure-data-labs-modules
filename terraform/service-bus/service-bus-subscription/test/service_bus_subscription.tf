@@ -8,5 +8,5 @@ module "service_bus_subscription" {
 # Module dependencies
 
 module "local_service_bus_topic" {
-  source = "../../service-bus-topic"
+  source = "../../service-bus-topic/test"
 }
