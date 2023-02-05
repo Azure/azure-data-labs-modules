@@ -20,5 +20,4 @@ resource "azurerm_stream_analytics_job" "adl_asa" {
     INTO [YourOutputAlias]
     FROM [YourInputAlias]
 QUERY
-
 }

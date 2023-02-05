@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{1,55}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
+    error_message = "The name must be between 2 and 60 characters, can contain only letters, numbers, and hyphens. Must start and end with a letter or number."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -28,7 +32,7 @@ variable "storage_account_name" {
   description = "The backend storage account name which will be used by this Function App."
   validation {
     condition     = can(regex("^[0-9a-z]{3,24}$", var.storage_account_name))
-    error_message = "Valid values for storage_account_name must be between 3 and 24 characters and can contain only lowercase letters and numbers"
+    error_message = "Valid values for storage_account_name must be between 3 and 24 characters and can contain only lowercase letters and numbers."
   }
 }
 

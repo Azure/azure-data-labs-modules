@@ -7,8 +7,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -32,6 +32,7 @@ variable "is_sec_module" {
 variable "module_enabled" {
   type        = bool
   description = "Variable to enable or disable the module."
+  default     = true
 }
 
 variable "subnet_id" {
@@ -44,8 +45,6 @@ variable "subnet_private_enpoint_id" {
   description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint."
 }
 
-
-
 variable "route_table_id" {
   type        = string
   description = " The route table for associated with the subnet."
@@ -55,7 +54,6 @@ variable "network_security_group_id" {
   type        = string
   description = " The NSG for associated with the subnet."
 }
-
 
 variable "license_type" {
   type        = string
@@ -75,7 +73,6 @@ variable "sku_name" {
     condition     = contains(["GP_Gen4", "GP_Gen5", "GP_Gen8IM", "GP_Gen8IH", "BC_Gen4", "BC_Gen5", "BC_Gen8IM", "BC_Gen8IH"], var.sku_name)
     error_message = "Valid values include GP_Gen4, GP_Gen5, GP_Gen8IM, GP_Gen8IH, BC_Gen4, BC_Gen5, BC_Gen8IM or BC_Gen8IH."
   }
-
 }
 
 variable "storage_size_in_gb" {
@@ -90,9 +87,8 @@ variable "vcores" {
   default     = 4
   validation {
     condition     = contains([4, 8, 16, 24, 32, 40, 64, 80], var.vcores)
-    error_message = "Values can be 8, 16, or 24 for Gen4 SKUs, or 4, 8, 16, 24, 32, 40, 64, or 80 for Gen5 SKUs"
+    error_message = "Values can be 8, 16, or 24 for Gen4 SKUs, or 4, 8, 16, 24, 32, 40, 64, or 80 for Gen5 SKUs."
   }
-
 }
 
 variable "administrator_login" {
@@ -112,7 +108,7 @@ variable "maintenance_configuration_name" {
   default     = "SQL_Default"
   validation {
     condition     = contains(["SQL_Default", "SQL_EastUS_MI_1", "SQL_EastUS2_MI_1", "SQL_WestUS2_MI_1", "SQL_SoutheastAsia_MI_1", "SQL_AustraliaEast_MI_1", "SQL_NorthEurope_MI_1", "SQL_SouthCentralUS_MI_1", "SQL_UKSouth_MI_1", "SQL_WestEurope_MI_1", "SQL_EastUS_MI_2", "SQL_EastUS2_MI_2", "SQL_WestUS2_MI_2", "SQL_SoutheastAsia_MI_2", "SQL_NorthEurope_MI_2", "SQL_SouthCentralUS_MI_2", "SQL_UKSouth_MI_2", "SQL_WestEurope_MI_2", "SQL_AustraliaSoutheast_MI_1", "SQL_BrazilSouth_MI_1", "SQL_CanadaCentral_MI_1", "SQL_CanadaEast_MI_1", "SQL_CentralUS_MI_1", "SQL_EastAsia_MI_1", "SQL_FranceCentral_MI_1", "SQL_GermanyWestCentral_MI_1", "SQL_CentralIndia_MI_1", "SQL_JapanEast_MI_1", "SQL_JapanWest_MI_1", "SQL_NorthCentralUS_MI_1", "SQL_UKWest_MI_1", "SQL_WestUS_MI_1", "SQL_AustraliaSoutheast_MI_2", "SQL_BrazilSouth_MI_2", "SQL_CanadaCentral_MI_2", "SQL_CanadaEast_MI_2", "SQL_CentralUS_MI_2", "SQL_EastAsia_MI_2", "SQL_FranceCentral_MI_2", "SQL_GermanyWestCentral_MI_2", "SQL_CentralIndia_MI_2", "SQL_JapanEast_MI_2", "SQL_JapanWest_MI_2", "SQL_NorthCentralUS_MI_2", "SQL_UKWest_MI_2", "SQL_WestUS_MI_2", "SQL_KoreaCentral_MI_1", "SQL_KoreaCentral_MI_2", "SQL_WestCentralUS_MI_1", "SQL_WestCentralUS_MI_2", "SQL_UAENorth_MI_1", "SQL_SwitzerlandWest_MI_1", "SQL_SwitzerlandNorth_MI_1", "SQL_UAENorth_MI_2", "SQL_SwitzerlandWest_MI_2", "SQL_SwitzerlandNorth_MI_2", "SQL_FranceSouth_MI_1", "SQL_FranceSouth_MI_2", "SQL_SouthAfricaNorth_MI_1", "SQL_KoreaSouth_MI_1", "SQL_UAECentral_MI_1", "SQL_SouthAfricaNorth_MI_2", "SQL_KoreaSouth_MI_2", "SQL_UAECentral_MI_2", "SQL_SouthIndia_MI_1", "SQL_SouthIndia_MI_2", "SQL_AustraliaCentral_MI_1", "SQL_AustraliaCentral2_MI_1", "SQL_AustraliaCentral_MI_2", "SQL_AustraliaCentral2_MI_2", "SQL_WestIndia_MI_1", "SQL_WestIndia_MI_2", "SQL_SouthAfricaWest_MI_1", "SQL_SouthAfricaWest_MI_2", "SQL_GermanyNorth_MI_1", "SQL_GermanyNorth_MI_2", "SQL_NorwayEast_MI_1", "SQL_BrazilSoutheast_MI_1", "SQL_NorwayWest_MI_1", "SQL_WestUS3_MI_1", "SQL_NorwayEast_MI_2", "SQL_BrazilSoutheast_MI_2", "SQL_NorwayWest_MI_2", "SQL_WestUS3_MI_2"], var.maintenance_configuration_name)
-    error_message = "Valid values include SQL_Default, SQL_EastUS_MI_1, SQL_EastUS2_MI_1, SQL_WestUS2_MI_1, SQL_SoutheastAsia_MI_1, SQL_AustraliaEast_MI_1, SQL_NorthEurope_MI_1, SQL_SouthCentralUS_MI_1, SQL_UKSouth_MI_1, SQL_WestEurope_MI_1, SQL_EastUS_MI_2, SQL_EastUS2_MI_2, SQL_WestUS2_MI_2, SQL_SoutheastAsia_MI_2, SQL_NorthEurope_MI_2, SQL_SouthCentralUS_MI_2, SQL_UKSouth_MI_2, SQL_WestEurope_MI_2, SQL_AustraliaSoutheast_MI_1, SQL_BrazilSouth_MI_1, SQL_CanadaCentral_MI_1, SQL_CanadaEast_MI_1, SQL_CentralUS_MI_1, SQL_EastAsia_MI_1, SQL_FranceCentral_MI_1, SQL_GermanyWestCentral_MI_1, SQL_CentralIndia_MI_1, SQL_JapanEast_MI_1, SQL_JapanWest_MI_1, SQL_NorthCentralUS_MI_1, SQL_UKWest_MI_1, SQL_WestUS_MI_1, SQL_AustraliaSoutheast_MI_2, SQL_BrazilSouth_MI_2, SQL_CanadaCentral_MI_2, SQL_CanadaEast_MI_2, SQL_CentralUS_MI_2, SQL_EastAsia_MI_2, SQL_FranceCentral_MI_2, SQL_GermanyWestCentral_MI_2, SQL_CentralIndia_MI_2, SQL_JapanEast_MI_2, SQL_JapanWest_MI_2, SQL_NorthCentralUS_MI_2, SQL_UKWest_MI_2, SQL_WestUS_MI_2, SQL_KoreaCentral_MI_1, SQL_KoreaCentral_MI_2, SQL_WestCentralUS_MI_1, SQL_WestCentralUS_MI_2, SQL_UAENorth_MI_1, SQL_SwitzerlandWest_MI_1, SQL_SwitzerlandNorth_MI_1, SQL_UAENorth_MI_2, SQL_SwitzerlandWest_MI_2, SQL_SwitzerlandNorth_MI_2, SQL_FranceSouth_MI_1, SQL_FranceSouth_MI_2, SQL_SouthAfricaNorth_MI_1, SQL_KoreaSouth_MI_1, SQL_UAECentral_MI_1, SQL_SouthAfricaNorth_MI_2, SQL_KoreaSouth_MI_2, SQL_UAECentral_MI_2, SQL_SouthIndia_MI_1, SQL_SouthIndia_MI_2, SQL_AustraliaCentral_MI_1, SQL_AustraliaCentral2_MI_1, SQL_AustraliaCentral_MI_2, SQL_AustraliaCentral2_MI_2, SQL_WestIndia_MI_1, SQL_WestIndia_MI_2, SQL_SouthAfricaWest_MI_1, SQL_SouthAfricaWest_MI_2, SQL_GermanyNorth_MI_1, SQL_GermanyNorth_MI_2, SQL_NorwayEast_MI_1, SQL_BrazilSoutheast_MI_1, SQL_NorwayWest_MI_1, SQL_WestUS3_MI_1, SQL_NorwayEast_MI_2, SQL_BrazilSoutheast_MI_2, SQL_NorwayWest_MI_2, SQL_WestUS3_MI_2. Defaults to SQL_Default"
+    error_message = "Valid values include SQL_Default, SQL_EastUS_MI_1, SQL_EastUS2_MI_1, SQL_WestUS2_MI_1, SQL_SoutheastAsia_MI_1, SQL_AustraliaEast_MI_1, SQL_NorthEurope_MI_1, SQL_SouthCentralUS_MI_1, SQL_UKSouth_MI_1, SQL_WestEurope_MI_1, SQL_EastUS_MI_2, SQL_EastUS2_MI_2, SQL_WestUS2_MI_2, SQL_SoutheastAsia_MI_2, SQL_NorthEurope_MI_2, SQL_SouthCentralUS_MI_2, SQL_UKSouth_MI_2, SQL_WestEurope_MI_2, SQL_AustraliaSoutheast_MI_1, SQL_BrazilSouth_MI_1, SQL_CanadaCentral_MI_1, SQL_CanadaEast_MI_1, SQL_CentralUS_MI_1, SQL_EastAsia_MI_1, SQL_FranceCentral_MI_1, SQL_GermanyWestCentral_MI_1, SQL_CentralIndia_MI_1, SQL_JapanEast_MI_1, SQL_JapanWest_MI_1, SQL_NorthCentralUS_MI_1, SQL_UKWest_MI_1, SQL_WestUS_MI_1, SQL_AustraliaSoutheast_MI_2, SQL_BrazilSouth_MI_2, SQL_CanadaCentral_MI_2, SQL_CanadaEast_MI_2, SQL_CentralUS_MI_2, SQL_EastAsia_MI_2, SQL_FranceCentral_MI_2, SQL_GermanyWestCentral_MI_2, SQL_CentralIndia_MI_2, SQL_JapanEast_MI_2, SQL_JapanWest_MI_2, SQL_NorthCentralUS_MI_2, SQL_UKWest_MI_2, SQL_WestUS_MI_2, SQL_KoreaCentral_MI_1, SQL_KoreaCentral_MI_2, SQL_WestCentralUS_MI_1, SQL_WestCentralUS_MI_2, SQL_UAENorth_MI_1, SQL_SwitzerlandWest_MI_1, SQL_SwitzerlandNorth_MI_1, SQL_UAENorth_MI_2, SQL_SwitzerlandWest_MI_2, SQL_SwitzerlandNorth_MI_2, SQL_FranceSouth_MI_1, SQL_FranceSouth_MI_2, SQL_SouthAfricaNorth_MI_1, SQL_KoreaSouth_MI_1, SQL_UAECentral_MI_1, SQL_SouthAfricaNorth_MI_2, SQL_KoreaSouth_MI_2, SQL_UAECentral_MI_2, SQL_SouthIndia_MI_1, SQL_SouthIndia_MI_2, SQL_AustraliaCentral_MI_1, SQL_AustraliaCentral2_MI_1, SQL_AustraliaCentral_MI_2, SQL_AustraliaCentral2_MI_2, SQL_WestIndia_MI_1, SQL_WestIndia_MI_2, SQL_SouthAfricaWest_MI_1, SQL_SouthAfricaWest_MI_2, SQL_GermanyNorth_MI_1, SQL_GermanyNorth_MI_2, SQL_NorwayEast_MI_1, SQL_BrazilSoutheast_MI_1, SQL_NorwayWest_MI_1, SQL_WestUS3_MI_1, SQL_NorwayEast_MI_2, SQL_BrazilSoutheast_MI_2, SQL_NorwayWest_MI_2, SQL_WestUS3_MI_2. Defaults to SQL_Default."
   }
 }
 
@@ -121,7 +117,6 @@ variable "dns_zone_partner_id" {
   description = "The ID of the SQL Managed Instance which will share the DNS zone."
   default     = ""
 }
-
 
 variable "collation" {
   type        = string
@@ -135,10 +130,9 @@ variable "minimum_tls_version" {
   default     = "1.2"
   validation {
     condition     = contains(["1.0", "1.1", "1.2"], var.minimum_tls_version)
-    error_message = "Valid values include 1.0, 1.1, 1.2"
+    error_message = "Valid values include 1.0, 1.1, 1.2."
   }
 }
-
 
 variable "proxy_override" {
   type        = string
@@ -146,7 +140,7 @@ variable "proxy_override" {
   default     = "Default"
   validation {
     condition     = contains(["Default", "Proxy", "Redirect"], var.proxy_override)
-    error_message = "Valid values include Default, Proxy, and Redirect"
+    error_message = "Valid values include Default, Proxy, and Redirect."
   }
 }
 
@@ -156,7 +150,7 @@ variable "public_data_endpoint_enabled" {
   default     = false
   validation {
     condition     = contains([true, false], var.public_data_endpoint_enabled)
-    error_message = "Valid values include True or False"
+    error_message = "Valid values include true or false."
   }
 }
 
@@ -166,7 +160,7 @@ variable "storage_account_type" {
   default     = "GRS"
   validation {
     condition     = contains(["LRS", "ZRS", "GRS"], var.storage_account_type)
-    error_message = "Possible values are GRS, LRS and ZRS"
+    error_message = "Possible values are GRS, LRS and ZRS."
   }
 }
 

@@ -7,8 +7,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -19,8 +19,8 @@ variable "location" {
 
 variable "tags" {
   type        = map(string)
-  default     = {}
   description = "A mapping of tags which should be assigned to the deployed resource."
+  default     = {}
 }
 
 variable "subnet_id" {
@@ -32,7 +32,6 @@ variable "virtual_network_id" {
   type        = string
   description = "The ID of the vnet."
 }
-
 
 variable "cluster_version" {
   type        = string

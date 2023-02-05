@@ -15,7 +15,6 @@ terraform {
       source = "azure/azapi"
     }
   }
-
 }
 
 provider "azurerm" {

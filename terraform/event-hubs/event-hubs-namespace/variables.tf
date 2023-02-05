@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{1,44}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
+    error_message = "The name must be between 6 and 50 characters, can contain only letters, numbers and hyphens. Must start with a letter, and it must end with a letter or number."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -46,7 +50,7 @@ variable "sku" {
   description = "Defines which tier to use."
   validation {
     condition     = contains(["basic", "standard", "premium"], lower(var.sku))
-    error_message = "Valid values for sku_name are \"Basic\", \"Standard\", or  \"Premium\""
+    error_message = "Valid values for sku_name are \"Basic\", \"Standard\", or  \"Premium\"."
   }
   default = "Standard"
 }
@@ -55,8 +59,8 @@ variable "maximum_throughput_units" {
   type        = number
   description = "Specifies the maximum number of throughput units when Auto Inflate is Enabled."
   validation {
-    condition     = var.maximum_throughput_units >= 1 && var.maximum_throughput_units <= 20
-    error_message = "Valid values for maximum_throughput_units are in the range [1, 20]"
+    condition     = var.maximum_throughput_units >= 1 && var.maximum_throughput_units <= 20 && floor(var.maximum_throughput_units) == var.maximum_throughput_units
+    error_message = "Valid values for maximum_throughput_units are integers in the range [1, 20]."
   }
   default = 20
 }

@@ -6,7 +6,6 @@ module "event_hubs" {
   namespace_name = module.event_hubs_namespace.name
 }
 
-
 # Module dependencies
 
 module "event_hubs_namespace" {

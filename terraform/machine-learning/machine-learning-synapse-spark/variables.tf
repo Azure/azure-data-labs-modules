@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w]{0,28}$", var.basename))
+    error_message = "The name must be between 3 and 33 characters, can contain only letters, numbers, hyphens, and underscores. Must start with a letter or number."
+  }
 }
 
 variable "location" {
@@ -25,6 +29,7 @@ variable "synapse_spark_pool_id" {
 }
 
 variable "module_enabled" {
-  description = "Variable to enable or disable AML synapse spark."
+  type        = bool
+  description = "Variable to enable or disable the module."
   default     = true
 }

@@ -2,7 +2,7 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{1,249}[^\\.]{1}$", var.basename))
+    condition     = can(regex("^[-\\w\\.\\(\\)]{0,249}", var.basename)) && can(regex("[-\\w\\(\\)]+$", var.basename))
     error_message = "The name must be between 1 and 255 characters, only allows alphanumeric characters, periods, underscores, hyphens and parenthesis and cannot end in a period."
   }
 }
@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -32,7 +32,7 @@ variable "application_type" {
   description = "Specifies the type of Application Insights to create."
   validation {
     condition     = contains(["ios", "java", "mobilecenter", "node.js", "other", "phone", "store", "web"], lower(var.application_type))
-    error_message = "Valid values for application_type are \"ios\", \"java\", \"MobileCenter\", \"Node.JS\", \"other\", \"phone\", \"store\", \"web\""
+    error_message = "Valid values for application_type are \"ios\", \"java\", \"MobileCenter\", \"Node.JS\", \"other\", \"phone\", \"store\", \"web\"."
   }
   default = "web"
 }

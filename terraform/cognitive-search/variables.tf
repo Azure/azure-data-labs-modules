@@ -2,7 +2,7 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[0-9a-z]{1}[-0-9a-z]{0,53}[^-]{1}$", var.basename))
+    condition     = can(regex("^[-0-9a-z]{1,55}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
     error_message = "The name must be between 2 and 60 characters, must only contain lowercase letters, digits or dashes, cannot use dash as the first two or last one characters, cannot contain consecutive dashes."
   }
 }
@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -50,7 +50,7 @@ variable "sku" {
   description = "The SKU which should be used for this Search Service."
   validation {
     condition     = contains(["basic", "free", "standard", "standard2", "standard3", "storage_optimized_l1", "storage_optimized_l2"], lower(var.sku))
-    error_message = "Valid values for sku_name are \"basic\", \"free\", \"standard\", \"standard2\", \"standard3\", \"storage_optimized_l1\", or \"storage_optimized_l2\""
+    error_message = "Valid values for sku_name are \"basic\", \"free\", \"standard\", \"standard2\", \"standard3\", \"storage_optimized_l1\", or \"storage_optimized_l2\"."
   }
   default = "standard"
 }
@@ -60,7 +60,7 @@ variable "partition_count" {
   description = "The number of partitions which should be created."
   validation {
     condition     = var.partition_count == 1 || var.partition_count == 2 || var.partition_count == 3 || var.partition_count == 4 || var.partition_count == 6 || var.partition_count == 12
-    error_message = "Valid values for partition_count are 1, 2, 3, 4, 6, or 12"
+    error_message = "Valid values for partition_count are 1, 2, 3, 4, 6, or 12."
   }
   default = 1
 }
@@ -70,7 +70,7 @@ variable "replica_count" {
   description = "The number of replica's which should be created."
   validation {
     condition     = var.replica_count == 1 || var.replica_count == 2 || var.replica_count == 3 || var.replica_count == 4 || var.replica_count == 6 || var.replica_count == 12
-    error_message = "Valid values for replica_count are 1, 2, 3, 4, 6, or 12"
+    error_message = "Valid values for replica_count are 1, 2, 3, 4, 6, or 12."
   }
   default = 1
 }

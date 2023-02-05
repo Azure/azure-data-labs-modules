@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w]{0,60}$", var.basename))
+    error_message = "The name must be between 1 and 64 characters, can contain only alphanumeric characters, underscores, and hyphens."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -64,7 +68,7 @@ variable "sku" {
   description = "The sku to use for the Databricks Workspace."
   validation {
     condition     = contains(["standard", "premium", "trial"], lower(var.sku))
-    error_message = "Valid values for sku are \"Standard\", \"Premium\", or \"Trial\""
+    error_message = "Valid values for sku are \"Standard\", \"Premium\", or \"Trial\"."
   }
   default = "premium"
 }
@@ -73,7 +77,7 @@ variable "public_subnet_name" {
   type        = string
   description = "The name of the Public Subnet within the Virtual Network."
   validation {
-    condition     = can(regex("^[a-zA-Z0-9][-\\w\\.\\(\\)]+[\\w]$", var.public_subnet_name)) && length(var.public_subnet_name) >= 1 && length(var.public_subnet_name) <= 80
+    condition     = can(regex("^[-\\w\\.]{1,80}$", var.public_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.public_subnet_name)) && can(regex("[\\w]+$", var.public_subnet_name))
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
@@ -82,7 +86,7 @@ variable "private_subnet_name" {
   type        = string
   description = "The name of the Private Subnet within the Virtual Network."
   validation {
-    condition     = can(regex("^[a-zA-Z0-9][-\\w\\.\\(\\)]+[\\w]$", var.private_subnet_name)) && length(var.private_subnet_name) >= 1 && length(var.private_subnet_name) <= 80
+    condition     = can(regex("^[-\\w\\.]{1,80}$", var.private_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.private_subnet_name)) && can(regex("[\\w]+$", var.private_subnet_name))
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
@@ -119,7 +123,7 @@ variable "allow_ip_list" {
   description = "Specifies the list of IPs allowed to the workspace."
   validation {
     condition     = length(var.allow_ip_list) == 0 || alltrue([for v in var.allow_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
-    error_message = "Invalid IP or IP range in CIDR format found in the list"
+    error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
 }
@@ -129,7 +133,7 @@ variable "block_ip_list" {
   description = "Specifies the list of IPs blocked to the workspace."
   validation {
     condition     = length(var.block_ip_list) == 0 || alltrue([for v in var.block_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
-    error_message = "Invalid IP or IP range in CIDR format found in the list"
+    error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
 }

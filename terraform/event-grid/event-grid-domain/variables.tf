@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{0,45}$", var.basename))
+    error_message = "The name must be between 3 and 50 characters, can contain only letters, numbers and hyphens."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -46,7 +50,7 @@ variable "input_schema" {
   description = "Specifies the schema in which incoming events will be published to this domain."
   validation {
     condition     = contains(["cloudeventschemav1_0", "customeventschema", "eventgridschema"], lower(var.input_schema))
-    error_message = "Valid values for input_schema are \"CloudEventSchemaV1_0\", \"CustomEventSchema\", \"EventGridSchema\""
+    error_message = "Valid values for input_schema are \"CloudEventSchemaV1_0\", \"CustomEventSchema\", \"EventGridSchema\"."
   }
   default = "EventGridSchema"
 }

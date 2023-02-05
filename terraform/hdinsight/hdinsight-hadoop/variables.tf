@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{0,53}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
+    error_message = "The name must be between 1 and 59 characters, can contain only letters, numbers, and hyphens. Must start and end with a letter or number."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -32,7 +36,6 @@ variable "virtual_network_id" {
   type        = string
   description = "The ID of the vnet."
 }
-
 
 variable "cluster_version" {
   type        = string

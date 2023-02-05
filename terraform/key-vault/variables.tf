@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{1,21}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
+    error_message = "The name must be between 3 and 24 characters, can contain only letters, numbers, and hyphens. Must start with a letter and end with a letter or number. Cannot contain consecutive hyphens."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -45,10 +49,10 @@ variable "sku_name" {
   type        = string
   description = "The Name of the SKU used for this Key Vault."
   validation {
-    condition     = contains(["standard", "premium"], lower(var.sku_name))
-    error_message = "Valid values for sku_name are \"Standard\" or \"Premium\""
+    condition     = contains(["standard", "premium"], var.sku_name)
+    error_message = "Valid values for sku_name are \"standard\" or \"premium\"."
   }
-  default = "Standard"
+  default = "standard"
 }
 
 variable "enabled_for_disk_encryption" {
@@ -61,8 +65,8 @@ variable "soft_delete_retention_days" {
   type        = number
   description = "The number of days that items should be retained for once soft-deleted."
   validation {
-    condition     = var.soft_delete_retention_days >= 7 && var.soft_delete_retention_days <= 90
-    error_message = "Valid values for soft_delete_retention_days are in the range [7, 90]"
+    condition     = var.soft_delete_retention_days >= 7 && var.soft_delete_retention_days <= 90 && floor(var.soft_delete_retention_days) == var.soft_delete_retention_days
+    error_message = "Valid values for soft_delete_retention_days are integers in the range [7, 90]."
   }
   default = 90
 }
@@ -90,7 +94,7 @@ variable "firewall_default_action" {
   description = "Specifies the default action of allow or deny when no other rules match."
   validation {
     condition     = contains(["allow", "deny"], lower(var.firewall_default_action))
-    error_message = "Valid values for firewall_default_action are \"Allow\" or \"Deny\""
+    error_message = "Valid values for firewall_default_action are \"Allow\" or \"Deny\"."
   }
   default = "Deny"
 }
@@ -100,7 +104,7 @@ variable "firewall_ip_rules" {
   description = "List of public IP or IP ranges in CIDR Format."
   validation {
     condition     = length(var.firewall_ip_rules) == 0 || alltrue([for v in var.firewall_ip_rules : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
-    error_message = "Invalid IP or IP range in CIDR format found in the list"
+    error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
 }
@@ -110,7 +114,7 @@ variable "firewall_bypass" {
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices."
   validation {
     condition     = contains(["azureservices", "none"], lower(var.firewall_bypass))
-    error_message = "Valid values for firewall_bypass are \"AzureServices\" or \"None\""
+    error_message = "Valid values for firewall_bypass are \"AzureServices\" or \"None\"."
   }
   default = "AzureServices"
 }

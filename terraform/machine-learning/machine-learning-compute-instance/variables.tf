@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w]{0,19}$", var.basename)) && !can(regex("-[0-9]$", var.basename))
+    error_message = "The name must be between 3 and 24 characters, can contain only letters, numbers, hyphens. Must start with a letter. Cannot end with a hyphen or a hyphen followed by a number."
+  }
 }
 
 variable "location" {
@@ -33,10 +37,15 @@ variable "virtual_machine_size" {
 variable "authorization_type" {
   type        = string
   description = "The Compute Instance Authorization type."
-  default     = "personal"
+  validation {
+    condition     = contains(["personal"], lower(var.authorization_type))
+    error_message = "Valid values for authorization_type are \"personal\"."
+  }
+  default = "personal"
 }
 
 variable "module_enabled" {
-  description = "Variable to enable or disable AML compute instance."
+  type        = bool
+  description = "Variable to enable or disable the module."
   default     = true
 }

@@ -1,15 +1,15 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w]{0,27}$", var.basename))
+    error_message = "The name must be between 3 and 32 characters, can contain only letters, numbers, hyphens. Must start with a letter."
+  }
 }
 
-variable "rg_name" {
+variable "location" {
   type        = string
-  description = "Resource group name."
-  validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
-  }
+  description = "Location of the resource group."
 }
 
 variable "tags" {
@@ -31,16 +31,21 @@ variable "subnet_id" {
 variable "vm_priority" {
   type        = string
   description = "The priority of the VM."
-  default     = "LowPriority"
+  validation {
+    condition     = contains(["dedicate", "lowpriority"], lower(var.vm_priority))
+    error_message = "Valid values for vm_priority are \"Dedicated\", or \"LowPriority\"."
+  }
+  default = "LowPriority"
 }
 
 variable "vm_size" {
   type        = string
   description = "The size of the VM."
-  default     = "STANDARD_DS2_V2"
+  default     = "Standard_DS2_v2"
 }
 
 variable "module_enabled" {
-  description = "Variable to enable or disable AML compute cluster."
-  default     = false
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
 }

@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -43,8 +43,8 @@ variable "sku" {
   type        = string
   description = "The SKU name of the container registry."
   validation {
-    condition     = contains(["basic", "standard", "premium"], lower(var.sku_name))
-    error_message = "Valid values for sku_name are \"Basic\", \"Standard\", or \"Premium\""
+    condition     = contains(["basic", "standard", "premium"], lower(var.sku))
+    error_message = "Valid values for sku_name are \"Basic\", \"Standard\", or \"Premium\"."
   }
   default = "Premium"
 }
@@ -72,7 +72,7 @@ variable "firewall_default_action" {
   description = "Specifies the default action of allow or deny when no other rules match."
   validation {
     condition     = contains(["allow", "deny"], lower(var.firewall_default_action))
-    error_message = "Valid values for firewall_default_action are \"Allow\" or \"Deny\""
+    error_message = "Valid values for firewall_default_action are \"Allow\" or \"Deny\"."
   }
   default = "Deny"
 }

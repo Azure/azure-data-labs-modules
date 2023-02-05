@@ -1,15 +1,11 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kusto_cluster
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 data "http" "ip" {
   url = "https://ifconfig.me"
 }
 
 resource "azurerm_kusto_cluster" "adl_dec" {
-  name                = "dec${local.safe_basename}"
+  name                = "dec${var.basename}"
   location            = var.location
   resource_group_name = var.rg_name
 

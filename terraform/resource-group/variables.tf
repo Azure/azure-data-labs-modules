@@ -1,8 +1,8 @@
 variable "basename" {
   type = string
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,86}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{0,87}", var.basename)) && can(regex("[\\w]+$", var.basename))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
   description = "Basename of the module."
 }

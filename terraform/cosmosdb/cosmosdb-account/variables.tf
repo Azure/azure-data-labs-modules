@@ -2,7 +2,7 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[-0-9a-z]{0,36}[^-]{1}$", var.basename))
+    condition     = can(regex("^[-0-9a-z]{1,37}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
     error_message = "The name must be between 3 and 44 characters, can contain only lowercase letters, numbers and the '-' character, and must not start or end with the character '-'."
   }
 }
@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -37,8 +37,8 @@ variable "offer_type" {
   type        = string
   description = "Specifies the Offer Type to use for this CosmosDB Account - currently this can only be set to Standard."
   validation {
-    condition     = contains(["standard"], lower(var.sku_name))
-    error_message = "Valid values for offer_type are \"Standard\""
+    condition     = contains(["standard"], lower(var.offer_type))
+    error_message = "Valid values for offer_type are \"Standard\"."
   }
   default = "Standard"
 }
@@ -66,7 +66,7 @@ variable "kind" {
   description = "Specifies the Kind of CosmosDB to create."
   validation {
     condition     = contains(["globaldocumentdb", "mongodb", "parse"], lower(var.kind))
-    error_message = "Valid values for sku_name are \"GlobalDocumentDB\", \"MongoDB \", or \"Parse\""
+    error_message = "Valid values for sku_name are \"GlobalDocumentDB\", \"MongoDB \", or \"Parse\"."
   }
   default = "GlobalDocumentDB"
 }
@@ -75,8 +75,8 @@ variable "enable_capabilities" {
   type        = list(string)
   description = "Configures the capabilities to enable for the Cosmos DB account."
   validation {
-    condition     = length(var.enable_capabilities) == 0 || alltrue([for v in var.enable_capabilities : contains(["AllowSelfServeUpgradeToMongo36", "DisableRateLimitingResponses", "EnableAggregationPipeline", "EnableCassandra", "EnableGremlin", "EnableMongo", "EnableMongo16MBDocumentSupport", "EnableTable", "EnableServerless", "MongoDBv3.4", "mongoEnableDocLevelTTL"], lower(v))])
-    error_message = "Valid values for enable_capabilities are \"AllowSelfServeUpgradeToMongo36\", \"DisableRateLimitingResponses\", \"EnableAggregationPipeline\", \"EnableCassandra\", \"EnableGremlin\", \"EnableMongo\", \"EnableMongo16MBDocumentSupport\", \"EnableTable\", \"EnableServerless\", \"MongoDBv3.4\", \"mongoEnableDocLevelTTL\""
+    condition     = length(var.enable_capabilities) == 0 || alltrue([for v in var.enable_capabilities : contains(["allowselfserveupgradetomongo36", "disableratelimitingresponses", "enableaggregationpipeline", "enablecassandra", "enablegremlin", "enablemongo", "enablemongo16mbdocumentsupport", "enabletable", "enableserverless", "mongodbv3.4", "mongoenabledoclevelttl"], lower(v))])
+    error_message = "Valid values for enable_capabilities are \"AllowSelfServeUpgradeToMongo36\", \"DisableRateLimitingResponses\", \"EnableAggregationPipeline\", \"EnableCassandra\", \"EnableGremlin\", \"EnableMongo\", \"EnableMongo16MBDocumentSupport\", \"EnableTable\", \"EnableServerless\", \"MongoDBv3.4\", \"mongoEnableDocLevelTTL\"."
   }
   default = []
 }

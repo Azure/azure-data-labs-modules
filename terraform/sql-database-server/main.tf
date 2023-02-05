@@ -1,6 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/sql_server
 
-resource "azurerm_sql_server" "adl_sql" {
+resource "azurerm_mssql_server" "adl_sql" {
   name                         = "sql-${var.basename}"
   resource_group_name          = var.rg_name
   location                     = var.location
@@ -12,12 +12,11 @@ resource "azurerm_sql_server" "adl_sql" {
   tags  = var.tags
 }
 
-resource "azurerm_sql_firewall_rule" "metastore_server_rule" {
-  name                = "AllowAzureServices"
-  resource_group_name = var.rg_name
-  server_name         = azurerm_sql_server.adl_sql[0].name
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.adl_sql[0].id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 
   count = var.is_sec_module ? 0 : 1
 }
@@ -25,14 +24,14 @@ resource "azurerm_sql_firewall_rule" "metastore_server_rule" {
 # Private Endpoint configuration
 
 resource "azurerm_private_endpoint" "sql_pe_server" {
-  name                = "pe-${azurerm_sql_server.adl_sql[0].name}-server"
+  name                = "pe-${azurerm_mssql_server.adl_sql[0].name}-server"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
 
   private_service_connection {
     name                           = "psc-server-${var.basename}"
-    private_connection_resource_id = azurerm_sql_server.adl_sql[0].id
+    private_connection_resource_id = azurerm_mssql_server.adl_sql[0].id
     subresource_names              = ["sqlServer"]
     is_manual_connection           = false
   }

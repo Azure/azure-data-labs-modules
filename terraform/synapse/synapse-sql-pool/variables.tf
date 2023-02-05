@@ -22,6 +22,6 @@ variable "create_mode" {
 
 variable "module_enabled" {
   type        = bool
-  description = "Variable to enable or disable Synapse Dedicated SQL pool deployment."
+  description = "Variable to enable or disable the module."
   default     = true
 }

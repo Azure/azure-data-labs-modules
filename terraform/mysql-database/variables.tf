@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-z]{1,50}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
+    error_message = "The name must be between 3 and 63 characters, can only contain lowercase letters, numbers, and hyphens. Must not start or end with a hyphen."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -37,14 +41,14 @@ variable "is_sec_module" {
 
 variable "subnet_id" {
   type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint."
+  description = "The ID of the subnet delegated to MySQL for the service to be injected privately in that subnet."
   default     = ""
 }
 
-variable "private_dns_zone_ids" {
-  type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include."
-  default     = []
+variable "private_dns_zone_id" {
+  type        = string
+  description = "Specifies the Private DNS Zone to include."
+  default     = ""
 }
 
 variable "administrator_login" {
@@ -53,7 +57,7 @@ variable "administrator_login" {
   default     = "sqladminuser"
 }
 
-variable "administrator_login_password" {
+variable "administrator_password" {
   type        = string
   description = "The Password associated with the administrator_login."
   default     = "ThisIsNotVerySecure!"
@@ -62,19 +66,27 @@ variable "administrator_login_password" {
 variable "sku_name" {
   type        = string
   description = "Specifies the SKU Name for this MySQL Server."
-  default     = "GP_Gen5_2"
+  default     = "GP_Standard_D2ds_v4"
 }
 
-variable "storage_mb" {
+variable "storage_gb" {
   type        = number
-  description = "Max storage allowed for a server."
-  default     = 5120
+  description = "Max storage allowed for this MySQL Server."
+  validation {
+    condition     = var.storage_gb >= 20 && var.storage_gb <= 16384 && floor(var.storage_gb) == var.storage_gb
+    error_message = "Valid values for storage_gb are integers in the range [20, 16384]."
+  }
+  default = 64
 }
 
 variable "ver" {
   type        = string
   description = "Specifies the version of MySQL to use."
-  default     = "5.7"
+  validation {
+    condition     = contains(["5.7", "8.0.21"], var.ver)
+    error_message = "Valid values for ver are \"5.7\" or \"8.0.21\"."
+  }
+  default = "5.7"
 }
 
 variable "auto_grow_enabled" {
@@ -86,7 +98,11 @@ variable "auto_grow_enabled" {
 variable "backup_retention_days" {
   type        = number
   description = "Backup retention days for the server."
-  default     = 7
+  validation {
+    condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35 && floor(var.backup_retention_days) == var.backup_retention_days
+    error_message = "Valid values for backup_retention_days are in the range [7, 35]."
+  }
+  default = 7
 }
 
 variable "geo_redundant_backup_enabled" {
@@ -95,28 +111,10 @@ variable "geo_redundant_backup_enabled" {
   default     = false
 }
 
-variable "infrastructure_encryption_enabled" {
-  type        = bool
-  description = "Whether or not infrastructure is encrypted for this server."
-  default     = false
-}
-
 variable "public_network_access_enabled" {
   type        = bool
   description = "Whether or not public network access is allowed for this server."
   default     = false
-}
-
-variable "ssl_enforcement_enabled" {
-  type        = bool
-  description = "Specifies if SSL should be enforced on connections."
-  default     = true
-}
-
-variable "ssl_minimal_tls_version_enforced" {
-  type        = string
-  description = "The minimum TLS version to support on the sever."
-  default     = "TLS1_2"
 }
 
 variable "charset" {
@@ -129,4 +127,27 @@ variable "collation" {
   type        = string
   description = "Specifies the Collation for the MySQL Database."
   default     = "utf8_unicode_ci"
+}
+
+variable "identity_ids" {
+  type        = list(string)
+  description = "Specifies the IDs of the User Assigned Managed Identities to be assigned to the MySQL Server."
+  default     = []
+}
+
+variable "customer_managed_key" {
+  type = map(
+    object(
+      {
+        key_vault_key_id                  = optional(string)
+        primary_user_assigned_identity_id = optional(string)
+      }
+    )
+  )
+  description = "Specifies the ID of the User Assigned Managed Identity to be used by MySQL Server to access the Customer Managed Key."
+  validation {
+    condition     = length(var.customer_managed_key) <= 1
+    error_message = "customer_managed_key accepts, at most, one object."
+  }
+  default = {}
 }

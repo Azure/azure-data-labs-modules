@@ -1,11 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/machine_learning_compute_cluster
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_machine_learning_compute_cluster" "adl_mlw_compute_cluster" {
-  name                          = "mlwcc${local.safe_basename}"
+  name                          = "mlwcc${var.basename}"
   location                      = var.location
   vm_priority                   = var.vm_priority
   vm_size                       = var.vm_size

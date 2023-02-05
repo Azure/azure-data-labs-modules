@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{0,11}$", var.basename))
+    error_message = "The name must be between 2 and 16 characters, can contain only letters, numbers, hyphens. Must start with a letter."
+  }
 }
 
 variable "location" {
@@ -27,10 +31,15 @@ variable "kubernetes_cluster_id" {
 variable "cluster_purpose" {
   type        = string
   description = "The purpose of the Inference Cluster."
-  default     = "FastProd"
+  validation {
+    condition     = contains(["devtest", "denseprod", "fastprod"], lower(var.cluster_purpose))
+    error_message = "Valid values for cluster_purpose are \"DevTest\", \"DenseProd\", or \"FastProd\"."
+  }
+  default = "FastProd"
 }
 
 variable "module_enabled" {
-  description = "Variable to enable or disable AML synapse spark."
+  type        = bool
+  description = "Variable to enable or disable the module."
   default     = true
 }

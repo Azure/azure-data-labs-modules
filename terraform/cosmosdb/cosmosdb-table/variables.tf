@@ -2,7 +2,7 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[-0-9a-z]{0,36}[^-]{1}$", var.basename))
+    condition     = can(regex("^[-0-9a-z]{1,37}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
     error_message = "The name must be between 3 and 44 characters, can contain only lowercase letters, numbers and the '-' character, and must not start or end with the character '-'."
   }
 }
@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -65,8 +65,8 @@ variable "throughput" {
   type        = number
   description = "The throughput of Table (RU/s)."
   validation {
-    condition     = var.throughput >= 400 && var.throughput <= 1000000
-    error_message = "Valid values for throughput are in the range [400, 1000000]"
+    condition     = var.throughput >= 400 && var.throughput <= 1000000 && floor(var.throughput) == var.throughput
+    error_message = "Valid values for throughput are integers in the range [400, 1000000]."
   }
   default = 400
 }

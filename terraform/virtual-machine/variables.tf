@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = !can(regex("^[0-9]*$", var.basename)) && !can(regex("[\\/\"[\\]:|<>+=;,?\\*@&\\s]+", var.basename))
-    error_message = "Windows VM names must be between 1 and 64 characters, they cannot contain only numbers, neither they can contain special characters \\/\"[]:|<>+=;,?*@&, whitespace, or begin with '_' or end with '.' or '-'"
+    error_message = "Windows VM names must be between 1 and 64 characters, they cannot contain only numbers, neither they can contain special characters \\/\"[]:|<>+=;,?*@&, whitespace, or begin with '_' or end with '.' or '-'."
   }
   default = ""
 }
@@ -12,8 +12,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 

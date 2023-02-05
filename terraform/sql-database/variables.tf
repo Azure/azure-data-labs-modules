@@ -7,8 +7,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -29,22 +29,13 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "server_name" {
+variable "server_id" {
   type        = string
-  description = "The name of the SQL Server on which to create the database."
+  description = "The id of the SQL Server on which to create the database."
 }
 
 variable "collation" {
   type        = string
   description = "The name of the collation."
-}
-
-variable "edition" {
-  type        = string
-  description = "The edition of the database to be created."
-}
-
-variable "requested_service_objective_name" {
-  type        = string
-  description = "A GUID/UUID corresponding to a configured Service Level Objective for the Azure SQL database which can be used to configure a performance level."
+  default     = "SQL_Latin1_General_CP1_CI_AS"
 }

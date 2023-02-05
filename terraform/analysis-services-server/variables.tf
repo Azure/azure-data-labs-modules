@@ -11,8 +11,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -38,7 +38,7 @@ variable "sku" {
   description = "The SKU for the Analysis Services Server."
   validation {
     condition     = contains(["d1", "b1", "b2", "s0", "s1", "s2", "s4", "s8", "s9", "s8v2", "s9v2"], lower(var.sku))
-    error_message = "Valid values for sku are \"D1\", \"B1\", \"B2\", \"S0\", \"S1\", \"S2\", \"S4\", \"S8\", \"S9\", \"S8v2\", \"S9v2\""
+    error_message = "Valid values for sku are \"D1\", \"B1\", \"B2\", \"S0\", \"S1\", \"S2\", \"S4\", \"S8\", \"S9\", \"S8v2\", \"S9v2\"."
   }
   default = "S0"
 }
@@ -54,7 +54,7 @@ variable "admin_users" {
   description = "List of email addresses of admin user."
   validation {
     condition     = length(var.admin_users) == 0 || alltrue([for v in var.admin_users : can(regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", v))])
-    error_message = "Invalid email addresses found in the list"
+    error_message = "Invalid email addresses found in the list."
   }
   default = []
 }

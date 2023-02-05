@@ -1,14 +1,18 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[0-9a-z]{0,48}$", var.basename)) && !can(regex("-$", var.basename))
+    error_message = "The name must be between 3 and 63 characters,can only contain lowercase letters, numbers, and hyphens. Cannot not begin or end with a hyphen."
+  }
 }
 
 variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -68,13 +72,21 @@ variable "sku_name" {
 variable "storage_mb" {
   type        = number
   description = "Max storage allowed for a server."
-  default     = 5120
+  validation {
+    condition     = var.storage_mb >= 5120 && var.storage_mb <= 4096000 && floor(var.storage_mb) == var.storage_mb
+    error_message = "Valid values for storage_mb are integers in the range [5120, 4096000] for General Purpose and Memory Optimized SKUs. For Basic SKU is resticted further to the range [5120, 1024000]"
+  }
+  default = 5120
 }
 
 variable "ver" {
   type        = string
   description = "Specifies the version of MariaDB to use."
-  default     = "10.3"
+  validation {
+    condition     = contains(["10.2", "10.3"], var.ver)
+    error_message = "Valid values for ver are \"10.2\" or \"10.3\""
+  }
+  default = "10.3"
 }
 
 variable "auto_grow_enabled" {
@@ -86,7 +98,11 @@ variable "auto_grow_enabled" {
 variable "backup_retention_days" {
   type        = number
   description = "Backup retention days for the server."
-  default     = 7
+  validation {
+    condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35 && floor(var.backup_retention_days) == var.backup_retention_days
+    error_message = "Valid values for backup_retention_days are in the range [7, 35]"
+  }
+  default = 7
 }
 
 variable "geo_redundant_backup_enabled" {

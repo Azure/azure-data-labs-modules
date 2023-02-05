@@ -2,8 +2,8 @@ variable "rg_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{0,89}[^\\.]{1}$", var.rg_name))
-    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)"
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}", var.rg_name)) && can(regex("[\\w]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
 
@@ -11,8 +11,8 @@ variable "vnet_name" {
   type        = string
   description = "The name of the virtual network to which to attach the subnet."
   validation {
-    condition     = can(regex("^[a-zA-Z0-9]{1}[-\\w\\.\\(\\)]{0,78}}[\\w]?$", var.vnet_name))
-    error_message = "The name for the virtual network be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens"
+    condition     = can(regex("^[-\\w\\.]{1,80}$", var.vnet_name)) && can(regex("^[0-9a-zA-Z]+", var.vnet_name)) && can(regex("[\\w]+$", var.vnet_name))
+    error_message = "The name for the virtual network must be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
 
@@ -26,8 +26,8 @@ variable "name" {
   type        = string
   description = "Name of the subnet."
   validation {
-    condition     = can(regex("^[a-zA-Z0-9][-\\w\\.\\(\\)]+[\\w]$", var.name)) && length(var.name) >= 1 && length(var.name) <= 80
-    error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+    condition     = can(regex("^[-\\w\\.]{1,80}$", var.name)) && can(regex("^[0-9a-zA-Z]+", var.name)) && can(regex("[\\w]+$", var.name))
+    error_message = "The name for the subnet must be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
 
@@ -52,8 +52,8 @@ variable "service_endpoints" {
   type        = list(string)
   description = "The list of Service endpoints to associate with the subnet."
   validation {
-    condition     = contains(["Microsoft.AzureActiveDirectory", "Microsoft.AzureCosmosDB", "Microsoft.ContainerRegistry", "Microsoft.EventHub", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Sql", "Microsoft.Storage", "Microsoft.Web"], lower(var.service_endpoints))
-    error_message = "Valid values for service_endpoints are \"Microsoft.AzureActiveDirectory\", \"Microsoft.AzureCosmosDB\", \"Microsoft.ContainerRegistry\", \"Microsoft.EventHub\", \"Microsoft.KeyVault\", \"Microsoft.ServiceBus\", \"Microsoft.Sql\", \"Microsoft.Storage\", or \"Microsoft.Web\""
+    condition     = alltrue([for v in var.service_endpoints : contains(["microsoft.azureactivedirectory", "microsoft.azurecosmosdb", "microsoft.containerregistry", "microsoft.eventhub", "microsoft.keyvault", "microsoft.servicebus", "microsoft.sql", "microsoft.storage", "microsoft.web"], lower(v))])
+    error_message = "Valid values for service_endpoints are \"Microsoft.AzureActiveDirectory\", \"Microsoft.AzureCosmosDB\", \"Microsoft.ContainerRegistry\", \"Microsoft.EventHub\", \"Microsoft.KeyVault\", \"Microsoft.ServiceBus\", \"Microsoft.Sql\", \"Microsoft.Storage\", or \"Microsoft.Web\"."
   }
   default = []
 }
