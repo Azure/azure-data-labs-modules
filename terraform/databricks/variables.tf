@@ -122,7 +122,7 @@ variable "allow_ip_list" {
   type        = list(string)
   description = "Specifies the list of IPs allowed to the workspace."
   validation {
-    condition     = length(var.allow_ip_list) == 0 || alltrue([for v in var.allow_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
+    condition     = length(var.allow_ip_list) == 0 || alltrue([for v in var.allow_ip_list : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))(\/([0-9]|[12][0-9]|3[0-2]))?$", v))])
     error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
@@ -132,7 +132,7 @@ variable "block_ip_list" {
   type        = list(string)
   description = "Specifies the list of IPs blocked to the workspace."
   validation {
-    condition     = length(var.block_ip_list) == 0 || alltrue([for v in var.block_ip_list : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", v))])
+    condition     = length(var.block_ip_list) == 0 || alltrue([for v in var.block_ip_list : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))(\/([0-9]|[12][0-9]|3[0-2]))?$", v))])
     error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []

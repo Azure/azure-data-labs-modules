@@ -31,7 +31,7 @@ variable "address_space" {
   type        = list(string)
   description = "The address space that is used the virtual network."
   validation {
-    condition     = length(var.address_space) == 0 || alltrue([for v in var.address_space : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2])){1}$", v))])
+    condition     = length(var.address_space) == 0 || alltrue([for v in var.address_space : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))\/([0-9]|[12][0-9]|3[0-2])$", v))])
     error_message = "Invalid IP range in CIDR format found in the list."
   }
 }
@@ -40,7 +40,7 @@ variable "dns_servers" {
   type        = list(string)
   description = "List of DNS servers to use for virtual network."
   validation {
-    condition     = length(var.dns_servers) == 0 || alltrue([for v in var.dns_servers : can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2])){1}$", v))])
+    condition     = length(var.dns_servers) == 0 || alltrue([for v in var.dns_servers : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))\/([0-9]|[12][0-9]|3[0-2])$", v))])
     error_message = "Invalid IP range in CIDR format found in the list."
   }
   default = []
