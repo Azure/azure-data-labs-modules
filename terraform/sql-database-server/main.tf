@@ -7,6 +7,7 @@ resource "azurerm_mssql_server" "adl_sql" {
   version                      = var.db_version
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_login_password
+  minimum_tls_version          = var.minimum_tls_version
 
   count = var.module_enabled ? 1 : 0
   tags  = var.tags

@@ -61,3 +61,13 @@ variable "administrator_login_password" {
   type        = string
   description = "The password associated with the administrator_login."
 }
+
+variable "minimum_tls_version" {
+  type        = string
+  description = "The Minimum TLS Version for all SQL Database and SQL Data Warehouse databases associated with the server."
+  validation {
+    condition     = contains(["1.0", "1.1", "1.2", "disabled"], lower(var.minimum_tls_version))
+    error_message = "Valid values for sku are \"1.0\", \"1.1\", \"1.2\", or \"Disabled\"."
+  }
+  default = "1.2"
+}
