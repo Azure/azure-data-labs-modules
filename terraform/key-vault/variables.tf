@@ -103,7 +103,7 @@ variable "firewall_ip_rules" {
   type        = list(string)
   description = "List of public IP or IP ranges in CIDR Format."
   validation {
-    condition     = length(var.firewall_ip_rules) == 0 || alltrue([for v in var.firewall_ip_rules : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))(\/([0-9]|[12][0-9]|3[0-2]))?$", v))])
+    condition     = length(var.firewall_ip_rules) == 0 || alltrue([for v in var.firewall_ip_rules : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))(\\/([0-9]|[12][0-9]|3[0-2]))?$", v))])
     error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
