@@ -67,7 +67,7 @@ variable "api_server_authorized_ip_ranges" {
   type        = list(string)
   description = "The IP ranges to allow for incoming traffic to the server nodes. By default 0.0.0.0/0."
   validation {
-    condition     = length(var.api_server_authorized_ip_ranges) == 0 || alltrue([for v in var.api_server_authorized_ip_ranges : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))\/([0-9]|[12][0-9]|3[0-2])$", v))])
+    condition     = length(var.api_server_authorized_ip_ranges) == 0 || alltrue([for v in var.api_server_authorized_ip_ranges : can(regex("^(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9])[.]){3}(([2]([0-4][0-9]|[5][0-5])|[0-1]?[0-9]?[0-9]))\\/([0-9]|[12][0-9]|3[0-2])$", v))])
     error_message = "Invalid IP range in CIDR format found in the list."
   }
   default = []
