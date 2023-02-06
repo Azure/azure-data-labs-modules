@@ -1,22 +1,30 @@
 variable "basename" {
   type        = string
-  description = "Basename of the module"
+  description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-zA-Z]{0,45}$", var.basename))
+    error_message = "The name must be between 3 and 50 characters, can contain only letters, numbers and hyphens."
+  }
 }
 
 variable "rg_name" {
   type        = string
-  description = "Resource group name"
+  description = "Resource group name."
+  validation {
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}$", var.rg_name)) && can(regex("[-\\w\\(\\)]+$", var.rg_name))
+    error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
+  }
 }
 
 variable "location" {
   type        = string
-  description = "Location of the resource group"
+  description = "Location of the resource group."
 }
 
 variable "tags" {
   type        = map(string)
   default     = {}
-  description = "A mapping of tags which should be assigned to the deployed resource"
+  description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
 variable "is_sec_module" {
@@ -27,30 +35,34 @@ variable "is_sec_module" {
 
 variable "subnet_id" {
   type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint"
+  description = "The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint."
   default     = ""
 }
 
 variable "private_dns_zone_ids" {
   type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include"
+  description = "Specifies the list of Private DNS Zones to include."
   default     = []
 }
 
 variable "input_schema" {
   type        = string
-  description = "Specifies the schema in which incoming events will be published to this domain"
-  default     = "EventGridSchema"
+  description = "Specifies the schema in which incoming events will be published to this domain."
+  validation {
+    condition     = contains(["cloudeventschemav1_0", "customeventschema", "eventgridschema"], lower(var.input_schema))
+    error_message = "Valid values for input_schema are \"CloudEventSchemaV1_0\", \"CustomEventSchema\", \"EventGridSchema\"."
+  }
+  default = "EventGridSchema"
 }
 
 variable "public_network_access_enabled" {
   type        = bool
-  description = "Whether or not public network access is allowed for this server"
+  description = "Whether or not public network access is allowed for this server."
   default     = false
 }
 
 variable "local_auth_enabled" {
   type        = bool
-  description = "Whether local authentication methods is enabled for the EventGrid Domain"
+  description = "Whether local authentication methods is enabled for the EventGrid Domain."
   default     = true
 }

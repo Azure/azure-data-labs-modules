@@ -1,6 +1,6 @@
 module "sql_managed_instance" {
-  source                         = "../"
-  
+  source = "../"
+
   basename                       = "sqlmi-${random_string.postfix.result}"
   rg_name                        = module.local_rg.name
   location                       = var.location

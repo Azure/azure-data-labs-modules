@@ -119,38 +119,32 @@ module "local_sql_database_server" {
 module "local_sql_database_ambari" {
   source = "../../../sql-database"
 
-  basename    = "${random_string.postfix.result}ambari"
-  rg_name     = module.local_rg.name
-  location    = var.location
-  server_name = module.local_sql_database_server.name
+  basename  = "${random_string.postfix.result}ambari"
+  rg_name   = module.local_rg.name
+  location  = var.location
+  server_id = module.local_sql_database_server.id
 
-  collation                        = "SQL_LATIN1_GENERAL_CP1_CI_AS"
-  edition                          = "Standard"
-  requested_service_objective_name = "S0"
+  collation = "SQL_Latin1_General_CP1_CI_AS"
 }
 
 module "local_sql_database_hive" {
   source = "../../../sql-database"
 
-  basename    = "${random_string.postfix.result}hive"
-  rg_name     = module.local_rg.name
-  location    = var.location
-  server_name = module.local_sql_database_server.name
+  basename  = "${random_string.postfix.result}hive"
+  rg_name   = module.local_rg.name
+  location  = var.location
+  server_id = module.local_sql_database_server.id
 
-  collation                        = "SQL_LATIN1_GENERAL_CP1_CI_AS"
-  edition                          = "Standard"
-  requested_service_objective_name = "S0"
+  collation = "SQL_Latin1_General_CP1_CI_AS"
 }
 
 module "local_sql_database_oozie" {
   source = "../../../sql-database"
 
-  basename    = "${random_string.postfix.result}oozie"
-  rg_name     = module.local_rg.name
-  location    = var.location
-  server_name = module.local_sql_database_server.name
+  basename  = "${random_string.postfix.result}oozie"
+  rg_name   = module.local_rg.name
+  location  = var.location
+  server_id = module.local_sql_database_server.id
 
-  collation                        = "SQL_LATIN1_GENERAL_CP1_CI_AS"
-  edition                          = "Standard"
-  requested_service_objective_name = "S0"
+  collation = "SQL_Latin1_General_CP1_CI_AS"
 }

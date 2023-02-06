@@ -31,7 +31,6 @@ locals {
   api_server_authorized_ip_ranges = [
     "0.0.0.0/0"
   ]
-
 }
 
 resource "azurerm_kubernetes_cluster" "adl_aks" {
@@ -68,6 +67,9 @@ resource "azurerm_kubernetes_cluster" "adl_aks" {
     # nat_gateway_profile   = local.merged_network_profile.nat_gateway_profile
   }
 
-  api_server_authorized_ip_ranges   = var.api_server_authorized_ip_ranges
+  api_server_access_profile {
+    authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  }
+
   role_based_access_control_enabled = var.role_based_access_control_enabled
 }

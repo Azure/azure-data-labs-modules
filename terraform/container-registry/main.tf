@@ -4,12 +4,8 @@ data "http" "ip" {
   url = "https://ifconfig.me"
 }
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_container_registry" "adl_cr" {
-  name                = "cr${local.safe_basename}"
+  name                = "cr${var.basename}"
   resource_group_name = var.rg_name
   location            = var.location
   sku                 = var.sku

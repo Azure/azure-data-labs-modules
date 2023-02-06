@@ -20,7 +20,7 @@ variable "synadmin_password" {
 }
 
 variable "aad_login" {
-  description = "AAD login"
+  description = "AAD login."
   type = object({
     name      = string
     object_id = string
