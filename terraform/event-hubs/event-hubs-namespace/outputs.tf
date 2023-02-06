@@ -11,3 +11,10 @@ output "name" {
     azurerm_eventhub_namespace.adl_evhns[0].name : ""
   )
 }
+
+output "resouce_group_name" {
+  value = (
+    length(azurerm_eventhub_namespace.adl_evhns) > 0 ?
+    azurerm_eventhub_namespace.adl_evhns[0].resource_group_name : ""
+  )
+}

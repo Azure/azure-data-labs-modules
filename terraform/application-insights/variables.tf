@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-\\w\\.\\(\\)]{0,249}", var.basename)) && can(regex("[-\\w\\(\\)]+$", var.basename))
-    error_message = "The name must be between 1 and 255 characters, only allows alphanumeric characters, periods, underscores, hyphens and parenthesis and cannot end in a period."
+    error_message = "The name must be between 0 and 249 characters, only allows alphanumeric characters, periods, underscores, hyphens and parenthesis and cannot end in a period."
   }
 }
 

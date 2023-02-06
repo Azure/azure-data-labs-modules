@@ -12,6 +12,13 @@ output "name" {
   )
 }
 
+output "resource_group_name" {
+  value = (
+    length(azurerm_storage_account.adl_st) > 0 ?
+    azurerm_storage_account.adl_st[0].resource_group_name : ""
+  )
+}
+
 output "access_key" {
   value = (
     length(azurerm_storage_account.adl_st) > 0 ?

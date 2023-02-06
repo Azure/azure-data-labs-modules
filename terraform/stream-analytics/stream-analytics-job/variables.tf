@@ -26,7 +26,11 @@ variable "tags" {
 variable "compatibility_level" {
   type        = string
   description = "Specifies the compatibility level for this job - which controls certain runtime behaviours of the streaming job."
-  default     = "1.2"
+  validation {
+    condition     = contains(["1.0", "1.1", "1.2"], var.compatibility_level)
+    error_message = "Valid values for compatibility_level are \"1.0\", \"1.1\", or \"1.2\"."
+  }
+  default = "1.2"
 }
 
 variable "data_locale" {
@@ -38,29 +42,49 @@ variable "data_locale" {
 variable "events_late_arrival_max_delay_in_seconds" {
   type        = number
   description = "Specifies the maximum tolerable delay in seconds where events arriving late could be included."
-  default     = 60
+  validation {
+    condition     = var.events_late_arrival_max_delay_in_seconds >= -1 && var.events_late_arrival_max_delay_in_seconds <= 1814399 && floor(var.events_late_arrival_max_delay_in_seconds) == var.events_late_arrival_max_delay_in_seconds
+    error_message = "Supported range is -1 (indefinite) to 1814399 (20d 23h 59m 59s)."
+  }
+  default = 60
 }
 
 variable "events_out_of_order_max_delay_in_seconds" {
   type        = number
   description = "Specifies the maximum tolerable delay in seconds where out-of-order events can be adjusted to be back in order."
-  default     = 50
+  validation {
+    condition     = var.events_out_of_order_max_delay_in_seconds >= 0 && var.events_out_of_order_max_delay_in_seconds <= 599 && floor(var.events_out_of_order_max_delay_in_seconds) == var.events_out_of_order_max_delay_in_seconds
+    error_message = "Supported range is 0 to 599 (9m 59s)."
+  }
+  default = 50
 }
 
 variable "events_out_of_order_policy" {
   type        = string
   description = "Specifies the policy which should be applied to events which arrive out of order in the input event stream."
-  default     = "Adjust"
+  validation {
+    condition     = contains(["drop", "adjust"], lower(var.events_out_of_order_policy))
+    error_message = "Valid values for events_out_of_order_policy are \"Drop\", or \"Adjust\"."
+  }
+  default = "Adjust"
 }
 
 variable "output_error_policy" {
   type        = string
   description = "Specifies the policy which should be applied to events which arrive at the output and cannot be written to the external storage due to being malformed (such as missing column values, column values of wrong type or size)."
-  default     = "Drop"
+  validation {
+    condition     = contains(["drop", "stop"], lower(var.output_error_policy))
+    error_message = "Valid values for output_error_policy are \"Drop\", or \"Stop\"."
+  }
+  default = "Drop"
 }
 
 variable "streaming_units" {
   type        = number
   description = "Specifies the number of streaming units that the streaming job uses."
-  default     = 3
+  validation {
+    condition     = floor(var.streaming_units) == var.streaming_units && (contains([1, 3, 6], var.streaming_units) || (var.streaming_units % 6 == 0 && var.streaming_units <= 120))
+    error_message = "Valid values for output_error_policy are \"Drop\", or \"Stop\"."
+  }
+  default = 3
 }

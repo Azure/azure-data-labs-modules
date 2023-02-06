@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w]{0,125}$", var.basename)) && can(regex("[-\\w\\(\\)]+$", var.basename))
+    error_message = "Name must be between 0 and 125 characters,  can only include alphanumeric, underscore, and hyphen."
+  }
 }
 
 variable "rg_name" {

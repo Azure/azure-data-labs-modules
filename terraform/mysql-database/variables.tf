@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-0-9a-z]{1,50}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
-    error_message = "The name must be between 3 and 63 characters, can only contain lowercase letters, numbers, and hyphens. Must not start or end with a hyphen."
+    error_message = "The name must be between 1 and 50 characters, can only contain lowercase letters, numbers, and hyphens. Must not end with a hyphen."
   }
 }
 
@@ -61,6 +61,7 @@ variable "administrator_password" {
   type        = string
   description = "The Password associated with the administrator_login."
   default     = "ThisIsNotVerySecure!"
+  sensitive   = true
 }
 
 variable "sku_name" {

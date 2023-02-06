@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-0-9a-z]{1,50}$", var.basename)) && can(regex("[0-9a-z]+$", var.basename))
+    error_message = "The name must be between 1 and 50 characters, can only contain lowercase letters, numbers, and hyphens. Must not end with a hyphen."
+  }
 }
 
 variable "rg_name" {
@@ -57,6 +61,7 @@ variable "administrator_password" {
   type        = string
   description = "The Password associated with the administrator_login"
   default     = "ThisIsNotVerySecure!"
+  sensitive   = true
 }
 
 variable "sku_name" {
@@ -80,7 +85,7 @@ variable "ver" {
   description = "Specifies the version of PostgreSQL to use"
   validation {
     condition     = contains(["11", "12", "13", "14"], var.ver)
-    error_message = "Valid values for ver are in the range [11, 14]"
+    error_message = "Valid values for ver are in the range [11, 14]."
   }
   default = "14"
 }
@@ -90,7 +95,7 @@ variable "backup_retention_days" {
   description = "Backup retention days for the server"
   validation {
     condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35
-    error_message = "Valid values for backup_retention_days are in the range [7, 35]"
+    error_message = "Valid values for backup_retention_days are in the range [7, 35]."
   }
   default = 7
 }

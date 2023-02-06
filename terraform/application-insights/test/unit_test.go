@@ -11,6 +11,8 @@ func TestModule(t *testing.T) {
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "./",
+		Lock: true
+		LockTimeout: "1800s"
 		// VarFiles: []string{"terraform_unitest.tfvars"},
 	}
 
@@ -27,4 +29,10 @@ func TestModule(t *testing.T) {
 	assert := assert.New(t)
 	id := terraform.Output(t, terraformOptions, "id")
 	assert.NotNil(id)
+	instrumentation_key := terraform.Output(t, terraformOptions, "instrumentation_key")
+	assert.NotNil(instrumentation_key)
+	name := terraform.Output(t, terraformOptions, "name")
+	assert.NotNil(name)
+	resource_group_name := terraform.Output(t, terraformOptions, "resource_group_name")
+	assert.NotNil(resource_group_name)
 }

@@ -1,9 +1,5 @@
 # https://learn.microsoft.com/en-us/azure/templates/microsoft.synapse/workspaces/kustopools?pivots=deployment-language-terraform
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "random_string" "postfix" {
   length  = 12
   special = false
@@ -12,7 +8,7 @@ resource "random_string" "postfix" {
 
 resource "azapi_resource" "syn_synkp" {
   type      = "Microsoft.Synapse/workspaces/kustoPools@2021-06-01-preview"
-  name      = "synkp${local.safe_basename}"
+  name      = "synkp${var.basename}"
   location  = var.location
   parent_id = var.synapse_workspace_id
 

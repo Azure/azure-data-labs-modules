@@ -24,6 +24,6 @@ provider "azurerm" {
       # Meanwhile, we must set this flag on each and every configuration which deploys,
       # directly or indirectly, a resource of type azurerm_application_insights. 
       prevent_deletion_if_contains_resources = false
-      }
+    }
   }
 }

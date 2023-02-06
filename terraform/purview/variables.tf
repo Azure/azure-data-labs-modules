@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-0-9a-zA-Z]{1,57}", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename)) && !can(regex("[--]", var.basename))
-    error_message = "The name must be between 3 and 63 characters and can contain only letters, numbers and hyphens. The first and last characters must be a letter or number. The hyphen character must be immediately preceded and followed by a letter or number. Spaces are not allowed."
+    error_message = "The name must be between 1 and 57 characters and can contain only letters, numbers and hyphens. The last character must be a letter or number. The hyphen character must be immediately preceded and followed by a letter or number. Spaces are not allowed."
   }
 }
 
