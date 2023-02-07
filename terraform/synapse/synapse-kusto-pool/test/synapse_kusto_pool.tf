@@ -4,7 +4,7 @@ module "synapse_kusto_pool" {
   basename              = random_string.postfix.result
   location              = var.location
   synapse_workspace_id  = module.local_synapse_workspace.id
-  synapse_workspace_uid = "dfeaa36c-1b3e-4b05-9cf3-962a097aef3c"
+  synapse_workspace_uid = jsondecode(data.azapi_resource.local_synapse_workspace.output).properties.workspaceUID
 }
 
 # Module dependencies
@@ -51,4 +51,11 @@ module "local_storage_account" {
   firewall_default_action = "Allow"
 
   is_sec_module = false
+}
+
+data "azapi_resource" "local_synapse_workspace" {
+  name                   = module.local_synapse_workspace.name
+  parent_id              = module.local_rg.id
+  type                   = "Microsoft.Synapse/workspaces@2021-06-01"
+  response_export_values = ["properties.workspaceUID"]
 }
