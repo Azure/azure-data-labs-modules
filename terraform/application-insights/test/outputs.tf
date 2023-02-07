@@ -4,6 +4,7 @@ output "id" {
 
 output "instrumentation_key" {
   value = module.application_insights.instrumentation_key
+  sensitive = true
 }
 
 output "name" {

@@ -16,4 +16,5 @@ output "adls_id" {
 
 output "access_key" {
   value = module.storage_account.access_key
+  sensitive = true
 }
