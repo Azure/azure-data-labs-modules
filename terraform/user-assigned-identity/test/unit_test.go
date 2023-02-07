@@ -11,8 +11,8 @@ func TestModule(t *testing.T) {
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "./",
-		Lock: true
-		LockTimeout: "1800s"
+		Lock: true,
+		LockTimeout: "1800s",
 		// VarFiles: []string{"terraform_unitest.tfvars"},
 	}
 
