@@ -12,8 +12,10 @@ output "resource_group_name" {
 
 output "primary_connection_string" {
   value = module.event_hubs_namespace.primary_connection_string
+  sensitive = true
 }
 
 output "secondary_connection_string" {
   value = module.event_hubs_namespace.secondary_connection_string
+  sensitive = true
 }
