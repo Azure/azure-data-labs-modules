@@ -1,11 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/synapse_private_link_hub
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_synapse_private_link_hub" "syn_synplh" {
-  name                = "synplh${local.safe_basename}"
+  name                = "synplh${var.basename}"
   resource_group_name = var.rg_name
   location            = var.location
 

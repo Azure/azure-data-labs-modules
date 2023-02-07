@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[0-9a-z]{1,61}$", var.basename))
-    error_message = "The name must be between 3 and 63 characters, must begin with a letter, and be lowercase alphanumeric."
+    error_message = "The name must be between 1 and 61 characters, and can contain lowercase letters and numbers only."
   }
 }
 

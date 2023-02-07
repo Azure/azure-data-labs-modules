@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-\\w\\.]{1,75}$", var.basename)) && can(regex("[\\w]+$", var.basename))
-    error_message = "The name for the virtual network must be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+    error_message = "The name for the virtual network must be between 1 and 75 characters and must end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
 

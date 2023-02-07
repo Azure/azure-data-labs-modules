@@ -17,6 +17,8 @@ func TestModule(t *testing.T) {
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "./",
+		Lock: true,
+		LockTimeout: "1800s",
 		// VarFiles: []string{"terraform_unitest.tfvars"},
 
 		// Variables to pass to our Terraform code using -var options

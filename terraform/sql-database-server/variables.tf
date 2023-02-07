@@ -50,16 +50,29 @@ variable "private_dns_zone_ids" {
 variable "db_version" {
   type        = string
   description = "The version for the new server."
+  validation {
+    condition     = contains(["2.0", "12.0"], lower(var.db_version))
+    error_message = "Valid values for db_version are \"2.0\", or \"12.0\"."
+  }
 }
 
 variable "administrator_login" {
   type        = string
   description = "The administrator login name for the new server."
+  validation {
+    condition     = can(regex("^[\\s\\S]{8,128}$", var.administrator_login)) && can(regex("^[a-zA-Z]+", var.administrator_login))
+    error_message = "Valid values for administrator_login must be betwen 8 and 128 characters in length and must start with a letter."
+  }
 }
 
 variable "administrator_login_password" {
   type        = string
   description = "The password associated with the administrator_login."
+  validation {
+    condition     = can(regex("^[\\s\\S]{8,128}$", var.administrator_login_password))
+    error_message = "Valid values for administrator_login_password must be at least 8 characters in length."
+  }
+  sensitive = true
 }
 
 variable "minimum_tls_version" {

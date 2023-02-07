@@ -15,6 +15,7 @@ variable "synadmin_username" {
 }
 
 variable "synadmin_password" {
-  type    = string
-  default = "ThisIsNotVerySecure!"
+  type      = string
+  default   = "ThisIsNotVerySecure!"
+  sensitive = true
 }

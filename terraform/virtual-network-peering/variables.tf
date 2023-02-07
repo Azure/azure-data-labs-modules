@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-\\w\\.]{0,75}$", var.basename)) && can(regex("[\\w]+$", var.basename))
-    error_message = "The name of the virtual network peering must be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+    error_message = "The name of the virtual network peering must be between 0 and 75 characters and must end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
 
@@ -19,6 +19,10 @@ variable "rg_name" {
 variable "virtual_network_name" {
   type        = string
   description = "The name of the virtual network."
+  validation {
+    condition     = can(regex("^[-\\w\\.]{1,80}$", var.virtual_network_name)) && can(regex("^[0-9a-zA-Z]+", var.virtual_network_name)) && can(regex("[\\w]+$", var.virtual_network_name))
+    error_message = "The name for the virtual network must be between 1 and 80 characters and must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
+  }
 }
 
 variable "remote_virtual_network_id" {

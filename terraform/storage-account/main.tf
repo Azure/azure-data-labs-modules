@@ -6,12 +6,8 @@ data "http" "ip" {
   url = "https://ifconfig.me"
 }
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_storage_account" "adl_st" {
-  name                     = "st${local.safe_basename}"
+  name                     = "st${var.basename}"
   resource_group_name      = var.rg_name
   location                 = var.location
   account_tier             = var.account_tier

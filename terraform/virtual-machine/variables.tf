@@ -2,8 +2,8 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = !can(regex("^[0-9]*$", var.basename)) && !can(regex("[\\/\"[\\]:|<>+=;,?\\*@&\\s]+", var.basename))
-    error_message = "Windows VM names must be between 1 and 64 characters, they cannot contain only numbers, neither they can contain special characters \\/\"[]:|<>+=;,?*@&, whitespace, or begin with '_' or end with '.' or '-'."
+    condition     = !can(regex("[\\/\"[\\]:|<>+=;,?\\*@&\\s]+", var.basename)) && can(regex("[\\w]+$", var.basename)) && can(regex("^[\\S]{1,60}$", var.basename))
+    error_message = "Windows VM names must be between 1 and 60 characters, they cannot contain special characters \\/\"[]:|<>+=;,?*@&, whitespace, or end with '.' or '-'."
   }
   default = ""
 }
@@ -42,6 +42,7 @@ variable "jumphost_username" {
 variable "jumphost_password" {
   type        = string
   description = "VM password."
+  sensitive   = true
 }
 
 variable "subnet_id" {

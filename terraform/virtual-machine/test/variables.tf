@@ -19,4 +19,5 @@ variable "jumphost_password" {
   type        = string
   description = "VM password."
   default     = "ThisIsNotVerySecure!"
+  sensitive   = true
 }

@@ -1,11 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/machine_learning_inference_cluster
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_machine_learning_inference_cluster" "adl_mlw_inference_cluster" {
-  name                  = "mlwic${local.safe_basename}"
+  name                  = "mlwic${var.basename}"
   location              = var.location
   cluster_purpose       = var.cluster_purpose
   kubernetes_cluster_id = var.kubernetes_cluster_id

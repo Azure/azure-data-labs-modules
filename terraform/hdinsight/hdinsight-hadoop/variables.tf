@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[-0-9a-zA-Z]{0,53}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
-    error_message = "The name must be between 1 and 59 characters, can contain only letters, numbers, and hyphens. Must start and end with a letter or number."
+    error_message = "The name must be between 0 and 53 characters, can contain only letters, numbers, and hyphens. Must end with a letter or number."
   }
 }
 
@@ -66,6 +66,7 @@ variable "ssh_username" {
 variable "ssh_password" {
   type        = string
   description = "The password used for the ssh."
+  sensitive   = true
 }
 
 variable "roles_head_node_vm_size" {
@@ -153,6 +154,7 @@ variable "ambari_database_administrator_login" {
 variable "ambari_database_administrator_login_password" {
   type        = string
   description = "The external Ambari metastore's existing SQL server admin password."
+  sensitive   = true
 }
 
 variable "hive_server_name" {
@@ -173,6 +175,7 @@ variable "hive_database_administrator_login" {
 variable "hive_database_administrator_login_password" {
   type        = string
   description = "The external Hive metastore's existing SQL server admin password."
+  sensitive   = true
 }
 
 variable "oozie_server_name" {
@@ -193,6 +196,7 @@ variable "oozie_database_administrator_login" {
 variable "oozie_database_administrator_login_password" {
   type        = string
   description = "The external Hive metastore's existing SQL server admin password."
+  sensitive   = true
 }
 
 # variable "autoscale_schedules" {

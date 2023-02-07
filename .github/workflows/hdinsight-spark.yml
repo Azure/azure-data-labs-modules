@@ -1,13 +1,13 @@
 name: Module:hdinsight-spark
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main  
-    paths:
-      - '.github/workflows/hdinsight-spark.yml'
-      - 'terraform/hdinsight/hdinsight-spark/**'
-      - '.github/actions/**'
+#  pull_request:
+#    branches:
+#      - main  
+#    paths:
+#      - '.github/workflows/hdinsight-spark.yml'
+#      - 'terraform/hdinsight/hdinsight-spark/**'
+#      - '.github/actions/**'
 
 env:
   terraform_workingdir: "terraform/hdinsight/hdinsight-spark"  

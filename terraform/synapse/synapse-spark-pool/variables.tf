@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[0-9a-zA-Z]{0,10}$", var.basename))
+    error_message = "Name must be between 0 and 10 characters, must contain only letters and numbers."
+  }
 }
 
 variable "synapse_workspace_id" {
@@ -11,13 +15,21 @@ variable "synapse_workspace_id" {
 variable "node_size_family" {
   type        = string
   description = "The kind of nodes that the Spark Pool provides."
-  default     = "MemoryOptimized"
+  validation {
+    condition     = contains(["memoryoptimized", "none"], lower(var.node_size_family))
+    error_message = "Valid values for sku_name are \"MemoryOptimized\", or \"None\"."
+  }
+  default = "MemoryOptimized"
 }
 
 variable "node_size" {
   type        = string
   description = "The level of node in the Spark Pool."
-  default     = "Small"
+  validation {
+    condition     = contains(["small", "medium", "large", "none", "xlarge", "xxlarge", "xxxlarge"], lower(var.node_size))
+    error_message = "Valid values for sku_name are \"Small\", \"Medium\", \"Large\", \"None\", \"XLarge\", \"XXLarge\", or \"XXXLarge\"."
+  }
+  default = "Small"
 }
 
 variable "module_enabled" {

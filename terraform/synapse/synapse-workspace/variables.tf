@@ -54,6 +54,10 @@ variable "storage_account_id" {
 variable "storage_account_name" {
   type        = string
   description = "The name of the storage account associated with the syn workspace."
+  validation {
+    condition     = can(regex("^[0-9a-z]{1,24}$", var.storage_account_name))
+    error_message = "The name must be betwen 1 and 24 characters, can only contain lowercase letters and  numbers."
+  }
 }
 
 variable "synadmin_username" {
@@ -64,6 +68,7 @@ variable "synadmin_username" {
 variable "synadmin_password" {
   type        = string
   description = "The Password associated with the sql_administrator_login for the SQL administrator."
+  sensitive   = true
 }
 
 variable "set_aad_login" {

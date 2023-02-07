@@ -3,7 +3,7 @@ variable "basename" {
   description = "Basename of the module."
   validation {
     condition     = can(regex("^[0-9a-z]{0,48}$", var.basename)) && !can(regex("-$", var.basename))
-    error_message = "The name must be between 3 and 63 characters,can only contain lowercase letters, numbers, and hyphens. Cannot not begin or end with a hyphen."
+    error_message = "The name must be between 0 and 48 characters,can only contain lowercase letters, numbers, and hyphens. Cannot end with a hyphen."
   }
 }
 
@@ -61,6 +61,7 @@ variable "administrator_login_password" {
   type        = string
   description = "The Password associated with the administrator_login."
   default     = "ThisIsNotVerySecure!"
+  sensitive   = true
 }
 
 variable "sku_name" {
@@ -74,7 +75,7 @@ variable "storage_mb" {
   description = "Max storage allowed for a server."
   validation {
     condition     = var.storage_mb >= 5120 && var.storage_mb <= 4096000 && floor(var.storage_mb) == var.storage_mb
-    error_message = "Valid values for storage_mb are integers in the range [5120, 4096000] for General Purpose and Memory Optimized SKUs. For Basic SKU is resticted further to the range [5120, 1024000]"
+    error_message = "Valid values for storage_mb are integers in the range [5120, 4096000] for General Purpose and Memory Optimized SKUs. For Basic SKU is resticted further to the range [5120, 1024000]."
   }
   default = 5120
 }
@@ -84,7 +85,7 @@ variable "ver" {
   description = "Specifies the version of MariaDB to use."
   validation {
     condition     = contains(["10.2", "10.3"], var.ver)
-    error_message = "Valid values for ver are \"10.2\" or \"10.3\""
+    error_message = "Valid values for ver are \"10.2\" or \"10.3\"."
   }
   default = "10.3"
 }
@@ -100,7 +101,7 @@ variable "backup_retention_days" {
   description = "Backup retention days for the server."
   validation {
     condition     = var.backup_retention_days >= 7 && var.backup_retention_days <= 35 && floor(var.backup_retention_days) == var.backup_retention_days
-    error_message = "Valid values for backup_retention_days are in the range [7, 35]"
+    error_message = "Valid values for backup_retention_days are in the range [7, 35]."
   }
   default = 7
 }

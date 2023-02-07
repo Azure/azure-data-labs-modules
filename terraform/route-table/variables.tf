@@ -1,6 +1,10 @@
 variable "basename" {
   type        = string
   description = "Basename of the module."
+  validation {
+    condition     = can(regex("^[-\\w\\.]{1,77}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename)) && can(regex("^[0-9a-zA-Z]+", var.basename))
+    error_message = "Name must be between 1 and 77 characters and start and end with a letter or number. You can use characters '-', '.', '_'."
+  }
 }
 
 variable "rg_name" {
