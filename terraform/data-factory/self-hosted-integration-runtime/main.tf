@@ -21,7 +21,7 @@ module "storage_account" {
   basename      = var.basename
   rg_name       = var.rg_name
   location      = var.location
-  is_sec_module = true
+  is_sec_module = false
 }
 
 resource "azurerm_storage_container" "scripts_container" {
