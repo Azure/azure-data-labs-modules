@@ -22,6 +22,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the Resource Group."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "name" {
   type        = string
   description = "Name of the subnet."
