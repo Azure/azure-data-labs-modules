@@ -12,4 +12,6 @@ resource "azurerm_network_security_rule" "adl_nsgsr" {
   destination_address_prefix  = var.destination_address_prefix
   resource_group_name         = var.rg_name
   network_security_group_name = var.network_security_group_name
+
+  count = var.module_enabled ? 1 : 0
 }
