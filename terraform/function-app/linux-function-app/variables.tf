@@ -27,6 +27,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "storage_account_name" {
   type        = string
   description = "The backend storage account name which will be used by this Function App."
