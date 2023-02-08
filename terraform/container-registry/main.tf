@@ -22,13 +22,13 @@ resource "azurerm_container_registry" "adl_cr" {
 # Private Endpoint configuration
 
 resource "azurerm_private_endpoint" "cr_pe" {
-  name                = "pe-${azurerm_container_registry.adl_cr.name}-acr"
+  name                = "pe-${azurerm_container_registry.adl_cr[0].name}-acr"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-acr-${var.basename}"
-    private_connection_resource_id = azurerm_container_registry.adl_cr.id
+    private_connection_resource_id = azurerm_container_registry.adl_cr[0].id
     subresource_names              = ["registry"]
     is_manual_connection           = false
   }
