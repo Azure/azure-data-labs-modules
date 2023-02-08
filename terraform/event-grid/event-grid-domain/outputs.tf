@@ -1,11 +1,20 @@
 output "id" {
-  value = azurerm_eventgrid_domain.adl_evgd.id
+  value = (
+    length(azurerm_eventgrid_domain.adl_evgd) > 0 ?
+    azurerm_eventgrid_domain.adl_evgd[0].id : ""
+  )
 }
 
 output "name" {
-  value = azurerm_eventgrid_domain.adl_evgd.name
+  value = (
+    length(azurerm_eventgrid_domain.adl_evgd) > 0 ?
+    azurerm_eventgrid_domain.adl_evgd[0].name : ""
+  )
 }
 
 output "resource_group_name" {
-  value = azurerm_eventgrid_domain.adl_evgd.resource_group_name
+  value = (
+    length(azurerm_eventgrid_domain.adl_evgd) > 0 ?
+    azurerm_eventgrid_domain.adl_evgd[0].resource_group_name : ""
+  )
 }
