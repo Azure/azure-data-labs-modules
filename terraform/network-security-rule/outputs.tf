@@ -1,7 +1,13 @@
 output "id" {
-  value = azurerm_network_security_rule.adl_nsgsr.id
+  value = (
+    length(azurerm_network_security_rule.adl_nsgsr) > 0 ?
+    azurerm_network_security_rule.adl_nsgsr[0].id : ""
+  )
 }
 
 output "name" {
-  value = azurerm_network_security_rule.adl_nsgsr.name
+  value = (
+    length(azurerm_network_security_rule.adl_nsgsr) > 0 ?
+    azurerm_network_security_rule.adl_nsgsr[0].name : ""
+  )
 }

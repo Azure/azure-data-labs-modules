@@ -16,6 +16,12 @@ variable "name" {
   }
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "priority" {
   type        = number
   description = "Specifies the priority of the rule."
