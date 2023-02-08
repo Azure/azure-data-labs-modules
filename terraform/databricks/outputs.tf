@@ -1,15 +1,27 @@
 output "id" {
-  value = azurerm_databricks_workspace.adl_databricks.id
+  value = (
+    length(azurerm_databricks_workspace.adl_databricks) > 0 ?
+    azurerm_databricks_workspace.adl_databricks[0].id : ""
+  )
 }
 
 output "workspace_url" {
-  value = azurerm_databricks_workspace.adl_databricks.workspace_url
+  value = (
+    length(azurerm_databricks_workspace.adl_databricks) > 0 ?
+    azurerm_databricks_workspace.adl_databricks[0].workspace_url : ""
+  )
 }
 
 output "name" {
-  value = azurerm_databricks_workspace.adl_databricks.name
+  value = (
+    length(azurerm_databricks_workspace.adl_databricks) > 0 ?
+    azurerm_databricks_workspace.adl_databricks[0].name : ""
+  )
 }
 
 output "resource_group_name" {
-  value = azurerm_databricks_workspace.adl_databricks.resource_group_name
+  value = (
+    length(azurerm_databricks_workspace.adl_databricks) > 0 ?
+    azurerm_databricks_workspace.adl_databricks[0].resource_group_name : ""
+  )
 }
