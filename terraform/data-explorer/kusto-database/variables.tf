@@ -27,6 +27,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "cluster_name" {
   type        = string
   description = "Specifies the name of the Kusto Cluster this database will be added to."
