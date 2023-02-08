@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/data-factory.yml'
-      - 'terraform/data-factory/self-hosted-integration-runtime&**'
+      - 'terraform/data-factory/self-hosted-integration-runtime/**'
       - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/data-factory&self-hosted-integration-runtime"  
+  terraform_workingdir: "terraform/data-factory/self-hosted-integration-runtime"  
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
