@@ -17,13 +17,13 @@ resource "azurerm_purview_account" "adl_pview" {
 # Private Endpoint configuration
 
 resource "azurerm_private_endpoint" "purview_pe" {
-  name                = "pe-${azurerm_purview_account.adl_pview.name}-purview"
+  name                = "pe-${azurerm_purview_account.adl_pview[0].name}-purview"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-purview-${var.basename}"
-    private_connection_resource_id = azurerm_purview_account.adl_pview.id
+    private_connection_resource_id = azurerm_purview_account.adl_pview[0].id
     subresource_names              = ["account"]
     is_manual_connection           = false
   }
@@ -37,13 +37,13 @@ resource "azurerm_private_endpoint" "purview_pe" {
 }
 
 resource "azurerm_private_endpoint" "studio_pe" {
-  name                = "pe-${azurerm_purview_account.adl_pview.name}-studio"
+  name                = "pe-${azurerm_purview_account.adl_pview[0].name}-studio"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-studio-${var.basename}"
-    private_connection_resource_id = azurerm_purview_account.adl_pview.id
+    private_connection_resource_id = azurerm_purview_account.adl_pview[0].id
     subresource_names              = ["portal"]
     is_manual_connection           = false
   }
