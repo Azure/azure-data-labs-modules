@@ -16,6 +16,12 @@ variable "name" {
   }
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "route_table_name" {
   type        = string
   description = "The name of the route table within which create the route."
