@@ -1,15 +1,27 @@
 output "id" {
-  value = azurerm_user_assigned_identity.adl_id.id
+  value = (
+    length(azurerm_user_assigned_identity.adl_id) > 0 ?
+    azurerm_user_assigned_identity.adl_id[0].id : ""
+  )
 }
 
 output "name" {
-  value = azurerm_user_assigned_identity.adl_id.name
+  value = (
+    length(azurerm_user_assigned_identity.adl_id) > 0 ?
+    azurerm_user_assigned_identity.adl_id[0].name : ""
+  )
 }
 
 output "resource_group_name" {
-  value = azurerm_user_assigned_identity.adl_id.resource_group_name
+  value = (
+    length(azurerm_user_assigned_identity.adl_id) > 0 ?
+    azurerm_user_assigned_identity.adl_id[0].resource_group_name : ""
+  )
 }
 
 output "principal_id" {
-  value = azurerm_user_assigned_identity.adl_id.principal_id
+  value = (
+    length(azurerm_user_assigned_identity.adl_id) > 0 ?
+    azurerm_user_assigned_identity.adl_id[0].principal_id : ""
+  )
 }
