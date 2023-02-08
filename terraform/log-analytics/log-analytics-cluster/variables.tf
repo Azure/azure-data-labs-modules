@@ -23,6 +23,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "size_gb" {
   description = "The capacity of the Log Analytics Cluster specified in GB/day."
   type        = number
