@@ -27,6 +27,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "dns_prefix" {
   type        = string
   description = "DNS prefix specified when creating the managed cluster. Changing this forces a new resource to be created."
