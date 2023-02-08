@@ -28,13 +28,13 @@ resource "azurerm_cognitive_account" "adl_cog" {
 # Private Endpoint configuration
 
 resource "azurerm_private_endpoint" "cog_pe" {
-  name                = "pe-${azurerm_cognitive_account.adl_cog.name}-cog"
+  name                = "pe-${azurerm_cognitive_account.adl_cog[0].name}-cog"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-cog-${var.basename}"
-    private_connection_resource_id = azurerm_cognitive_account.adl_cog.id
+    private_connection_resource_id = azurerm_cognitive_account.adl_cog[0].id
     subresource_names              = ["account"]
     is_manual_connection           = false
   }
