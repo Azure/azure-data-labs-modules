@@ -3,6 +3,12 @@ variable "basename" {
   description = "Basename of the module."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "namespace_id" {
   type        = string
   description = "The ID of the Service Bus namespace."
