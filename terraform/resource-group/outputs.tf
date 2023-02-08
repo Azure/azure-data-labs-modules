@@ -1,11 +1,20 @@
 output "id" {
-  value = azurerm_resource_group.adl_rg.id
+  value = (
+    length(azurerm_resource_group.adl_rg) > 0 ?
+    azurerm_resource_group.adl_rg[0].id : ""
+  )
 }
 
 output "name" {
-  value = azurerm_resource_group.adl_rg.name
+  value = (
+    length(azurerm_resource_group.adl_rg) > 0 ?
+    azurerm_resource_group.adl_rg[0].name : ""
+  )
 }
 
 output "location" {
-  value = azurerm_resource_group.adl_rg.location
+  value = (
+    length(azurerm_resource_group.adl_rg) > 0 ?
+    azurerm_resource_group.adl_rg[0].location : ""
+  )
 }
