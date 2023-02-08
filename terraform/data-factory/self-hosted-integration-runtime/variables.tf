@@ -23,8 +23,8 @@ variable "location" {
 
 variable "tags" {
   type        = map(string)
-  default     = {}
   description = "A mapping of tags which should be assigned to the deployed resource."
+  default     = {}
 }
 
 variable "module_enabled" {
@@ -45,26 +45,8 @@ variable "subnet_id" {
   default     = ""
 }
 
-variable "public_network_access_enabled" {
-  type        = bool
-  description = "Is the Data Factory visible to the public network?"
-  default     = false
-}
-
-variable "managed_virtual_network_enabled" {
-  type        = bool
-  description = "Is Managed Virtual Network enabled?"
-  default     = true
-}
-
-variable "private_dns_zone_ids_df" {
-  type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include."
-  default     = []
-}
-
-variable "private_dns_zone_ids_portal" {
-  type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include."
-  default     = []
+variable "data_factory_id" {
+  type        = string
+  description = "The name of the data factory."
+  # TODO: Include validation
 }
