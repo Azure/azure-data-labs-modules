@@ -1,11 +1,20 @@
 output "id" {
-  value = azurerm_purview_account.adl_pview.id
+  value = (
+    length(azurerm_purview_account.adl_pview) > 0 ?
+    azurerm_purview_account.adl_pview[0].id : ""
+  )
 }
 
 output "name" {
-  value = azurerm_purview_account.adl_pview.name
+  value = (
+    length(azurerm_purview_account.adl_pview) > 0 ?
+    azurerm_purview_account.adl_pview[0].name : ""
+  )
 }
 
 output "resource_group_name" {
-  value = azurerm_purview_account.adl_pview.resource_group_name
+  value = (
+    length(azurerm_purview_account.adl_pview) > 0 ?
+    azurerm_purview_account.adl_pview[0].resource_group_name : ""
+  )
 }
