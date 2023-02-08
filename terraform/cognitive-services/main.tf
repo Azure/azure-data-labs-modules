@@ -5,12 +5,12 @@ data "http" "ip" {
 }
 
 resource "azurerm_cognitive_account" "adl_cog" {
-  name                = "cog-${var.basename}"
-  location            = var.location
-  resource_group_name = var.rg_name
-  kind                = var.kind
-  sku_name              = var.sku_name
-  custom_subdomain_name = "cog-${var.basename}"
+  name                               = "cog-${var.basename}"
+  location                           = var.location
+  resource_group_name                = var.rg_name
+  kind                               = var.kind
+  sku_name                           = var.sku_name
+  custom_subdomain_name              = "cog-${var.basename}"
   public_network_access_enabled      = var.is_sec_module ? false : true
   outbound_network_access_restricted = var.is_sec_module ? true : false
   # network_acls {
