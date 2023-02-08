@@ -21,13 +21,13 @@ resource "azurerm_search_service" "adl_srch" {
 # Private Endpoint configuration
 
 resource "azurerm_private_endpoint" "srch_pe" {
-  name                = "pe-${azurerm_search_service.adl_srch.name}-service"
+  name                = "pe-${azurerm_search_service.adl_srch[0].name}-service"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-srch-${var.basename}"
-    private_connection_resource_id = azurerm_search_service.adl_srch.id
+    private_connection_resource_id = azurerm_search_service.adl_srch[0].id
     subresource_names              = ["searchService"]
     is_manual_connection           = false
   }
