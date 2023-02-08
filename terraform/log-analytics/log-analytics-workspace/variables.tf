@@ -27,6 +27,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "sku" {
   type        = string
   description = "Specifies the Sku of the Log Analytics Workspace."
