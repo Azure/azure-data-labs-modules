@@ -16,6 +16,12 @@ variable "rg_name" {
   }
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "virtual_network_name" {
   type        = string
   description = "The name of the virtual network."
