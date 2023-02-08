@@ -23,6 +23,12 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "compatibility_level" {
   type        = string
   description = "Specifies the compatibility level for this job - which controls certain runtime behaviours of the streaming job."
