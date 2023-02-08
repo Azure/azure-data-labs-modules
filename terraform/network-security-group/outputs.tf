@@ -1,11 +1,20 @@
 output "id" {
-  value = azurerm_network_security_group.adl_nsg.id
+	value =(
+		length(azurerm_network_security_group.adl_nsg) > 0 ?
+		azurerm_network_security_group.adl_nsg[0].id : ""
+	)
 }
 
 output "name" {
-  value = azurerm_network_security_group.adl_nsg.name
+	value =(
+		length(azurerm_network_security_group.adl_nsg) > 0 ?
+		azurerm_network_security_group.adl_nsg[0].name : ""
+	)
 }
 
 output "resource_group_name" {
-  value = azurerm_network_security_group.adl_nsg.resource_group_name
+	value =(
+		length(azurerm_network_security_group.adl_nsg) > 0 ?
+		azurerm_network_security_group.adl_nsg[0].resource_group_name : ""
+	)
 }
