@@ -1,14 +1,14 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine
 
 resource "azurerm_virtual_machine" "adl_vm" {
-  name                  = "wvm-${var.basename}"
-  location              = var.location
-  resource_group_name   = var.rg_name
-  network_interface_ids = [azurerm_network_interface.vm_nic[0].id]
-  vm_size               = "Standard_DS3_v2"
+  name                             = "wvm-${var.basename}"
+  location                         = var.location
+  resource_group_name              = var.rg_name
+  network_interface_ids            = [azurerm_network_interface.vm_nic[0].id]
+  vm_size                          = "Standard_DS3_v2"
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
-  storage_image_reference = var.storage_image_reference
+  storage_image_reference          = var.storage_image_reference
   os_profile {
     computer_name  = var.jumphost_username // make name unique
     admin_username = var.jumphost_username
@@ -74,9 +74,9 @@ resource "azurerm_network_interface_security_group_association" "vm_nsg_associat
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "vm_schedule" {
-  virtual_machine_id = azurerm_virtual_machine.adl_vm[0].id
-  location           = var.location
-  enabled            = true
+  virtual_machine_id    = azurerm_virtual_machine.adl_vm[0].id
+  location              = var.location
+  enabled               = true
   daily_recurrence_time = "2000"
   timezone              = "W. Europe Standard Time"
   notification_settings {
