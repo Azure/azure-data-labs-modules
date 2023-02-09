@@ -33,10 +33,10 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "is_sec_module" {
-  type        = bool
-  description = "Is secure module?"
-  default     = true
+variable "vnet_id" {
+  type        = string
+  description = "The ID of the virtual network to which the private DNS zones will be linked to."
+  default     = ""
 }
 
 variable "subnet_id" {

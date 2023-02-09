@@ -3,6 +3,7 @@ module "self_hosted_integration_runtime" {
   basename        = random_string.postfix.result
   rg_name         = module.local_rg.name
   location        = var.location
+  vnet_id         = module.local_vnet.id
   subnet_id       = module.local_snet_default.id
   data_factory_id = module.local_data_factory.id
   tags            = {}
