@@ -8,7 +8,12 @@ resource "azurerm_virtual_machine" "adl_vm" {
   vm_size                          = "Standard_DS3_v2"
   delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
-  storage_image_reference          = var.storage_image_reference
+  storage_image_reference {
+    publisher = var.storage_image_reference.publisher
+    offer     = var.storage_image_reference.offer
+    sku       = var.storage_image_reference.sku
+    version   = var.storage_image_reference.version
+  }
   os_profile {
     computer_name  = var.jumphost_username // make name unique
     admin_username = var.jumphost_username
