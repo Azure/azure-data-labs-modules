@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "rg-adl-terraform-state"
     storage_account_name = "stadltfstate"
     container_name       = "default"
-    key                  = "datafactory.terraform.tfstate"
+    key                  = "selfhostedintegrationruntime.terraform.tfstate"
   }
 
   required_providers {
