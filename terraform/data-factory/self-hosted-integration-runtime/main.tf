@@ -50,16 +50,6 @@ module "local_pdnsz_st_blob" {
   count = var.module_enabled ? 1 : 0
 }
 
-module "local_pdnsz_st_dfs" {
-  source = "../../private-dns-zone"
-
-  rg_name   = var.rg_name
-  dns_zones = [local.dns_st_dfs]
-  vnet_id   = var.vnet_id
-
-  count = var.module_enabled ? 1 : 0
-}
-
 resource "azurerm_storage_container" "scripts_container" {
   name                  = "scripts"
   storage_account_name  = module.storage_account[0].name
