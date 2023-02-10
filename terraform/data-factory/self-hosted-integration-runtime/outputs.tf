@@ -15,7 +15,7 @@ output "name" {
 output "resource_group_name" {
   value = (
     length(module.virtual_machine) > 0 ?
-    module.virtual_machine[0].rg_name : ""
+    module.virtual_machine[0].resource_group_name : ""
   )
 }
 
