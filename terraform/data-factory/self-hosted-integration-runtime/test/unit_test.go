@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	//"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestModule(t *testing.T) {
@@ -21,7 +21,7 @@ func TestModule(t *testing.T) {
 
 	// Is used mainly for debugging, fail early if plan is not possible
 	terraform.InitAndPlan(t, terraformOptions)
-/*
+
 	// This will run `terraform init` and `terraform apply` and fail the test if there are any errors
 	terraform.InitAndApply(t, terraformOptions)
 
@@ -33,5 +33,6 @@ func TestModule(t *testing.T) {
 	assert.NotNil(name)
 	resource_group_name := terraform.Output(t, terraformOptions, "resource_group_name")
 	assert.NotNil(resource_group_name)
-*/
+	primary_authorization_key := terraform.Output(t, terraformOptions, "primary_authorization_key")
+	assert.NotNil(primary_authorization_key)
 }
