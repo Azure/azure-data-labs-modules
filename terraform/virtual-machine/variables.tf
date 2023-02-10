@@ -49,3 +49,19 @@ variable "subnet_id" {
   type        = string
   description = "Subnet ID for the virtual machine."
 }
+
+variable "storage_image_reference" {
+  type = object({
+    publisher = string
+    offer     = string
+    sku       = string
+    version   = string
+  })
+  description = "Storage image reference."
+  default = {
+    publisher = "microsoft-dsvm"
+    offer     = "dsvm-win-2019"
+    sku       = "server-2019"
+    version   = "latest"
+  }
+}
