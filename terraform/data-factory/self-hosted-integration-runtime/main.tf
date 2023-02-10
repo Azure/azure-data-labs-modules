@@ -15,7 +15,13 @@ module "virtual_machine" {
   subnet_id         = var.subnet_id
   jumphost_username = "ialonso"
   jumphost_password = "ThisIsNotVerySecure!"
-  tags              = {}
+  storage_image_reference = {
+    publisher : "MicrosoftWindowsServer",
+    offer : "WindowsServer",
+    sku : "2019-datacenter-gensecond",
+    version : "latest"
+  }
+  tags = {}
 
   count = var.module_enabled ? 1 : 0
 }
@@ -104,8 +110,4 @@ SETTINGS
 
 data "http" "ip" {
   url = "https://ifconfig.me"
-}
-
-provider "azurerm" {
-  features {}
 }
