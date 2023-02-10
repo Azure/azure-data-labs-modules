@@ -3,9 +3,8 @@
 resource "azurerm_mssql_database" "adl_sqldb" {
   name      = "sqldb${var.basename}"
   server_id = var.server_id
-
   collation = var.collation
+  tags      = var.tags
 
   count = var.module_enabled ? 1 : 0
-  tags  = var.tags
 }

@@ -5,10 +5,9 @@ resource "azurerm_powerbi_embedded" "adl_pbi" {
   location            = var.location
   resource_group_name = var.rg_name
   sku_name            = var.sku_name
-
-  administrators = var.administrators
-  mode           = var.mode
+  administrators      = var.administrators
+  mode                = var.mode
+  tags                = var.tags
 
   count = var.module_enabled ? 1 : 0
-  tags  = var.tags
 }

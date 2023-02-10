@@ -22,8 +22,6 @@ resource "azurerm_servicebus_namespace_authorization_rule" "adl_sb_auth_rule" {
   count = var.module_enabled ? 1 : 0
 }
 
-# Private Endpoint configuration
-
 resource "azurerm_private_endpoint" "sb_pe" {
   name                = "pe-${azurerm_servicebus_namespace.adl_sb[0].name}-namespace"
   location            = var.location

@@ -1,20 +1,16 @@
 module "analysis_services_server" {
-  source = "../"
-
+  source   = "../"
   basename = random_string.postfix.result
   rg_name  = module.local_rg.name
   location = var.location
-
-  tags = {}
+  tags     = {}
 }
 
 # Module dependencies
 
 module "local_rg" {
-  source = "../../resource-group"
-
+  source   = "../../resource-group"
   basename = random_string.postfix.result
   location = var.location
-
-  tags = local.tags
+  tags     = local.tags
 }

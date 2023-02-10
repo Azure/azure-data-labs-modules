@@ -6,16 +6,13 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
   location            = var.location
   cluster_version     = var.cluster_version
   tier                = var.tier
-
   component_version {
     hbase = var.component_version_hbase
   }
-
   gateway {
     username = var.gateway_username
     password = var.gateway_password
   }
-
   roles {
     head_node {
       vm_size            = var.roles_head_node_vm_size
@@ -24,7 +21,6 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
       subnet_id          = var.subnet_id
       virtual_network_id = var.virtual_network_id
     }
-
     worker_node {
       vm_size               = var.roles_worker_node_vm_size
       username              = var.ssh_username
@@ -46,7 +42,6 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
       #     }
       #   }
     }
-
     zookeeper_node {
       vm_size            = var.roles_zookeeper_node_vm_size
       username           = var.ssh_username
@@ -55,20 +50,17 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
       virtual_network_id = var.virtual_network_id
     }
   }
-
   # storage_account {
   #   storage_container_id = azurerm_storage_container.hdi_st_container[0].id
   #   storage_account_key  = azurerm_storage_account.hdi_st.primary_access_key
   #   is_default           = var.storage_account_is_default
   # }
-
   storage_account_gen2 {
     storage_resource_id          = var.storage_resource_id
     filesystem_id                = var.filesystem_id
     is_default                   = var.storage_account_is_default
     managed_identity_resource_id = var.managed_identity_resource_id
   }
-
   metastores {
     ambari {
       server        = join("", [var.ambari_server_name, ".database.windows.net"])
@@ -76,14 +68,12 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
       username      = var.ambari_database_administrator_login
       password      = var.ambari_database_administrator_login_password
     }
-
     hive {
       server        = join("", [var.hive_server_name, ".database.windows.net"])
       database_name = var.hive_database_name
       username      = var.hive_database_administrator_login
       password      = var.hive_database_administrator_login_password
     }
-
     oozie {
       server        = join("", [var.oozie_server_name, ".database.windows.net"])
       database_name = var.oozie_database_name
@@ -91,11 +81,8 @@ resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
       password      = var.oozie_database_administrator_login_password
     }
   }
-
   tags = var.tags
 }
-
-# Role assignment to the Managed Identity
 
 resource "azurerm_role_assignment" "hdi_hbase_st_role_id_sbdo" {
   scope                = var.storage_resource_id

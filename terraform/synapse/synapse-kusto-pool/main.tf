@@ -11,9 +11,6 @@ resource "azapi_resource" "syn_synkp" {
   name      = "synkp${var.basename}"
   location  = var.location
   parent_id = var.synapse_workspace_id
-
-  tags = var.tags
-
   body = jsonencode({
     properties = {
       enablePurge           = var.enable_purge,
@@ -32,6 +29,7 @@ resource "azapi_resource" "syn_synkp" {
       size     = var.sku_size
     }
   })
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
 }

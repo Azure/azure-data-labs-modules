@@ -1,6 +1,5 @@
 module "service_bus_topic" {
-  source = "../"
-
+  source       = "../"
   basename     = random_string.postfix.result
   namespace_id = module.local_service_bus_namespace.id
 }
