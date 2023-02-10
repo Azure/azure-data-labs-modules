@@ -40,11 +40,6 @@ module "storage_account" {
   count = var.module_enabled ? 1 : 0
 }
 
-locals {
-  dns_st_blob = "privatelink.blob.core.windows.net"
-  dns_st_dfs  = "privatelink.dfs.core.windows.net"
-}
-
 module "local_pdnsz_st_blob" {
   source = "../../private-dns-zone"
 
