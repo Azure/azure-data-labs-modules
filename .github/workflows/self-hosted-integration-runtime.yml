@@ -1,4 +1,4 @@
-name: Module:data-factory
+name: Module:self-hosted-integration-runtime
 on:
   workflow_dispatch:
   pull_request:
@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/data-factory.yml'
-      - 'terraform/data-factory/data-factory/**'
+      - 'terraform/data-factory/self-hosted-integration-runtime/**'
       - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/data-factory/data-factory"  
+  terraform_workingdir: "terraform/data-factory/self-hosted-integration-runtime"  
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
