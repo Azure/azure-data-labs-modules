@@ -55,8 +55,6 @@ module "local_snet_default" {
   address_prefixes = ["10.0.6.0/24"]
 }
 
-# DNS zones
-
 module "local_pdnsz_cosmos_gremlin" {
   source = "../../../private-dns-zone"
 

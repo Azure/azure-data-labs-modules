@@ -14,8 +14,6 @@ resource "azurerm_purview_account" "adl_pview" {
   count = var.module_enabled && var.is_sec_module ? 1 : 0
 }
 
-# Private Endpoint configuration
-
 resource "azurerm_private_endpoint" "purview_pe" {
   name                = "pe-${azurerm_purview_account.adl_pview[0].name}-purview"
   location            = var.location

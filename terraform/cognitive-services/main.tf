@@ -25,8 +25,6 @@ resource "azurerm_cognitive_account" "adl_cog" {
   count = var.module_enabled ? 1 : 0
 }
 
-# Private Endpoint configuration
-
 resource "azurerm_private_endpoint" "cog_pe" {
   name                = "pe-${azurerm_cognitive_account.adl_cog[0].name}-cog"
   location            = var.location

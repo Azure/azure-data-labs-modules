@@ -31,20 +31,17 @@ resource "azurerm_private_endpoint" "dec_pe" {
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
-
   private_service_connection {
     name                           = "psc-dec-${var.basename}"
     private_connection_resource_id = azurerm_kusto_cluster.adl_dec[0].id
     subresource_names              = ["cluster"]
     is_manual_connection           = false
   }
-
   private_dns_zone_group {
     name                 = "private-dns-zone-group-dec"
     private_dns_zone_ids = var.private_dns_zone_ids
   }
+  tags = var.tags
 
   count = var.module_enabled && var.is_sec_module ? 1 : 0
-
-  tags = var.tags
 }

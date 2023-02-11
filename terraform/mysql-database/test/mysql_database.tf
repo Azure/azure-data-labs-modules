@@ -1,24 +1,18 @@
 module "mysql_database" {
-  source = "../"
-
-  basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
-  location = var.location
-
+  source              = "../"
+  basename            = random_string.postfix.result
+  rg_name             = module.local_rg.name
+  location            = var.location
   subnet_id           = module.local_snet_mysql.id
   private_dns_zone_id = module.local_pdnsz_mysql.list[local.dns_mysql_server].id
-
-  identity_ids = [module.local_uami.id]
-
+  identity_ids        = [module.local_uami.id]
   customer_managed_key = {
     "cmk" = {
       key_vault_key_id                  = azurerm_key_vault_key.key.id
       primary_user_assigned_identity_id = module.local_uami.id
     }
   }
-
-  tags = {}
-
+  tags       = {}
   depends_on = [module.local_pdnsz_mysql]
 }
 
@@ -29,34 +23,27 @@ data "http" "ip" {
 }
 
 module "local_rg" {
-  source = "../../resource-group"
-
+  source   = "../../resource-group"
   basename = random_string.postfix.result
   location = var.location
-
-  tags = local.tags
+  tags     = local.tags
 }
 
 module "local_vnet" {
-  source = "../../virtual-network"
-
-  rg_name  = module.local_rg.name
-  basename = random_string.postfix.result
-  location = var.location
-
+  source        = "../../virtual-network"
+  rg_name       = module.local_rg.name
+  basename      = random_string.postfix.result
+  location      = var.location
   address_space = ["10.0.0.0/16"]
 }
 
 module "local_snet_mysql" {
-  source = "../../subnet"
-
-  rg_name          = module.local_rg.name
-  name             = "vnet-${random_string.postfix.result}-mysql-default"
-  vnet_name        = module.local_vnet.name
-  address_prefixes = ["10.0.6.0/24"]
-
+  source            = "../../subnet"
+  rg_name           = module.local_rg.name
+  name              = "vnet-${random_string.postfix.result}-mysql-default"
+  vnet_name         = module.local_vnet.name
+  address_prefixes  = ["10.0.6.0/24"]
   service_endpoints = ["Microsoft.Storage"]
-
   subnet_delegation = {
     mysql-del = [
       {
@@ -69,38 +56,29 @@ module "local_snet_mysql" {
   }
 }
 
-# DNS zones
-
 module "local_pdnsz_mysql" {
-  source = "../../private-dns-zone"
-
+  source    = "../../private-dns-zone"
   rg_name   = module.local_rg.name
   dns_zones = [local.dns_mysql_server]
   vnet_id   = module.local_vnet.id
 }
 
 module "local_uami" {
-  source = "../../user-assigned-identity"
-
+  source   = "../../user-assigned-identity"
   rg_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 }
 
 module "local_akv" {
-  source = "../../key-vault"
-
-  rg_name  = module.local_rg.name
-  basename = random_string.postfix.result
-  location = var.location
-
-  is_sec_module = false
-
-  sku_name = "standard"
-
+  source                  = "../../key-vault"
+  rg_name                 = module.local_rg.name
+  basename                = random_string.postfix.result
+  location                = var.location
+  is_sec_module           = false
+  sku_name                = "standard"
   firewall_default_action = "Allow"
-
-  firewall_ip_rules = ["${data.http.ip.body}/32"]
+  firewall_ip_rules       = ["${data.http.ip.body}/32"]
 }
 
 data "azurerm_client_config" "current" {}
@@ -133,7 +111,6 @@ resource "azurerm_key_vault_key" "key" {
   key_vault_id = module.local_akv.id
   key_type     = "RSA"
   key_size     = 2048
-
   key_opts = [
     "decrypt",
     "encrypt",
@@ -142,6 +119,5 @@ resource "azurerm_key_vault_key" "key" {
     "verify",
     "wrapKey",
   ]
-
   depends_on = [azurerm_key_vault_access_policy.akv_access_policy_terraform_principal]
 }

@@ -8,8 +8,7 @@ resource "azurerm_analysis_services_server" "adl_as" {
   sku                     = var.sku
   admin_users             = var.admin_users
   enable_power_bi_service = var.enable_power_bi_service
+  tags                    = var.tags
 
   count = var.module_enabled ? 1 : 0
-
-  tags = var.tags
 }

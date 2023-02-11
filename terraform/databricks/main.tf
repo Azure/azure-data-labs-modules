@@ -22,8 +22,6 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   count = var.module_enabled ? 1 : 0
 }
 
-# Private Endpoint configuration
-
 resource "azurerm_private_endpoint" "databricks_pe_be" {
   name                = "pe-${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-be"
   location            = var.location

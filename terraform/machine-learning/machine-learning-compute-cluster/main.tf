@@ -7,13 +7,11 @@ resource "azurerm_machine_learning_compute_cluster" "adl_mlw_compute_cluster" {
   vm_size                       = var.vm_size
   machine_learning_workspace_id = var.machine_learning_workspace_id
   subnet_resource_id            = var.subnet_id
-
   scale_settings {
     min_node_count                       = 0
     max_node_count                       = 1
     scale_down_nodes_after_idle_duration = "PT30S" # 30 seconds
   }
-
   identity {
     type = "SystemAssigned"
   }
