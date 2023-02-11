@@ -8,9 +8,9 @@ resource "azurerm_mssql_server" "adl_sql" {
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_login_password
   minimum_tls_version          = var.minimum_tls_version
+  tags                         = var.tags
 
   count = var.module_enabled ? 1 : 0
-  tags  = var.tags
 }
 
 resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
@@ -22,27 +22,22 @@ resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
   count = var.is_sec_module ? 0 : 1
 }
 
-# Private Endpoint configuration
-
 resource "azurerm_private_endpoint" "sql_pe_server" {
   name                = "pe-${azurerm_mssql_server.adl_sql[0].name}-server"
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
-
   private_service_connection {
     name                           = "psc-server-${var.basename}"
     private_connection_resource_id = azurerm_mssql_server.adl_sql[0].id
     subresource_names              = ["sqlServer"]
     is_manual_connection           = false
   }
-
   private_dns_zone_group {
     name                 = "private-dns-zone-group-server"
     private_dns_zone_ids = var.private_dns_zone_ids
   }
-
-  count = var.is_sec_module && var.module_enabled ? 1 : 0
-
   tags = var.tags
+
+  count = var.module_enabled && var.is_sec_module ? 1 : 0
 }

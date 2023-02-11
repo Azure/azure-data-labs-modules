@@ -14,20 +14,17 @@ resource "azurerm_private_endpoint" "table_pe" {
   location            = var.location
   resource_group_name = var.rg_name
   subnet_id           = var.subnet_id
-
   private_service_connection {
     name                           = "psc-table-${var.basename}"
     private_connection_resource_id = var.cosmosdb_account_id
     subresource_names              = ["Table"]
     is_manual_connection           = false
   }
-
   private_dns_zone_group {
     name                 = "private-dns-zone-group-table"
     private_dns_zone_ids = var.private_dns_zone_ids
   }
+  tags = var.tags
 
   count = var.module_enabled && var.is_sec_module ? 1 : 0
-
-  tags = var.tags
 }

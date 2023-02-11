@@ -1,20 +1,16 @@
 module "network_security_group" {
-  source = "../"
-
+  source   = "../"
   basename = random_string.postfix.result
   rg_name  = module.local_rg.name
   location = var.location
-
-  tags = {}
+  tags     = {}
 }
 
 # Modules dependencies
 
 module "local_rg" {
-  source = "../../resource-group"
-
+  source   = "../../resource-group"
   basename = random_string.postfix.result
   location = var.location
-
-  tags = local.tags
+  tags     = local.tags
 }
