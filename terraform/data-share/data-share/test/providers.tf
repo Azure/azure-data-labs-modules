@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "rg-adl-terraform-state"
     storage_account_name = "stadlterraformstate"
     container_name       = "default"
-    key                  = "eventhubs.terraform.tfstate"
+    key                  = "datashare.terraform.tfstate"
   }
 
   required_providers {
