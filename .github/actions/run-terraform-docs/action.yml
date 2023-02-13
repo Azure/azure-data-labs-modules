@@ -15,4 +15,4 @@ runs:
         output-file: README.md
         output-method: inject
         git-push: "true"
-        args: --hide providers --hide Requirements
+        args: --hide providers --hide requirements --hide modules
