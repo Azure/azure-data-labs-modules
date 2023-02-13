@@ -66,7 +66,7 @@ variable "snapshot_schedule" {
   "
   EOF
   validation {
-    condition     = length(var.snapshot_schedule) == 0 || (length(var.snapshot_schedule) == 1 && alltrue([for v in var.snapshot_schedule : contains(["hour", "day"], lower(v.recurrence))])  && alltrue([for v in var.snapshot_schedule : can(regex("^(\\d{4})-(\\d{2})-(\\d{2})(T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)((-(\\d{2}):(\\d{2})|Z)?))?$", v.start_time))]) && alltrue([for v in var.snapshot_schedule : length(v.name) > 0]))
+    condition     = length(var.snapshot_schedule) == 0 || (length(var.snapshot_schedule) == 1 && alltrue([for v in var.snapshot_schedule : contains(["hour", "day"], lower(v.recurrence))]) && alltrue([for v in var.snapshot_schedule : can(regex("^(\\d{4})-(\\d{2})-(\\d{2})(T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)((-(\\d{2}):(\\d{2})|Z)?))?$", v.start_time))]) && alltrue([for v in var.snapshot_schedule : length(v.name) > 0]))
     error_message = "Valid values for recurrence are \"Hour\" or \"Day\". Valid values for start_time are dates or date times in ISO 8601 format."
   }
   default = {}
