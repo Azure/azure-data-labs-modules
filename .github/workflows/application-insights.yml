@@ -75,3 +75,16 @@ jobs:
       run: go test -v -timeout 45m 
       env:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+
+  terraform-docs:
+    name: Run Terraform tfsec
+    needs: 
+      - terratest
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Run tfsec with reviewdog output on the PR
+      uses: ./.github/actions/run-terraform-docs
