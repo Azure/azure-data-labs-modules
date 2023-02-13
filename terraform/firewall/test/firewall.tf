@@ -5,7 +5,8 @@ module "firewall" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  #   subnet_id = module.local_snet_default.id
+  subnet_id            = module.local_snet_default.id
+  management_subnet_id = module.local_snet_mngmt.id
 
   tags = {}
 }
@@ -35,7 +36,16 @@ module "local_snet_default" {
   source = "../../subnet"
 
   rg_name          = module.local_rg.name
-  name             = "vnet-${random_string.postfix.result}-kv-default"
+  name             = "AzureFirewallSubnet"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
+}
+
+module "local_snet_mngmt" {
+  source = "../../subnet"
+
+  rg_name          = module.local_rg.name
+  name             = "AzureFirewallManagementSubnet"
+  vnet_name        = module.local_vnet.name
+  address_prefixes = ["10.0.5.0/24"]
 }

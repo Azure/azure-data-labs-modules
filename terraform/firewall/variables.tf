@@ -68,3 +68,63 @@ variable "threat_intel_mode" {
   }
   default = "Alert"
 }
+
+variable "subnet_id" {
+  type        = string
+  description = "(Optional) Reference to the subnet associated with the IP Configuration."
+  default     = null
+}
+
+variable "management_subnet_id" {
+  type        = string
+  description = "(Required) Reference to the subnet associated with the IP Configuration. Changing this forces a new resource to be created. The Management Subnet used for the Firewall must have the name AzureFirewallManagementSubnet and the subnet mask must be at least a /26."
+  default     = null
+}
+
+variable "public_ip_count" {
+  type        = number
+  description = "(Optional) Specifies the number of public IPs to assign to the Firewall. Defaults to 1."
+  default     = 1
+}
+
+variable "pip_allocation_method" {
+  type        = string
+  description = "(Required) Defines the allocation method for this IP address. Possible values are Static or Dynamic."
+  validation {
+    condition     = contains(["static", "dynamic"], lower(var.pip_allocation_method))
+    error_message = "Valid values for pip_allocation_method are \"Static\" or \"Dynamic\"."
+  }
+  default = "Static"
+}
+
+variable "pip_sku" {
+  type        = string
+  description = "(Optional) The SKU of the Public IP. Accepted values are Basic and Standard. Defaults to Basic. Changing this forces a new resource to be created."
+  validation {
+    condition     = contains(["basic", "standard"], lower(var.pip_sku))
+    error_message = "Valid values for pip_sku are \"Basic\" or \"Standard\"."
+  }
+  default = "Standard"
+}
+
+variable "sku_policy" {
+  type        = string
+  description = "(Optional) The SKU Tier of the Firewall Policy. Possible values are Standard, Premium. Changing this forces a new Firewall Policy to be created."
+  validation {
+    condition     = contains(["Premium", "Standard"], var.sku_policy)
+    error_message = "Valid values for sku_policy are \"Premium\" or \"Standard\"."
+  }
+  default = "Standard"
+}
+
+variable "proxy_enabled" {
+  type        = bool
+  description = "(Optional) Whether to enable DNS proxy on Firewalls attached to this Firewall Policy? Defaults to false."
+  default     = false
+}
+
+variable "dns_servers" {
+  type        = list(string)
+  description = "(Optional) A list of custom DNS servers' IP addresses."
+  default     = null
+}
