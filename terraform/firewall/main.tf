@@ -9,7 +9,6 @@ resource "azurerm_firewall" "adl_afw" {
   zones               = var.zones
   threat_intel_mode   = var.threat_intel_mode
   firewall_policy_id  = azurerm_firewall_policy.adl_afw_afwp[0].id
-
   dynamic "ip_configuration" {
     iterator = pip
     for_each = var.sku_name != "AZFW_Hub" ? azurerm_public_ip.adl_afw_pip_config : []
@@ -19,7 +18,6 @@ resource "azurerm_firewall" "adl_afw" {
       public_ip_address_id = pip.value.id
     }
   }
-
   dynamic "management_ip_configuration" {
     for_each = var.management_subnet_id != null ? [1] : []
     content {
@@ -28,7 +26,6 @@ resource "azurerm_firewall" "adl_afw" {
       public_ip_address_id = azurerm_public_ip.adl_afw_pip_mngmt[0].id
     }
   }
-
   # dynamic "virtual_hub" {
   #   for_each = var.sku_name == "AZFW_Hub" ? [1] : []
   #   content {
@@ -36,9 +33,9 @@ resource "azurerm_firewall" "adl_afw" {
   #     public_ip_count = var.pip_count
   #   }
   # }
+  tags  = var.tags
 
   count = var.module_enabled ? 1 : 0
-  tags  = var.tags
 }
 
 # Public IP for the firewall
@@ -82,9 +79,9 @@ resource "azurerm_firewall_policy" "adl_afw_afwp" {
       servers       = var.dns_servers != null ? var.dns_servers : null
     }
   }
+  tags  = var.tags
 
   count = var.module_enabled ? 1 : 0
-  tags  = var.tags
 }
 
 # # Virtual Hub
