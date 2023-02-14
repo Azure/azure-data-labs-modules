@@ -42,17 +42,9 @@
 
 | Name | Description |
 |------|-------------|
-<<<<<<< HEAD
-| <a name="output_access_key"></a> [access\_key](#output\_access\_key) | n/a |
-| <a name="output_adls_id"></a> [adls\_id](#output\_adls\_id) | n/a |
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
-=======
 | <a name="output_access_key"></a> [access\_key](#output\_access\_key) | Primary access keyfor the Storage Account. |
 | <a name="output_adls_id"></a> [adls\_id](#output\_adls\_id) | Resource identifier of the ADLS filesystem. |
 | <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Storage Account. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Storage Account. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Storage Account exists. |
->>>>>>> 8294e683362180d2f2cb422eeddc632b7c5c3009
 <!-- END_TF_DOCS -->
