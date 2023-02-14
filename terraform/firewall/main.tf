@@ -33,7 +33,7 @@ resource "azurerm_firewall" "adl_afw" {
   #     public_ip_count = var.pip_count
   #   }
   # }
-  tags  = var.tags
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
 }
@@ -79,7 +79,7 @@ resource "azurerm_firewall_policy" "adl_afw_afwp" {
       servers       = var.dns_servers != null ? var.dns_servers : null
     }
   }
-  tags  = var.tags
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
 }
