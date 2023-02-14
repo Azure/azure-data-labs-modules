@@ -2,7 +2,7 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition = can(regex("^[-.\\w]{1,52}$", var.basename)) && can(regex("[\\w]+$", var.basename))
+    condition     = can(regex("^[-.\\w]{1,52}$", var.basename)) && can(regex("[\\w]+$", var.basename))
     error_message = "The name must be between 1 and 52 characters, must end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
