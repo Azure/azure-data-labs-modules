@@ -22,6 +22,11 @@
 
 | Name | Description |
 |------|-------------|
+<<<<<<< HEAD
 | <a name="output_id"></a> [id](#output\_id) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
+=======
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Machine Learning Compute Cluster. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Machine Learning Compute Cluster. |
+>>>>>>> 8294e683362180d2f2cb422eeddc632b7c5c3009
 <!-- END_TF_DOCS -->

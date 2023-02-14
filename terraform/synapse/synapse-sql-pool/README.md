@@ -19,5 +19,9 @@
 
 | Name | Description |
 |------|-------------|
+<<<<<<< HEAD
 | <a name="output_id"></a> [id](#output\_id) | n/a |
+=======
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Synapse SQL Pool. |
+>>>>>>> 8294e683362180d2f2cb422eeddc632b7c5c3009
 <!-- END_TF_DOCS -->

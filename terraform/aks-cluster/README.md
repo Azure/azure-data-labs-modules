@@ -24,8 +24,15 @@
 
 | Name | Description |
 |------|-------------|
+<<<<<<< HEAD
 | <a name="output_all"></a> [all](#output\_all) | n/a |
 | <a name="output_id"></a> [id](#output\_id) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+=======
+| <a name="output_all"></a> [all](#output\_all) | All attributes exported by the Managed Kubernetes Cluster. |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Managed Kubernetes Cluster. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Managed Kubernetes Cluster. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Managed Kubernetes Cluster exists. |
+>>>>>>> 8294e683362180d2f2cb422eeddc632b7c5c3009
 <!-- END_TF_DOCS -->

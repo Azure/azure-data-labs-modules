@@ -19,5 +19,9 @@
 
 | Name | Description |
 |------|-------------|
+<<<<<<< HEAD
 | <a name="output_list"></a> [list](#output\_list) | n/a |
+=======
+| <a name="output_list"></a> [list](#output\_list) | All attributes of the instance of Private DNS Zone. |
+>>>>>>> 8294e683362180d2f2cb422eeddc632b7c5c3009
 <!-- END_TF_DOCS -->
