@@ -16,7 +16,6 @@ resource "azurerm_redis_enterprise_cluster" "adl_redis_enterprise" {
 resource "azurerm_redis_enterprise_database" "adl_redis_database" {
   name                = "default"
   cluster_id          = azurerm_redis_enterprise_cluster.adl_redis_enterprise[0].id
-  resource_group_name = var.rg_name
   clustering_policy   = var.clustering_policy
   client_protocol     = var.client_protocol
   eviction_policy     = var.eviction_policy
