@@ -22,8 +22,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Application Insights. |
+| <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | The instrumentation key for this instance of Application Insights. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Application Insights. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Application Insights exists. |
 <!-- END_TF_DOCS -->
