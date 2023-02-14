@@ -41,8 +41,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
-| <a name="output_workspace_url"></a> [workspace\_url](#output\_workspace\_url) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Azure Databricks. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the instance of Azure Databricks. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the instance of Azure Databricks exists. |
+| <a name="output_workspace_url"></a> [workspace\_url](#output\_workspace\_url) | The URL used to connect to the workspace of the Azure Databricks. |
 <!-- END_TF_DOCS -->
