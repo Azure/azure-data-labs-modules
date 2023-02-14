@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/application-insights.yml'
       - 'terraform/application-insights/**'
-      - '.github/actions/**'
+#      - '.github/actions/**'
 
 env:
   terraform_workingdir: "terraform/application-insights"  
