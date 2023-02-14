@@ -20,4 +20,5 @@ output "port" {
 
 output "primary_access_key" {
   value = module.redis_enterprise.primary_access_key
+  sensitive = true
 }
