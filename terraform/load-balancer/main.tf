@@ -5,15 +5,13 @@ resource "azurerm_lb" "adl_lb" {
   location            = var.location
   resource_group_name = var.rg_name
   sku                 = var.sku
-
   frontend_ip_configuration {
     name                 = "pip-${var.basename}"
     public_ip_address_id = azurerm_public_ip.adl_lb_pip[0].id
   }
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
-
-  tags = var.tags
 }
 
 # Public IP config
@@ -24,8 +22,7 @@ resource "azurerm_public_ip" "adl_lb_pip" {
   resource_group_name = var.rg_name
   allocation_method   = var.pip_allocation_method
   sku                 = var.pip_sku
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
-
-  tags = var.tags
 }
