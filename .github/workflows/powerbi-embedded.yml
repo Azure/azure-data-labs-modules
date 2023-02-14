@@ -1,12 +1,12 @@
 name: Module:powerbi-embedded
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main  
-    paths:
-      - '.github/workflows/powerbi-embedded.yml'
-      - 'terraform/powerbi-embedded/**'
+#  pull_request:
+#    branches:
+#      - main  
+#    paths:
+#      - '.github/workflows/powerbi-embedded.yml'
+#      - 'terraform/powerbi-embedded/**'
 #      - '.github/actions/**'
 
 env:
