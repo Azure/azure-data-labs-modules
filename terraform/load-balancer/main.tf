@@ -22,7 +22,7 @@ resource "azurerm_public_ip" "adl_lb_pip" {
   resource_group_name = var.rg_name
   allocation_method   = var.pip_allocation_method
   sku                 = var.pip_sku
-  tags = var.tags
+  tags                = var.tags
 
   count = var.module_enabled ? 1 : 0
 }
