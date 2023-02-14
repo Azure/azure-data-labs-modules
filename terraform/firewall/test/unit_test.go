@@ -29,4 +29,8 @@ func TestModule(t *testing.T) {
 	assert := assert.New(t)
 	id := terraform.Output(t, terraformOptions, "id")
 	assert.NotNil(id)
+	name := terraform.Output(t, terraformOptions, "name")
+	assert.NotNil(name)
+	resource_group_name := terraform.Output(t, terraformOptions, "resource_group_name")
+	assert.NotNil(resource_group_name)
 }

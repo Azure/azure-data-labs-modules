@@ -2,8 +2,8 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[-0-9a-zA-Z]{1,21}$", var.basename)) && can(regex("[0-9a-zA-Z]+$", var.basename))
-    error_message = "The name must be between 1 and 21 characters, can contain only letters, numbers, and hyphens. Must end with a letter or number. Cannot contain consecutive hyphens."
+    condition = can(regex("^[-.\\w]{1,52}$", var.basename)) && can(regex("[\\w]+$", var.basename))
+    error_message = "The name must be between 1 and 52 characters, must end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
 }
 
