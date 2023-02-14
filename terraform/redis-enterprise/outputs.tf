@@ -31,7 +31,7 @@ output "resource_group_name" {
 }
 
 output "port" {
-  value = 10000
+  value       = 10000
   description = "Port number on which the default database is listening on."
 }
 
@@ -41,5 +41,5 @@ output "primary_access_key" {
     azurerm_redis_enterprise_database.adl_redis_database[0].primary_access_key : ""
   )
   description = "Primary access key for the default database."
-  sensitive = true
+  sensitive   = true
 }
