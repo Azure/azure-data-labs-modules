@@ -26,8 +26,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_primary_authorization_key"></a> [primary\_authorization\_key](#output\_primary\_authorization\_key) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Self Hosted Integration Runtime. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Self Hosted Integration Runtime. |
+| <a name="output_primary_authorization_key"></a> [primary\_authorization\_key](#output\_primary\_authorization\_key) | Primary authorization key of the Self Hosted Integration Runtime. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Self Hosted Integration Runtime exists. |
 <!-- END_TF_DOCS -->
