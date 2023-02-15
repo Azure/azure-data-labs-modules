@@ -1,16 +1,16 @@
-name: Module:log-analytics-cluster
+name: Module:data-share
 on:
   workflow_dispatch:
-#  pull_request:
-#    branches:
-#      - main  
-#    paths:
-#      - '.github/workflows/log-analytics-cluster.yml'
-#      - 'terraform/log-analytics/log-analytics-cluster/**'
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/data-share.yml'
+      - 'terraform/data-share/data-share/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/log-analytics/log-analytics-cluster"  
+  terraform_workingdir: "terraform/data-share/data-share"  
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -61,6 +61,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+      
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
