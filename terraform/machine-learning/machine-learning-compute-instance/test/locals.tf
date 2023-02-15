@@ -1,7 +1,7 @@
 locals {
   tags = {
     Project = "Azure/azure-data-labs-modules"
-    Module  = "mahcine-learning-compute-instance"
+    Module  = "machine-learning-compute-instance"
     Toolkit = "Terraform"
   }
 }

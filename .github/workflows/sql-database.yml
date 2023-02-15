@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/sql-database.yml'
       - 'terraform/sql-database/**'
-      - '.github/actions/**'
+#      - '.github/actions/**'
 
 env:
   terraform_workingdir: "terraform/sql-database"  
@@ -75,3 +75,16 @@ jobs:
       run: go test -v -timeout 45m
       env:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+
+  terraform-docs:
+    name: Run Terraform Docs
+    needs: 
+      - terratest
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Render terraform docs and push changes back to PR
+      uses: ./.github/actions/run-terraform-docs
