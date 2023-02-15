@@ -2,6 +2,7 @@ module "data_share" {
   source     = "../"
   basename   = random_string.postfix.result
   account_id = module.local_data_share_account.id
+  snapshot_schedule = var.snapshot_schedule
 }
 
 # Module dependencies

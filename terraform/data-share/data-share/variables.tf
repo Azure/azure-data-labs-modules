@@ -25,7 +25,7 @@ variable "kind" {
     condition     = contains(["copybased", "inplace"], lower(var.kind))
     error_message = "Valid values for kind are \"CopyBased\" or \"InPlace\"."
   }
-  default = "InPlace"
+  default = "CopyBased"
 }
 
 variable "description" {
