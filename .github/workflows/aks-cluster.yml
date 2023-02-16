@@ -88,12 +88,13 @@ jobs:
 
     - name: Render terraform docs and push changes back to PR
       uses: ./.github/actions/run-terraform-docs
+
   summarize:
     runs-on: ubuntu-latest
     permissions: write-all  # Some repositories need this line
 
     steps:
-      - uses: KanHarI/gpt-commit-summarizer@master
+      - uses: KanHarI/gpt-commit-summarizer@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
