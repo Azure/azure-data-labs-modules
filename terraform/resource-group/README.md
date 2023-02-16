@@ -18,7 +18,7 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_name"></a> [name](#output\_name) | n/a |
-| <a name="output_location"></a> [location](#output\_location) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Resource Group. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the Resource Group. |
+| <a name="output_location"></a> [location](#output\_location) | Location assigned to the Resource Group. |
 <!-- END_TF_DOCS -->
