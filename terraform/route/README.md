@@ -9,12 +9,12 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_address_prefix"></a> [address\_prefix](#input\_address\_prefix) | The destination to which the route applies. | `string` | n/a | yes |
-| <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
-| <a name="input_name"></a> [name](#input\_name) | The name of the Route. | `string` | n/a | yes |
-| <a name="input_next_hop_type"></a> [next\_hop\_type](#input\_next\_hop\_type) | The type of Azure hop the packet should be sent to. | `string` | n/a | yes |
 | <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | Resource group name. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | The name of the Route. | `string` | n/a | yes |
+| <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
 | <a name="input_route_table_name"></a> [route\_table\_name](#input\_route\_table\_name) | The name of the route table within which create the route. | `string` | n/a | yes |
+| <a name="input_address_prefix"></a> [address\_prefix](#input\_address\_prefix) | The destination to which the route applies. | `string` | n/a | yes |
+| <a name="input_next_hop_type"></a> [next\_hop\_type](#input\_next\_hop\_type) | The type of Azure hop the packet should be sent to. | `string` | n/a | yes |
 
 ## Outputs
 
