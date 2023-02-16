@@ -11,14 +11,14 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_basename"></a> [basename](#input\_basename) | Basename of the module. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Location of the resource group. | `string` | `"North Europe"` | no |
-| <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags which should be assigned to the Resource Group. | `map(string)` | `{}` | no |
+| <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_location"></a> [location](#output\_location) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
+| <a name="output_location"></a> [location](#output\_location) | n/a |
 <!-- END_TF_DOCS -->
