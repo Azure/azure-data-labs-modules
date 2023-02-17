@@ -35,8 +35,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_database_name"></a> [database\_name](#output\_database\_name) | n/a |
-| <a name="output_id"></a> [id](#output\_id) | n/a |
-| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
-| <a name="output_server_name"></a> [server\_name](#output\_server\_name) | n/a |
+| <a name="output_database_name"></a> [database\_name](#output\_database\_name) | The name of the PostgreSQL Flexible Server database. |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of PostgreSQL Flexible Server database. |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the PostgreSQL Flexible Server server exists. |
+| <a name="output_server_name"></a> [server\_name](#output\_server\_name) | The name of the PostgreSQL Flexible Server server. |
 <!-- END_TF_DOCS -->

@@ -3,6 +3,7 @@ output "id" {
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
     azurerm_kubernetes_cluster.adl_aks[0].id : ""
   )
+  description = "Resource identifier of the instance of Managed Kubernetes Cluster."
 }
 
 output "name" {
@@ -10,6 +11,7 @@ output "name" {
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
     azurerm_kubernetes_cluster.adl_aks[0].name : ""
   )
+  description = "The name of the Managed Kubernetes Cluster."
 }
 
 output "resource_group_name" {
@@ -17,6 +19,7 @@ output "resource_group_name" {
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
     azurerm_kubernetes_cluster.adl_aks[0].resource_group_name : ""
   )
+  description = "Resource Group where the Managed Kubernetes Cluster exists."
 }
 
 output "all" {
@@ -24,5 +27,6 @@ output "all" {
     length(azurerm_kubernetes_cluster.adl_aks) > 0 ?
     azurerm_kubernetes_cluster.adl_aks[0] : null
   )
-  sensitive = true
+  description = "All attributes exported by the Managed Kubernetes Cluster."
+  sensitive   = true
 }

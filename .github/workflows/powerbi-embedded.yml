@@ -7,7 +7,7 @@ on:
 #    paths:
 #      - '.github/workflows/powerbi-embedded.yml'
 #      - 'terraform/powerbi-embedded/**'
-#      - '.github/actions/**'
+##      - '.github/actions/**'
 
 env:
   terraform_workingdir: "terraform/powerbi-embedded"  

@@ -11,5 +11,6 @@ output "resource_group_name" {
 }
 
 output "primary_authorization_key" {
-  value = module.self_hosted_integration_runtime.primary_authorization_key
+  value     = module.self_hosted_integration_runtime.primary_authorization_key
+  sensitive = true
 }

@@ -21,5 +21,5 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Service Bus topic. |
 <!-- END_TF_DOCS -->
