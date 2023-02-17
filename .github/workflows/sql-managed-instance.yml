@@ -1,13 +1,13 @@
 name: Module:sql-managed-instance
 on:
   workflow_dispatch:
-#  pull_request:
-#    branches:
-#      - main  
-#    paths:
-#      - '.github/workflows/sql-managed-instance.yml'
-#      - 'terraform/sql-managed-instance/**'
-##      - '.github/actions/**'
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/sql-managed-instance.yml'
+      - 'terraform/sql-managed-instance/**'
+#      - '.github/actions/**'
 
 env:
   terraform_workingdir: "terraform/sql-managed-instance"  
@@ -73,7 +73,7 @@ jobs:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
       
     - name: Unit-test
-      run: go test -v -timeout 45m
+      run: go test -v -timeout 120m
       env:
         GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
 
