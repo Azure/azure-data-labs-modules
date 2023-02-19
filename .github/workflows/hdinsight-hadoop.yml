@@ -53,10 +53,6 @@ jobs:
       - terraform-sec
     runs-on: ubuntu-latest
 
-    defaults:
-          run:
-            working-directory: "${{ env.terraform_workingdir }}/test"
-
     steps:
     - name: Do-nothing-for-now
       run: echo "Doing nothing"
