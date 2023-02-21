@@ -6,9 +6,9 @@ module "batch_services_account" {
   pool_allocation_mode          = "BatchService"
   storage_account_id            = module.local_storage_account.id
   public_network_access_enabled = false
-  subnet_id            = module.local_snet_default.id
-  private_dns_zone_ids = [module.local_pdnsz_batch.list[local.dns_batch].id]
-  tags = {}
+  subnet_id                     = module.local_snet_default.id
+  private_dns_zone_ids          = [module.local_pdnsz_batch.list[local.dns_batch].id]
+  tags                          = {}
 }
 
 # Module dependencies

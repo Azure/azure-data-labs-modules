@@ -70,7 +70,7 @@ variable "allowed_authentication_modes" {
   type        = list(string)
   description = "Specifies the allowed authentication modes for the Batch account."
   validation {
-    condition     = alltrue([for mode in var.allowed_authentication_modes: contains(["AAD", "SharedKey", "TaskAuthenticationToken"], mode)])
+    condition     = alltrue([for mode in var.allowed_authentication_modes : contains(["AAD", "SharedKey", "TaskAuthenticationToken"], mode)])
     error_message = "Valid values for allowed_authentication_modes are \"AAD\", \"SharedKey\", \"TaskAuthenticationToken\"."
   }
   default = ["AAD", "SharedKey", "TaskAuthenticationToken"]
