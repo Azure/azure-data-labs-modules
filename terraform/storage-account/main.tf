@@ -50,8 +50,8 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "st_adls" {
   name               = "default"
   storage_account_id = azurerm_storage_account.adl_st[0].id
   depends_on = [
-    azurerm_role_assignment.st_role_admin_sbdc,
-    azurerm_storage_account_network_rules.firewall_rules
+    azurerm_storage_account_network_rules.firewall_rules,
+    time_sleep.wait_40_seconds
   ]
 
   count = var.module_enabled ? 1 : 0
@@ -125,4 +125,11 @@ resource "azurerm_private_endpoint" "st_pe_dfs" {
   tags = var.tags
 
   count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
+}
+
+resource "time_sleep" "wait_40_seconds" {
+  depends_on = [
+    azurerm_role_assignment.st_role_admin_sbdc
+  ]
+  create_duration = "40s"
 }
