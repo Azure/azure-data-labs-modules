@@ -127,9 +127,9 @@ resource "azurerm_private_endpoint" "st_pe_dfs" {
   count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
 }
 
-resource "time_sleep" "wait_40_seconds" {
+resource "time_sleep" "wait_60_seconds" {
   depends_on = [
     azurerm_role_assignment.st_role_admin_sbdc
   ]
-  create_duration = "40s"
+  create_duration = "60s"
 }
