@@ -51,7 +51,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "st_adls" {
   storage_account_id = azurerm_storage_account.adl_st[0].id
   depends_on = [
     azurerm_storage_account_network_rules.firewall_rules,
-    time_sleep.wait_40_seconds
+    time_sleep.wait_60_seconds
   ]
 
   count = var.module_enabled ? 1 : 0
