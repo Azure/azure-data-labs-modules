@@ -63,19 +63,16 @@ module "local_pdnsz_st_file" {
 }
 
 data "http" "ip" {
-  url = "https://ifconfig.me"
+  url = local.p_ip_endpoint
 }
 
 # Use Azure Instance Metadata Service (IMDS) REST endpoint to access information about the subnet information
 data "http" "metadata" {
-  url     = "http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01"
-  headers = {
-    "Metadata" = "true"
-  }
+  url = local.imds_endpoint
 }
 
 data "azurerm_subnet" "subnet" {
-  name                 = local.azure_metadata[0].subnet.name
-  virtual_network_name = local.azure_metadata[0].virtualNetwork.name
-  resource_group_name  = local.azure_metadata[0].virtualNetwork.resourceGroup
+  name                 = local.imds_metadata[0].subnet.name
+  virtual_network_name = local.imds_metadata[0].virtualNetwork.name
+  resource_group_name  = local.imds_metadata[0].virtualNetwork.resourceGroup
 }
