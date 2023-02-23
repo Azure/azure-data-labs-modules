@@ -11,5 +11,5 @@ locals {
 
   p_ip_endpoint = "https://ifconfig.me"
   imds_endpoint = "http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01&format=json&Metadata=true"
-  imds_metadata = jsondecode(data.http.metadata.body)
+  imds_metadata = jsondecode(data.http.metadata.response_body)
 }

@@ -72,7 +72,7 @@ data "http" "metadata" {
 }
 
 data "azurerm_subnet" "subnet" {
-  name                 = local.imds_metadata[0].subnet.name
-  virtual_network_name = local.imds_metadata[0].virtualNetwork.name
-  resource_group_name  = local.imds_metadata[0].virtualNetwork.resourceGroup
+  name                 = local.imds_metadata.subnet.name
+  virtual_network_name = local.imds_metadata.virtualNetwork.name
+  resource_group_name  = local.imds_metadata.virtualNetwork.resourceGroup
 }
