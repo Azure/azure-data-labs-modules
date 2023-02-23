@@ -68,19 +68,14 @@ data "http" "ip" {
 
 # Use Azure Instance Metadata Service (IMDS) REST endpoint to access information about the subnet information
 data "http" "metadata" {
-  url = "http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01"
+  url     = "http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01"
   headers = {
     "Metadata" = "true"
   }
 }
 
-data "json" "metadata" {
-  depends_on = [data.http.metadata]
-  source = data.http.metadata.body
-}
-
 data "azurerm_subnet" "subnet" {
-  name                = data.json.metadata[0].subnet.name
-  virtual_network_name = data.json.metadata[0].virtualNetwork.name
-  resource_group_name = data.json.metadata[0].virtualNetwork.resourceGroup
+  name                 = local.azure_metadata[0].subnet.name
+  virtual_network_name = local.azure_metadata[0].virtualNetwork.name
+  resource_group_name  = local.azure_metadata[0].virtualNetwork.resourceGroup
 }

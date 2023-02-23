@@ -17,7 +17,3 @@ terraform {
 provider "azurerm" {
   features {}
 }
-
-provider "json" {
-  version = "latest"
-}
