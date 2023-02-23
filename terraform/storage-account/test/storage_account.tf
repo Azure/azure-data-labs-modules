@@ -11,7 +11,7 @@ module "storage_account" {
   firewall_default_action             = var.firewall_default_action
   firewall_ip_rules                   = [data.http.ip.response_body]
   firewall_bypass                     = var.firewall_bypass
-  firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
+  firewall_virtual_network_subnet_ids = "${concat(var.firewall_virtual_network_subnet_ids, [data.azurerm_subnet.subnet.id])}"
   is_sec_module                       = var.is_sec_module
   tags                                = {}
 }
@@ -64,4 +64,23 @@ module "local_pdnsz_st_file" {
 
 data "http" "ip" {
   url = "https://ifconfig.me"
+}
+
+# Use Azure Instance Metadata Service (IMDS) REST endpoint to access information about the subnet information
+data "http" "metadata" {
+  url = "http://169.254.169.254/metadata/instance/network/interface?api-version=2021-02-01"
+  headers = {
+    "Metadata" = "true"
+  }
+}
+
+data "json" "metadata" {
+  depends_on = [data.http.metadata]
+  source = data.http.metadata.body
+}
+
+data "azurerm_subnet" "subnet" {
+  name                = data.json.metadata[0].subnet.name
+  virtual_network_name = data.json.metadata[0].virtualNetwork.name
+  resource_group_name = data.json.metadata[0].virtualNetwork.resourceGroup
 }
