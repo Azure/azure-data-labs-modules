@@ -5,5 +5,5 @@ locals {
     Toolkit = "Terraform"
   }
 
-  dns_sql_server = "privatelink.database.windows.net"
+  dns_sql_server = "azuredatalabs.database.windows.net"
 }
