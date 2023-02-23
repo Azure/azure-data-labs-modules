@@ -11,7 +11,9 @@ module "sql_database_server" {
   is_sec_module                = var.is_sec_module
   azuread_administrator = {
     aad_admin = {
-      login_username              = data.azuread_user.current.user_principal_name
+                                    # Ideally should get the UPN using data.azuread_user.current.user_principal_name
+                                    # but the SP used to run the tests lacks permissions to do that
+      login_username              = "someusernameforlogin"
       object_id                   = data.azurerm_client_config.current.object_id
       tenant_id                   = data.azurerm_client_config.current.tenant_id
       azuread_authentication_only = false
@@ -53,7 +55,3 @@ module "local_pdnsz_sql_blob" {
 }
 
 data "azurerm_client_config" "current" {}
-
-data "azuread_user" "current" {
-  object_id = data.azurerm_client_config.current.object_id
-}
