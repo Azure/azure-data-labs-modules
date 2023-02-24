@@ -1,8 +1,6 @@
 module "resource_group" {
-  source = "../"
-
+  source   = "../"
   basename = random_string.postfix.result
   location = var.location
-
-  tags = local.tags
+  tags     = local.tags
 }

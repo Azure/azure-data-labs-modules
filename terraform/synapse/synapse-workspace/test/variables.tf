@@ -15,12 +15,13 @@ variable "synadmin_username" {
 }
 
 variable "synadmin_password" {
-  type    = string
-  default = "ThisIsNotVerySecure!"
+  type      = string
+  default   = "ThisIsNotVerySecure!"
+  sensitive = true
 }
 
 variable "aad_login" {
-  description = "AAD login"
+  description = "AAD login."
   type = object({
     name      = string
     object_id = string

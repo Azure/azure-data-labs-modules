@@ -1,7 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
 
 locals {
-
   default_node_pool = {
     name       = "default"
     node_count = 1
@@ -31,27 +30,21 @@ locals {
   api_server_authorized_ip_ranges = [
     "0.0.0.0/0"
   ]
-
 }
 
 resource "azurerm_kubernetes_cluster" "adl_aks" {
-
   name                = "aks-${var.basename}"
   location            = var.location
   resource_group_name = var.rg_name
-  tags                = var.tags
   dns_prefix          = var.dns_prefix
-
   default_node_pool {
     name       = local.merged_default_node_pool.name
     node_count = local.merged_default_node_pool.node_count
     vm_size    = local.merged_default_node_pool.vm_size
   }
-
   identity {
     type = "SystemAssigned"
   }
-
   network_profile {
     network_plugin     = local.merged_network_profile.network_plugin
     network_mode       = local.merged_network_profile.network_mode
@@ -67,7 +60,11 @@ resource "azurerm_kubernetes_cluster" "adl_aks" {
     # load_balancer_profile = local.merged_network_profile.load_balancer_profile
     # nat_gateway_profile   = local.merged_network_profile.nat_gateway_profile
   }
-
-  api_server_authorized_ip_ranges   = var.api_server_authorized_ip_ranges
+  api_server_access_profile {
+    authorized_ip_ranges = var.api_server_authorized_ip_ranges
+  }
   role_based_access_control_enabled = var.role_based_access_control_enabled
+  tags                              = var.tags
+
+  count = var.module_enabled ? 1 : 0
 }

@@ -11,7 +11,7 @@ variable "location" {
 
 variable "dns_zones" {
   type        = set(string)
-  description = "List of Private DNS Zones utilized by Azure Private Link resources"
+  description = "List of Private DNS Zones utilized by Azure Private Link resources."
   default = [
     "privatelink.queue.core.windows.net"
   ]

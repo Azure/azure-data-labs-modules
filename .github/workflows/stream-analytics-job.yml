@@ -1,0 +1,98 @@
+name: Module:stream-analytics-job
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main  
+    paths:
+      - '.github/workflows/stream-analytics-job.yml'
+      - 'terraform/stream-analytics/stream-analytics-job/**'
+#      - '.github/actions/**'
+
+env:
+  terraform_workingdir: "terraform/stream-analytics/stream-analytics-job"  
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:     
+  terraform-lint:
+    name: Run Terraform lint
+    runs-on: ubuntu-latest
+    defaults:
+         run:
+          working-directory: "${{ env.terraform_workingdir }}"
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: false
+
+  terraform-sec:
+    name: Run Terraform tfsec
+    needs: 
+      - terraform-lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@main
+
+    - name: Run tfsec with reviewdog output on the PR
+      uses: ./.github/actions/run-terraform-sec
+
+  terratest:
+    name: Run Terratest
+    needs: 
+      - terraform-sec
+    runs-on: [self-hosted, 1ES.Pool=azure-data-labs-modules]
+    environment:
+      name: acctests
+
+    defaults:
+          run:
+            working-directory: "${{ env.terraform_workingdir }}/test"
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+          go-version: 1.18.2
+      
+    - name: Setup Dependencies
+      run:  |
+        az login --identity > /dev/null
+        export ARM_USE_MSI=true
+        export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
+        export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        go mod init test && go mod tidy
+      env:
+        GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+      
+    - name: Unit-test
+      run:  |
+        az login --identity > /dev/null
+        export ARM_USE_MSI=true
+        export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
+        export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        go test -v -timeout 90m
+      env:
+        GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+
+  terraform-docs:
+    name: Run Terraform Docs
+    needs: 
+      - terratest
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Render terraform docs and push changes back to PR
+      uses: ./.github/actions/run-terraform-docs

@@ -32,8 +32,8 @@ module "local_cosmosdb_account" {
   rg_name  = module.local_rg.name
   location = var.location
 
-  kind              = "GlobalDocumentDB"
-  enable_capability = "EnableGremlin"
+  kind                = "GlobalDocumentDB"
+  enable_capabilities = ["EnableGremlin"]
 }
 
 module "local_vnet" {
@@ -54,8 +54,6 @@ module "local_snet_default" {
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
 }
-
-# DNS zones
 
 module "local_pdnsz_cosmos_gremlin" {
   source = "../../../private-dns-zone"

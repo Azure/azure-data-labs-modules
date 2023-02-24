@@ -17,24 +17,24 @@ variable "is_sec_module" {
 
 variable "firewall_virtual_network_subnet_ids" {
   type        = list(string)
-  description = "A list of virtual network subnet ids to to secure the storage account"
+  description = "A list of virtual network subnet ids to to secure the storage account."
   default     = []
 }
 
 variable "firewall_default_action" {
   type        = string
-  description = "Specifies the default action of allow or deny when no other rules match"
+  description = "Specifies the default action of allow or deny when no other rules match."
   default     = "Deny"
 }
 
 variable "firewall_ip_rules" {
   type        = list(string)
-  description = "List of public IP or IP ranges in CIDR Format"
+  description = "List of public IP or IP ranges in CIDR Format."
   default     = []
 }
 
 variable "firewall_bypass" {
   type        = list(string)
-  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices"
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices."
   default     = ["AzureServices"]
 }

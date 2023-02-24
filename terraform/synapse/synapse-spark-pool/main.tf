@@ -1,20 +1,14 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/synapse_spark_pool
 
-locals {
-  safe_basename = replace(var.basename, "-", "")
-}
-
 resource "azurerm_synapse_spark_pool" "syn_synsp" {
-  name                 = "synsp${local.safe_basename}"
+  name                 = "synsp${var.basename}"
   synapse_workspace_id = var.synapse_workspace_id
   node_size_family     = var.node_size_family
   node_size            = var.node_size
-
   auto_scale {
     max_node_count = 50
     min_node_count = 3
   }
-
   auto_pause {
     delay_in_minutes = 15
   }
