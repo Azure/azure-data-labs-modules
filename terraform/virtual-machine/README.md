@@ -32,5 +32,6 @@
 | <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Virtual Machine. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Virtual Machine. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Virtual Machine exists. |
+| <a name="output_identity"></a> [identity](#output\_identity) | "<br>      principal\_id - The Principal ID associated with this Managed Service Identity.<br>      tenant\_id - The Tenant ID associated with this Managed Service Identity.<br>  " |
 | <a name="output_public_ip_address"></a> [public\_ip\_address](#output\_public\_ip\_address) | Public IP address assigned to the Virtual Machine. |
 <!-- END_TF_DOCS -->
