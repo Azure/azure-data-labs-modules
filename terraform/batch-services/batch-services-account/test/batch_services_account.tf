@@ -23,22 +23,23 @@ module "local_rg" {
 module "local_storage_account" {
   source   = "../../../storage-account"
   basename = random_string.postfix.result
+  rg_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }
 
 module "local_vnet" {
   source        = "../../../virtual-network"
-  rg_name       = module.local_rg.name
   basename      = random_string.postfix.result
+  rg_name       = module.local_rg.name
   location      = var.location
   address_space = ["10.0.0.0/16"]
 }
 
 module "local_snet_default" {
   source           = "../../../subnet"
-  rg_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-kv-default"
+  rg_name          = module.local_rg.name
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
 }
