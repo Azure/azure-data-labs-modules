@@ -16,7 +16,7 @@ resource "azurerm_batch_account" "adl_batch_account" {
   #   url = ""
   # }
   public_network_access_enabled = var.public_network_access_enabled
-  tags = var.tags
+  tags                          = var.tags
 
   count = var.module_enabled ? 1 : 0
 }
