@@ -21,3 +21,11 @@ output "resource_group_name" {
   )
   description = "Resource Group where the Virtual Machine exists."
 }
+
+output "public_ip_address" {
+  value = (
+    length(azurerm_public_ip.vm_pip) > 0 ?
+    azurerm_public_ip.vm_pip[0].ip_address : ""
+  )
+  description = "Public IP address assigned to the Virtual Machine."
+}

@@ -33,4 +33,6 @@ func TestModule(t *testing.T) {
 	assert.NotNil(name)
 	resource_group_name := terraform.Output(t, terraformOptions, "resource_group_name")
 	assert.NotNil(resource_group_name)
+	public_ip_address := terraform.Output(t, terraformOptions, "public_ip_address")
+	assert.NotNil(public_ip_address)
 }
