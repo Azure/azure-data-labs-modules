@@ -2,8 +2,8 @@ variable "basename" {
   type        = string
   description = "Basename of the module."
   validation {
-    condition     = can(regex("^[-\\w]{1,60}$", var.basename)) && can(regex("[\\w]+$", var.basename))
-    error_message = "The name must be between 1 and 60 characters, must only contain alphanumeric characters and hyphens, and cannot end with a hyphen."
+    condition     = can(regex("^[0-9a-z]{0,12}$", var.basename))
+    error_message = "The name must be between 0 and 12 characters, must only contain lowercase characters and numbers."
   }
 }
 
@@ -49,7 +49,7 @@ variable "pool_allocation_mode" {
   type        = string
   description = "Specifies the mode to use for pool allocation."
   validation {
-    condition     = contains(["BatchService", "UserSubscription"], var.pool_allocation_mode)
+    condition     = contains(["batchservice", "usersubscription"], lower(var.pool_allocation_mode))
     error_message = "Valid values for pool_allocation are \"BatchService\" or \"UserSubscription\"."
   }
   default = "BatchService"
@@ -70,7 +70,7 @@ variable "allowed_authentication_modes" {
   type        = list(string)
   description = "Specifies the allowed authentication modes for the Batch account."
   validation {
-    condition     = alltrue([for mode in var.allowed_authentication_modes : contains(["AAD", "SharedKey", "TaskAuthenticationToken"], mode)])
+    condition     = alltrue([for mode in var.allowed_authentication_modes : contains(["aad", "sharedkey", "taskauthenticationtoken"], lower(mode))])
     error_message = "Valid values for allowed_authentication_modes are \"AAD\", \"SharedKey\", \"TaskAuthenticationToken\"."
   }
   default = ["AAD", "SharedKey", "TaskAuthenticationToken"]
