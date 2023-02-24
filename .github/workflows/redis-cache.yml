@@ -12,10 +12,6 @@ on:
 env:
   terraform_workingdir: "terraform/redis-cache"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
 jobs:     
   terraform-lint:
@@ -51,7 +47,9 @@ jobs:
     name: Run Terratest
     needs: 
       - terraform-sec
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, 1ES.Pool=azure-data-labs-modules]
+    environment:
+      name: acctests
 
     defaults:
           run:
