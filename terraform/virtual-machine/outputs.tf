@@ -25,7 +25,7 @@ output "resource_group_name" {
 output "identity" {
   value = (
     length(azurerm_virtual_machine.adl_vm) > 0 ?
-    azurerm_virtual_machine.adl_vm[0].identity : [{}]
+    azurerm_virtual_machine.adl_vm[0].identity : []
   )
   description = <<EOF
   "
