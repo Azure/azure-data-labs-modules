@@ -9,3 +9,7 @@ output "name" {
 output "resource_group_name" {
   value = module.virtual_machine.resource_group_name
 }
+
+output "identity" {
+  value = module.virtual_machine.identity
+}
