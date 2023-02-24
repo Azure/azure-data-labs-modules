@@ -11,7 +11,7 @@ resource "azurerm_purview_account" "adl_pview" {
   }
   tags = var.tags
 
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  count = var.module_enabled ? 1 : 0
 }
 
 resource "azurerm_private_endpoint" "purview_pe" {

@@ -37,6 +37,16 @@ resource "azurerm_virtual_machine" "adl_vm" {
   count = var.module_enabled ? 1 : 0
 }
 
+resource "azurerm_public_ip" "vm_pip" {
+  name                = "vmpip-${var.basename}"
+  resource_group_name = var.rg_name
+  location            = var.location
+  allocation_method   = "Static"
+  sku                 = "Standard"
+
+  count = var.module_enabled && !var.is_sec_module ? 1 : 0
+}
+
 resource "azurerm_network_interface" "vm_nic" {
   name                = "nic-${var.basename}"
   location            = var.location
@@ -45,6 +55,7 @@ resource "azurerm_network_interface" "vm_nic" {
     name                          = "configuration"
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = var.subnet_id
+    public_ip_address_id          = !var.is_sec_module ? azurerm_public_ip.vm_pip[0].id : null
   }
   tags = var.tags
 

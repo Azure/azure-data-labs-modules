@@ -33,4 +33,11 @@ output "identity" {
       tenant_id - The Tenant ID associated with this Managed Service Identity.
   "
   EOF
+
+output "public_ip_address" {
+  value = (
+    length(azurerm_public_ip.vm_pip) > 0 ?
+    azurerm_public_ip.vm_pip[0].ip_address : ""
+  )
+  description = "Public IP address assigned to the Virtual Machine."
 }
