@@ -24,6 +24,8 @@ module "sql_managed_instance" {
   public_data_endpoint_enabled   = false
   storage_account_type           = "GRS"
   timezone_id                    = "UTC"
+  private_dns_zone_group_name    = "azuredataLabs"
+  private_dns_zone_ids           = [module.local_pdnsz_sqlmi.list[local.dns_sql_server].id]
 }
 
 # Modules dependencies
@@ -78,4 +80,11 @@ module "route_table" {
   rg_name  = module.local_rg.name
   location = var.location
   tags     = {}
+}
+
+module "local_pdnsz_sqlmi" {
+  source    = "../../private-dns-zone"
+  rg_name   = module.local_rg.name
+  dns_zones = [local.dns_sql_server]
+  vnet_id   = module.local_vnet.id
 }
