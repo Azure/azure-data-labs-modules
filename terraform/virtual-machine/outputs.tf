@@ -33,6 +33,7 @@ output "identity" {
       tenant_id - The Tenant ID associated with this Managed Service Identity.
   "
   EOF
+}
 
 output "public_ip_address" {
   value = (
