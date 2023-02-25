@@ -23,6 +23,7 @@
 | <a name="input_administrator_login"></a> [administrator\_login](#input\_administrator\_login) | The administrator login name for the new server. | `string` | n/a | yes |
 | <a name="input_administrator_login_password"></a> [administrator\_login\_password](#input\_administrator\_login\_password) | The password associated with the administrator\_login. | `string` | n/a | yes |
 | <a name="input_minimum_tls_version"></a> [minimum\_tls\_version](#input\_minimum\_tls\_version) | The Minimum TLS Version for all SQL Database and SQL Data Warehouse databases associated with the server. | `string` | `"1.2"` | no |
+| <a name="input_azuread_administrator"></a> [azuread\_administrator](#input\_azuread\_administrator) | "<br>        login\_username - The login username of the Azure AD Administrator of this SQL Server.<br>        object\_id - The object id of the Azure AD Administrator of this SQL Server.<br>        tenant\_id - The tenant id of the Azure AD Administrator of this SQL Server.<br>        azuread\_authentication\_only - Specifies whether only AD Users and administrators (like azuread\_administrator.0.login\_username) can be used to login, or also local database users (like administrator\_login). When true, the administrator\_login and administrator\_login\_password properties can be omitted.<br>    " | <pre>map(<br>    object(<br>      {<br>        login_username              = optional(string)<br>        object_id                   = optional(string)<br>        tenant_id                   = optional(string)<br>        azuread_authentication_only = optional(bool)<br>      }<br>    )<br>  )</pre> | `{}` | no |
 
 ## Outputs
 
@@ -31,4 +32,5 @@
 | <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of SQL Database server. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the SQL Database server. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the SQL Database server exists. |
+| <a name="output_fully_qualified_domain_name"></a> [fully\_qualified\_domain\_name](#output\_fully\_qualified\_domain\_name) | The fully qualified domain name of the Azure SQL Server. |
 <!-- END_TF_DOCS -->

@@ -21,3 +21,11 @@ output "resource_group_name" {
   )
   description = "Resource Group where the SQL Database server exists."
 }
+
+output "fully_qualified_domain_name" {
+  value = (
+    length(azurerm_mssql_server.adl_sql) > 0 ?
+    azurerm_mssql_server.adl_sql[0].fully_qualified_domain_name : ""
+  )
+  description = "The fully qualified domain name of the Azure SQL Server."
+}

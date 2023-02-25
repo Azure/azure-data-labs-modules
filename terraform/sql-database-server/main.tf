@@ -8,7 +8,16 @@ resource "azurerm_mssql_server" "adl_sql" {
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_login_password
   minimum_tls_version          = var.minimum_tls_version
-  tags                         = var.tags
+  dynamic "azuread_administrator" {
+    for_each = var.azuread_administrator
+    content {
+      login_username              = azuread_administrator.value["login_username"]
+      object_id                   = azuread_administrator.value["object_id"]
+      tenant_id                   = azuread_administrator.value["tenant_id"]
+      azuread_authentication_only = azuread_administrator.value["azuread_authentication_only"]
+    }
+  }
+  tags = var.tags
 
   count = var.module_enabled ? 1 : 0
 }
