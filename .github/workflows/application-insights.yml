@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
+    - name: Check out code test
       uses: actions/checkout@v3
 
     - name: Render terraform docs and push changes back to PR
