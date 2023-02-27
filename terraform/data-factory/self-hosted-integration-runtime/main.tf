@@ -26,16 +26,6 @@ module "virtual_machine" {
   count = var.module_enabled ? 1 : 0
 }
 
-module "local_pdnsz_st_blob" {
-  source = "../../private-dns-zone"
-
-  rg_name   = var.rg_name
-  dns_zones = [local.dns_st_blob]
-  vnet_id   = var.vnet_id
-
-  count = var.module_enabled ? 1 : 0
-}
-
 resource "azurerm_storage_container" "scripts_container" {
   name                  = "scripts"
   storage_account_name  = var.storage_account_name
@@ -74,8 +64,4 @@ SETTINGS
   PROTECTED_SETTINGS
 
   count = var.module_enabled ? 1 : 0
-}
-
-data "http" "ip" {
-  url = "https://ifconfig.me"
 }

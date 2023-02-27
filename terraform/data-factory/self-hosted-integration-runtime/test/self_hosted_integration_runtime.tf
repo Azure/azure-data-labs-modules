@@ -33,7 +33,7 @@ module "storage_account" {
   location                            = var.location
   subnet_id                           = module.local_snet_default.id
   is_sec_module                       = true
-  private_dns_zone_ids_blob           = [module.local_pdnsz_st_blob[0].list[local.dns_st_blob].id]
+  private_dns_zone_ids_blob           = [module.local_pdnsz_st_blob.list[local.dns_st_blob].id]
   firewall_ip_rules                   = [data.http.ip.response_body]
   firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
   tags                                = local.tags
@@ -76,4 +76,18 @@ module "local_pdnsz_adf_portal" {
   rg_name   = module.local_rg.name
   dns_zones = [local.dns_adf_portal]
   vnet_id   = module.local_vnet.id
+}
+
+module "local_pdnsz_st_blob" {
+  source = "../../../private-dns-zone"
+
+  rg_name   = module.local_rg.name
+  dns_zones = [local.dns_st_blob]
+  vnet_id   = module.local_vnet.id
+}
+
+# Data Sources
+
+data "http" "ip" {
+  url = "https://ifconfig.me"
 }
