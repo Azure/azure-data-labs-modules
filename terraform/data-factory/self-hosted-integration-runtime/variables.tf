@@ -50,3 +50,27 @@ variable "data_factory_id" {
   description = "The name of the data factory."
   # TODO: Include validation
 }
+
+variable "storage_account_name" {
+  type        = string
+  description = "The name of the storage account needed for configuration."
+  # TODO: Include validation
+}
+
+variable "storage_account_access_key" {
+  type        = string
+  description = "The key of the storage account needed for configuration."
+  # TODO: Include validation
+}
+
+variable "virtual_machine_user" {
+  type        = string
+  description = "The user for the virtual machine."
+  default     = "ialonso"
+}
+
+variable "virtual_machine_password" {
+  type        = string
+  description = "The password of the virtual machine."
+  default     = "ThisIsNotVerySecure!"
+}

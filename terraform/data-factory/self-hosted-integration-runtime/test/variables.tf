@@ -8,3 +8,9 @@ variable "location" {
   type    = string
   default = "North Europe"
 }
+
+variable "firewall_virtual_network_subnet_ids" {
+  type        = list(string)
+  description = "A list of virtual network subnet ids to to secure the storage account."
+  default     = []
+}

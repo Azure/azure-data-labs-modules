@@ -1,12 +1,16 @@
 module "self_hosted_integration_runtime" {
-  source          = "../"
-  basename        = random_string.postfix.result
-  rg_name         = module.local_rg.name
-  location        = var.location
-  vnet_id         = module.local_vnet.id
-  subnet_id       = module.local_snet_default.id
-  data_factory_id = module.local_data_factory.id
-  tags            = {}
+  source                     = "../"
+  basename                   = random_string.postfix.result
+  rg_name                    = module.local_rg.name
+  location                   = var.location
+  vnet_id                    = module.local_vnet.id
+  subnet_id                  = module.local_snet_default.id
+  data_factory_id            = module.local_data_factory.id
+  storage_account_name       = module.storage_account[0].name
+  storage_account_access_key = module.storage_account[0].access_key
+  virtual_machine_user       = "ialonso"
+  virtual_machine_password   = "ThisIsNotVerySecure!"
+  tags                       = local.tags
 }
 
 # Module dependencies
@@ -19,7 +23,22 @@ module "local_data_factory" {
   subnet_id                   = module.local_snet_default.id
   private_dns_zone_ids_df     = [module.local_pdnsz_adf_df.list[local.dns_adf_df].id]
   private_dns_zone_ids_portal = [module.local_pdnsz_adf_portal.list[local.dns_adf_portal].id]
-  tags                        = {}
+  tags                        = local.tags
+}
+
+module "storage_account" {
+  source                              = "../../../storage-account"
+  basename                            = random_string.postfix.result
+  rg_name                             = module.local_rg.name
+  location                            = var.location
+  subnet_id                           = module.local_snet_default.id
+  is_sec_module                       = true
+  private_dns_zone_ids_blob           = [module.local_pdnsz_st_blob[0].list[local.dns_st_blob].id]
+  firewall_ip_rules                   = [data.http.ip.response_body]
+  firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
+  tags                                = local.tags
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "local_rg" {
