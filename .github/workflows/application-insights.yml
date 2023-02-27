@@ -94,4 +94,10 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Render terraform docs and push changes back to PR
-      uses: ./.github/actions/run-terraform-docs
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: "${{ env.terraform_workingdir }}"
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
+        args: --hide providers --hide requirements --hide modules --sort=false
