@@ -4,6 +4,7 @@ import (
 	"testing"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"os"
 )
 
 func TestModule(t *testing.T) {
