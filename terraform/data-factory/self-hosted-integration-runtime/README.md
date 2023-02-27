@@ -7,7 +7,6 @@
 | [azurerm_storage_blob.powershell_script_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
 | [azurerm_storage_container.scripts_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_virtual_machine_extension.adl_adf_shir_vm_extension](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine_extension) | resource |
-| [http_http.ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
 
@@ -21,6 +20,10 @@
 | <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id) | The ID of the virtual network to which the private DNS zones will be linked to. | `string` | `""` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint. | `string` | `""` | no |
 | <a name="input_data_factory_id"></a> [data\_factory\_id](#input\_data\_factory\_id) | The name of the data factory. | `string` | n/a | yes |
+| <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | The name of the storage account needed for configuration. | `string` | n/a | yes |
+| <a name="input_storage_account_access_key"></a> [storage\_account\_access\_key](#input\_storage\_account\_access\_key) | The key of the storage account needed for configuration. | `string` | n/a | yes |
+| <a name="input_virtual_machine_user"></a> [virtual\_machine\_user](#input\_virtual\_machine\_user) | The user for the virtual machine. | `string` | `"ialonso"` | no |
+| <a name="input_virtual_machine_password"></a> [virtual\_machine\_password](#input\_virtual\_machine\_password) | The password of the virtual machine. | `string` | `"ThisIsNotVerySecure!"` | no |
 
 ## Outputs
 
