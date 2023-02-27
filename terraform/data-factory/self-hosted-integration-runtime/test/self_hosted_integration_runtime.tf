@@ -6,8 +6,8 @@ module "self_hosted_integration_runtime" {
   vnet_id                    = module.local_vnet.id
   subnet_id                  = module.local_snet_default.id
   data_factory_id            = module.local_data_factory.id
-  storage_account_name       = module.storage_account[0].name
-  storage_account_access_key = module.storage_account[0].access_key
+  storage_account_name       = module.storage_account.name
+  storage_account_access_key = module.storage_account.access_key
   virtual_machine_user       = "ialonso"
   virtual_machine_password   = "ThisIsNotVerySecure!"
   tags                       = local.tags
