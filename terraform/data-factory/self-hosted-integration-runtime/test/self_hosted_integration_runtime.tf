@@ -37,8 +37,6 @@ module "storage_account" {
   firewall_ip_rules                   = [data.http.ip.response_body]
   firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
   tags                                = local.tags
-
-  count = var.module_enabled ? 1 : 0
 }
 
 module "local_rg" {
