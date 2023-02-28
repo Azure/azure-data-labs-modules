@@ -25,6 +25,10 @@ module "local_storage_account" {
   basename = random_string.postfix.result
   rg_name  = module.local_rg.name
   location = var.location
+  subnet_id = module.local_snet_default.id
+  is_sec_module = true
+  private_dns_zone_ids_blob = [module.local_pdnsz_st_blob.list[local.dns_st_blob].id]
+  firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
   tags     = {}
 }
 
@@ -48,5 +52,13 @@ module "local_pdnsz_batch" {
   source    = "../../../private-dns-zone"
   rg_name   = module.local_rg.name
   dns_zones = [local.dns_batch]
+  vnet_id   = module.local_vnet.id
+}
+
+module "local_pdnsz_st_blob" {
+  source = "../../../private-dns-zone"
+
+  rg_name   = module.local_rg.name
+  dns_zones = [local.dns_st_blob]
   vnet_id   = module.local_vnet.id
 }
