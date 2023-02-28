@@ -11,6 +11,6 @@ variable "location" {
 
 variable "firewall_virtual_network_subnet_ids" {
   type        = list(string)
-  description = "A list of virtual network subnet ids to to secure the storage account."
+  description = "A list of virtual network subnet ids to secure the storage account."
   default     = []
 }
