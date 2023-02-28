@@ -55,12 +55,9 @@ jobs:
             working-directory: "${{ env.terraform_workingdir }}/test"
 
     steps:
-    - name: Do-nothing-for-now
-      run: echo "Doing nothing"
+    - name: Check out code
+      uses: actions/checkout@v3
 
-#    - name: Check out code
-#      uses: actions/checkout@v3
-#
 #    - name: Set up Go
 #      uses: actions/setup-go@v2
 #      with:
