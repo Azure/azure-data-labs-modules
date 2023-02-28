@@ -39,7 +39,3 @@ resource "azurerm_private_endpoint" "srch_pe" {
 
   count = var.module_enabled && var.is_sec_module ? 1 : 0
 }
-
-provider "azurerm" {
-  features {}
-}

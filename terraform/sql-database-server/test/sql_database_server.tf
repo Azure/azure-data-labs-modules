@@ -9,7 +9,17 @@ module "sql_database_server" {
   administrator_login          = "sqladminuser"
   administrator_login_password = "ThisIsNotVerySecure!"
   is_sec_module                = var.is_sec_module
-  tags                         = {}
+  azuread_administrator = {
+    aad_admin = {
+                                    # Ideally should get the UPN using data.azuread_user.current.user_principal_name
+                                    # but the SP used to run the tests lacks permissions to do that
+      login_username              = "someusernameforlogin"
+      object_id                   = data.azurerm_client_config.current.object_id
+      tenant_id                   = data.azurerm_client_config.current.tenant_id
+      azuread_authentication_only = false
+    }
+  }
+  tags = {}
 }
 
 # Modules dependencies
@@ -43,3 +53,5 @@ module "local_pdnsz_sql_blob" {
   dns_zones = [local.dns_sql_server]
   vnet_id   = module.local_vnet.id
 }
+
+data "azurerm_client_config" "current" {}

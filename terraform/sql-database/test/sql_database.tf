@@ -1,8 +1,6 @@
 module "sql_database" {
   source    = "../"
   basename  = random_string.postfix.result
-  rg_name   = module.local_rg.name
-  location  = var.location
   server_id = module.local_sql_database_server.id
   collation = "SQL_Latin1_General_CP1_CI_AS"
   tags      = {}

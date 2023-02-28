@@ -35,7 +35,7 @@ variable "module_enabled" {
 
 variable "sku" {
   type        = string
-  description = "(Optional) The SKU of the Azure Load Balancer. Accepted values are Basic, Standard and Gateway. Defaults to Basic. Changing this forces a new resource to be created."
+  description = "The SKU of the Azure Load Balancer. Accepted values are Basic, Standard and Gateway. Defaults to Basic. Changing this forces a new resource to be created."
   validation {
     condition     = contains(["basic", "standard", "gateway"], lower(var.sku))
     error_message = "Valid values for sku are \"Basic\", \"Standard\" or \"Gateway\"."
@@ -45,7 +45,7 @@ variable "sku" {
 
 variable "pip_allocation_method" {
   type        = string
-  description = "(Required) Defines the allocation method for this IP address. Possible values are Static or Dynamic."
+  description = "Defines the allocation method for this IP address. Possible values are Static or Dynamic."
   validation {
     condition     = contains(["static", "dynamic"], lower(var.pip_allocation_method))
     error_message = "Valid values for pip_allocation_method are \"Static\" or \"Dynamic\"."
@@ -55,7 +55,7 @@ variable "pip_allocation_method" {
 
 variable "pip_sku" {
   type        = string
-  description = "(Optional) The SKU of the Public IP. Accepted values are Basic and Standard. Defaults to Basic. Changing this forces a new resource to be created."
+  description = "The SKU of the Public IP. Accepted values are Basic and Standard. Defaults to Basic. Changing this forces a new resource to be created."
   validation {
     condition     = contains(["basic", "standard"], lower(var.pip_sku))
     error_message = "Valid values for pip_sku are \"Basic\" or \"Standard\"."

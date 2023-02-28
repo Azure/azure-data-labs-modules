@@ -180,3 +180,9 @@ variable "private_dns_zone_ids" {
   description = "Specifies the list of Private DNS Zones to include."
   default     = []
 }
+
+variable "private_dns_zone_group_name" {
+  type        = string
+  description = "DNS zone group is an association between the private DNS zone and the private endpoint"
+  default     = ""
+}

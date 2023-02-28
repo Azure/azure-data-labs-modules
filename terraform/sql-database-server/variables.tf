@@ -84,3 +84,29 @@ variable "minimum_tls_version" {
   }
   default = "1.2"
 }
+
+variable "azuread_administrator" {
+  type = map(
+    object(
+      {
+        login_username              = optional(string)
+        object_id                   = optional(string)
+        tenant_id                   = optional(string)
+        azuread_authentication_only = optional(bool)
+      }
+    )
+  )
+  description = <<EOT
+    "
+        login_username - The login username of the Azure AD Administrator of this SQL Server.
+        object_id - The object id of the Azure AD Administrator of this SQL Server.
+        tenant_id - The tenant id of the Azure AD Administrator of this SQL Server.
+        azuread_authentication_only - Specifies whether only AD Users and administrators (like azuread_administrator.0.login_username) can be used to login, or also local database users (like administrator_login). When true, the administrator_login and administrator_login_password properties can be omitted.
+    "
+  EOT
+  validation {
+    condition     = length(var.azuread_administrator) == 0 || length(var.azuread_administrator) == 1
+    error_message = "Invalid values provided for azuread_administrator."
+  }
+  default = {}
+}

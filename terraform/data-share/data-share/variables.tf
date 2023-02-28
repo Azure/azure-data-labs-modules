@@ -59,11 +59,9 @@ variable "snapshot_schedule" {
     )
   )
   description = <<EOF
-  "
-    name - The name of the snapshot schedule.
-    recurrence - The interval of the synchronization with the source data. Possible values are Hour and Day.
-    start_time - The synchronization with the source data's start time.
-  "
+  "name - The name of the snapshot schedule.
+   recurrence - The interval of the synchronization with the source data. Possible values are Hour and Day.
+   start_time - The synchronization with the source data's start time."
   EOF
   validation {
     condition     = length(var.snapshot_schedule) == 0 || (length(var.snapshot_schedule) == 1 && alltrue([for v in var.snapshot_schedule : contains(["hour", "day"], lower(v.recurrence))]) && alltrue([for v in var.snapshot_schedule : can(regex("^(\\d{4})-(\\d{2})-(\\d{2})(T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)((-(\\d{2}):(\\d{2})|Z)?))?$", v.start_time))]) && alltrue([for v in var.snapshot_schedule : length(v.name) > 0]))
