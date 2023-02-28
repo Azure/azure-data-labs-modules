@@ -5,5 +5,6 @@ locals {
     Toolkit = "Terraform"
   }
 
-  dns_batch = "privatelink.batchservices.azure.com"
+  dns_batch   = "privatelink.batchservices.azure.com"
+  dns_st_blob = "privatelink.blob.core.windows.net"
 }

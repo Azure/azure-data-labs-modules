@@ -5,13 +5,14 @@ on:
     branches:
       - main  
     paths:
-      - '.github/workflows/batch-services-account.yml'
-      - 'terraform/batch-services/batch-services-account/**'
+      - '.github/workflows/data-factory.yml'
+      - 'terraform/data-factory/batch-services-account/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/batch-services/batch-services-account"  
+  terraform_workingdir: "terraform/data-factory/batch-services-account"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:     
   terraform-lint:
     name: Run Terraform lint
@@ -58,6 +59,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+      
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
@@ -69,16 +71,18 @@ jobs:
         export ARM_USE_MSI=true
         export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
         export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        export HA_SUBNET_ID=$(az keyvault secret show --name Agent-Pool-Subnet-Id --vault-name adl-modules-akv --query value -o tsv)
         go mod init test && go mod tidy
       env:
         GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
-
+      
     - name: Unit-test
       run:  |
         az login --identity > /dev/null
         export ARM_USE_MSI=true
         export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
         export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        export HA_SUBNET_ID=$(az keyvault secret show --name Agent-Pool-Subnet-Id --vault-name adl-modules-akv --query value -o tsv)
         go test -v -timeout 45m
       env:
         GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
