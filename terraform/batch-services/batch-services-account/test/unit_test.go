@@ -15,7 +15,9 @@ func TestModule(t *testing.T) {
 		Lock: true,
 		LockTimeout: "1800s",
 		// VarFiles: []string{"terraform_unitest.tfvars"},
-		"firewall_virtual_network_subnet_ids": []string{os.Getenv("HA_SUBNET_ID")},
+		Vars: map[string]interface{}{
+			"firewall_virtual_network_subnet_ids": []string{os.Getenv("HA_SUBNET_ID")},
+	},
 	}
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created
