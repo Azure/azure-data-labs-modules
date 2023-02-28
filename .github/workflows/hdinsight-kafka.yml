@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/hdinsight-kafka.yml'
-      - 'terraform/hdinsight-kafka/**'
+      - 'terraform/hdinsight/hdinsight-kafka/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/hdinsight-kafka"  
+  terraform_workingdir: "terraform/hdinsight/hdinsight-kafka"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:
