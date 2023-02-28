@@ -8,7 +8,7 @@ module "self_hosted_integration_runtime" {
   data_factory_id            = module.local_data_factory.id
   storage_account_name       = module.storage_account.name
   storage_account_access_key = module.storage_account.access_key
-  virtual_machine_user       = "ialonso"
+  virtual_machine_user       = "azureuser"
   virtual_machine_password   = "ThisIsNotVerySecure!"
   tags                       = local.tags
 }
