@@ -22,7 +22,7 @@
 | <a name="input_data_factory_id"></a> [data\_factory\_id](#input\_data\_factory\_id) | The name of the data factory. | `string` | n/a | yes |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | The name of the storage account needed for configuration. | `string` | n/a | yes |
 | <a name="input_storage_account_access_key"></a> [storage\_account\_access\_key](#input\_storage\_account\_access\_key) | The key of the storage account needed for configuration. | `string` | n/a | yes |
-| <a name="input_virtual_machine_user"></a> [virtual\_machine\_user](#input\_virtual\_machine\_user) | The user for the virtual machine. | `string` | `"ialonso"` | no |
+| <a name="input_virtual_machine_user"></a> [virtual\_machine\_user](#input\_virtual\_machine\_user) | The user for the virtual machine. | `string` | `"azureuser"` | no |
 | <a name="input_virtual_machine_password"></a> [virtual\_machine\_password](#input\_virtual\_machine\_password) | The password of the virtual machine. | `string` | `"ThisIsNotVerySecure!"` | no |
 
 ## Outputs
