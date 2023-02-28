@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/hdinsight-spark.yml'
-      - 'terraform/hdinsight-spark/**'
+      - 'terraform/hdinsight/hdinsight-spark/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/hdinsight-spark"  
+  terraform_workingdir: "terraform/hdinsight/hdinsight-spark"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:
