@@ -66,7 +66,7 @@ variable "storage_account_access_key" {
 variable "virtual_machine_user" {
   type        = string
   description = "The user for the virtual machine."
-  default     = "ialonso"
+  default     = "azureuser"
 }
 
 variable "virtual_machine_password" {
