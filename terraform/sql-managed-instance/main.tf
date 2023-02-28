@@ -70,7 +70,7 @@ resource "azurerm_private_endpoint" "sqlmi_pe_server" {
     is_manual_connection           = false
   }
   private_dns_zone_group {
-    name                 = "private-dns-zone-group-server"
+    name                 = var.private_dns_zone_group_name
     private_dns_zone_ids = var.private_dns_zone_ids
   }
   tags = var.tags

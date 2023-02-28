@@ -12,11 +12,6 @@ on:
 env:
   terraform_workingdir: "terraform/log-analytics/log-analytics-workspace"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
 jobs:     
   terraform-lint:
     name: Run Terraform lint
@@ -51,7 +46,9 @@ jobs:
     name: Run Terratest
     needs: 
       - terraform-sec
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, 1ES.Pool=azure-data-labs-modules]
+    environment:
+      name: acctests
 
     defaults:
           run:
@@ -67,14 +64,24 @@ jobs:
           go-version: 1.18.2
       
     - name: Setup Dependencies
-      run:  go mod init test && go mod tidy
+      run:  |
+        az login --identity > /dev/null
+        export ARM_USE_MSI=true
+        export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
+        export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        go mod init test && go mod tidy
       env:
-        GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
-      
+        GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+
     - name: Unit-test
-      run: go test -v -timeout 45m
+      run:  |
+        az login --identity > /dev/null
+        export ARM_USE_MSI=true
+        export ARM_SUBSCRIPTION_ID=$(az login --identity | jq -r '.[0] | .id')
+        export ARM_TENANT_ID=$(az login --identity | jq -r '.[0] | .tenantId')
+        go test -v -timeout 45m
       env:
-        GOPATH: "/home/runner/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
+        GOPATH: "/home/cloudtest/work/azure-labs-modules/azure-labs-modules/${{ env.terraform_workingdir }}"
 
   terraform-docs:
     name: Run Terraform Docs
