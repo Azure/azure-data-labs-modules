@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - '.github/workflows/log-analytics-cluster.yml'
-      - 'terraform/log-analytics-cluster/**'
+      - 'terraform/log-analytics/log-analytics-cluster/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/log-analytics-cluster"  
+  terraform_workingdir: "terraform/log-analytics/log-analytics-cluster"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:
