@@ -5,12 +5,12 @@ on:
     branches:
       - main  
     paths:
-      - '.github/workflows/data-factory.yml'
-      - 'terraform/data-factory/batch-services-account/**'
+      - '.github/workflows/batch-services-account.yml'
+      - 'terraform/batch-services/batch-services-account/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/data-factory/batch-services-account"  
+  terraform_workingdir: "terraform/batch-services/batch-services-account"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:     
