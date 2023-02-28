@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/hdinsight-interactive.yml'
-      - 'terraform/hdinsight-interactive/**'
+      - 'terraform/hdinsight/hdinsight-interactive/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/hdinsight-interactive"  
+  terraform_workingdir: "terraform/hdinsight/hdinsight-interactive"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:
