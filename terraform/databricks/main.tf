@@ -96,7 +96,14 @@ resource "databricks_workspace_conf" "adb_ws_conf" {
   }
   depends_on = [azurerm_databricks_workspace.adl_databricks[0]]
 
-  count = var.module_enabled && var.public_network_enabled ? 1 : 0
+  count = var.module_enabled && var.enable_ip_access_list ? 1 : 0
+
+  lifecycle {
+    precondition {
+        condition     = (var.enable_ip_access_list == var.public_network_enabled)
+        error_message = "IP access lists apply only to requests over the internet"
+    }
+  }
 }
 
 resource "databricks_ip_access_list" "adb_ws_allow-list" {
@@ -106,7 +113,7 @@ resource "databricks_ip_access_list" "adb_ws_allow-list" {
   ip_addresses = var.allow_ip_list
   depends_on   = [databricks_workspace_conf.adb_ws_conf]
 
-  count = var.module_enabled && var.public_network_enabled && var.enable_ip_access_list && length(var.allow_ip_list) > 0 ? 1 : 0
+  count = var.module_enabled && var.enable_ip_access_list && length(var.allow_ip_list) > 0 ? 1 : 0
 }
 
 resource "databricks_ip_access_list" "adb_ws_block-list" {
@@ -116,5 +123,5 @@ resource "databricks_ip_access_list" "adb_ws_block-list" {
   ip_addresses = var.block_ip_list
   depends_on   = [databricks_workspace_conf.adb_ws_conf]
 
-  count = var.module_enabled && var.public_network_enabled && var.enable_ip_access_list && length(var.block_ip_list) > 0 ? 1 : 0
+  count = var.module_enabled && var.enable_ip_access_list && length(var.block_ip_list) > 0 ? 1 : 0
 }
