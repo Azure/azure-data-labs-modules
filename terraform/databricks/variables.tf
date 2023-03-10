@@ -86,7 +86,7 @@ variable "public_subnet_name" {
     condition     = (can(regex("^[-\\w\\.]{1,80}$", var.public_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.public_subnet_name)) && can(regex("[\\w]+$", var.public_subnet_name))) || var.public_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
-  default     = null
+  default = null
 }
 
 variable "private_subnet_name" {
@@ -96,7 +96,7 @@ variable "private_subnet_name" {
     condition     = (can(regex("^[-\\w\\.]{1,80}$", var.private_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.private_subnet_name)) && can(regex("[\\w]+$", var.private_subnet_name))) || var.private_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
-  default     = null
+  default = null
 }
 
 variable "maximum_network_security" {
