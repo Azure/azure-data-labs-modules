@@ -24,12 +24,12 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   lifecycle {
     precondition {
       condition     = (var.is_sec_module || var.public_network_enabled)
-      error_message = "Deny public access requiries a private link endpoint (is_sec_module set to 'true')"
+      error_message = "Deny public access requires a private link endpoint (is_sec_module set to 'true')"
     }
 
     precondition {
       condition     = (!var.enable_ip_access_list || var.public_network_enabled)
-      error_message = "IP access lists apply only to requests over the internet (public_network_enabled set to 'true')"
+      error_message = "IP access list only applies to requests made over the Internet (public_network_enabled set to 'true')"
     }
   }
 }
@@ -57,7 +57,7 @@ resource "azurerm_private_endpoint" "databricks_pe_be" {
   lifecycle {
     precondition {
       condition     = (var.is_sec_module && var.maximum_network_security)
-      error_message = "'maximum_network_security' is only available on 'sec_module' set to 'true'"
+      error_message = "'maximum_network_security' is only available when 'sec_module' is set to 'true'"
     }
   }
 }
