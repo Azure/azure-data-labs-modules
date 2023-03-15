@@ -2,7 +2,7 @@ module "data_factory" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
 
   subnet_id                   = module.local_snet_default.id
@@ -26,7 +26,7 @@ module "local_rg" {
 module "local_vnet" {
   source = "../../../virtual-network"
 
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   basename = random_string.postfix.result
   location = var.location
 
@@ -36,7 +36,7 @@ module "local_vnet" {
 module "local_snet_default" {
   source = "../../../subnet"
 
-  rg_name          = module.local_rg.name
+  resource_group_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-adf-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -45,7 +45,7 @@ module "local_snet_default" {
 module "local_pdnsz_adf_df" {
   source = "../../../private-dns-zone"
 
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_adf_df]
   vnet_id   = module.local_vnet.id
 }
@@ -53,7 +53,7 @@ module "local_pdnsz_adf_df" {
 module "local_pdnsz_adf_portal" {
   source = "../../../private-dns-zone"
 
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_adf_portal]
   vnet_id   = module.local_vnet.id
 }

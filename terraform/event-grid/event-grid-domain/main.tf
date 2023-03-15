@@ -3,7 +3,7 @@
 resource "azurerm_eventgrid_domain" "adl_evgd" {
   name                                      = "evgd-${var.basename}"
   location                                  = var.location
-  resource_group_name                       = var.rg_name
+  resource_group_name                       = var.resource_group_name
   input_schema                              = var.input_schema
   public_network_access_enabled             = var.is_sec_module ? false : true
   local_auth_enabled                        = var.local_auth_enabled
@@ -19,7 +19,7 @@ resource "azurerm_eventgrid_domain" "adl_evgd" {
 resource "azurerm_private_endpoint" "evgd_pe" {
   name                = "pe-${azurerm_eventgrid_domain.adl_evgd[0].name}-domain"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-evgd-${var.basename}"

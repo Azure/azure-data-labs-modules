@@ -1,7 +1,7 @@
 module "sql_managed_instance" {
   source                         = "../"
   basename                       = "sqlmi-${random_string.postfix.result}"
-  rg_name                        = module.local_rg.name
+  resource_group_name                        = module.local_rg.name
   location                       = var.location
   subnet_id                      = module.local_snet_default.id
   subnet_private_enpoint_id      = module.local_snet_private_enpoint.id
@@ -39,7 +39,7 @@ module "local_rg" {
 
 module "local_vnet" {
   source        = "../../virtual-network"
-  rg_name       = module.local_rg.name
+  resource_group_name       = module.local_rg.name
   basename      = "vnet-${random_string.postfix.result}-sql-default"
   location      = var.location
   address_space = ["10.0.0.0/16"]
@@ -47,7 +47,7 @@ module "local_vnet" {
 
 module "local_snet_default" {
   source           = "../../subnet"
-  rg_name          = module.local_rg.name
+  resource_group_name          = module.local_rg.name
   name             = "snet-${random_string.postfix.result}-sqlmi-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -60,7 +60,7 @@ module "local_snet_default" {
 
 module "local_snet_private_enpoint" {
   source           = "../../subnet"
-  rg_name          = module.local_rg.name
+  resource_group_name          = module.local_rg.name
   name             = "snet-${random_string.postfix.result}-sqlmi-private-endpoint"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.5.0/24"]
@@ -69,7 +69,7 @@ module "local_snet_private_enpoint" {
 module "network_security_group" {
   source   = "../../network-security-group"
   basename = "nsg-${random_string.postfix.result}"
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }
@@ -77,14 +77,14 @@ module "network_security_group" {
 module "route_table" {
   source   = "../../route-table"
   basename = "route-${random_string.postfix.result}"
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }
 
 module "local_pdnsz_sqlmi" {
   source    = "../../private-dns-zone"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_sql_server]
   vnet_id   = module.local_vnet.id
 }

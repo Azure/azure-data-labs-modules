@@ -2,7 +2,7 @@ module "powerbi_embedded" {
   source = "../"
 
   basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
 
   administrators = ["aimurg@microsoft.com"]

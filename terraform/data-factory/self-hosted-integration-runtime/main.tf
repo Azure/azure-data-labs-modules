@@ -10,7 +10,7 @@ resource "azurerm_data_factory_integration_runtime_self_hosted" "adl_adf_shir" {
 module "virtual_machine" {
   source            = "../../virtual-machine"
   basename          = var.basename
-  rg_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   location          = var.location
   subnet_id         = var.subnet_id
   jumphost_username = var.virtual_machine_user

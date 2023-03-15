@@ -1,7 +1,7 @@
 module "synapse_workspace" {
   source                   = "../"
   basename                 = random_string.postfix.result
-  rg_name                  = module.local_rg.name
+  resource_group_name                  = module.local_rg.name
   location                 = var.location
   subnet_id                = module.local_snet_default.id
   private_dns_zone_ids_sql = [module.local_pdnsz_syn_sql.list[local.dns_syn_sql].id]
@@ -28,7 +28,7 @@ module "local_rg" {
 module "local_storage_account" {
   source                    = "../../../storage-account"
   basename                  = random_string.postfix.result
-  rg_name                   = module.local_rg.name
+  resource_group_name                   = module.local_rg.name
   location                  = var.location
   subnet_id                 = module.local_snet_default.id
   private_dns_zone_ids_blob = [module.local_pdnsz_st_blob.list[local.dns_st_blob].id]
@@ -46,7 +46,7 @@ data "http" "ip" {
 
 module "local_vnet" {
   source        = "../../../virtual-network"
-  rg_name       = module.local_rg.name
+  resource_group_name       = module.local_rg.name
   basename      = random_string.postfix.result
   location      = var.location
   address_space = ["10.0.0.0/16"]
@@ -54,7 +54,7 @@ module "local_vnet" {
 
 module "local_snet_default" {
   source           = "../../../subnet"
-  rg_name          = module.local_rg.name
+  resource_group_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-syn-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -62,28 +62,28 @@ module "local_snet_default" {
 
 module "local_pdnsz_st_blob" {
   source    = "../../../private-dns-zone"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_st_blob]
   vnet_id   = module.local_vnet.id
 }
 
 module "local_pdnsz_st_dfs" {
   source    = "../../../private-dns-zone"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_st_dfs]
   vnet_id   = module.local_vnet.id
 }
 
 module "local_pdnsz_syn_sql" {
   source    = "../../../private-dns-zone"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_syn_sql]
   vnet_id   = module.local_vnet.id
 }
 
 module "local_pdnsz_syn_dev" {
   source    = "../../../private-dns-zone"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   dns_zones = [local.dns_syn_dev]
   vnet_id   = module.local_vnet.id
 }

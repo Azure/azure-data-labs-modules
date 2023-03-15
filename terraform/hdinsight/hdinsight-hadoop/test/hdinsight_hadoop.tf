@@ -1,7 +1,7 @@
 module "hdinsight_hadoop" {
   source                                       = "../"
   basename                                     = random_string.postfix.result
-  rg_name                                      = module.local_rg.name
+  resource_group_name                                      = module.local_rg.name
   location                                     = var.location
   subnet_id                                    = module.local_snet_default.id
   virtual_network_id                           = module.local_vnet.id
@@ -47,7 +47,7 @@ module "local_rg" {
 
 module "local_vnet" {
   source        = "../../../virtual-network"
-  rg_name       = module.local_rg.name
+  resource_group_name       = module.local_rg.name
   basename      = random_string.postfix.result
   location      = var.location
   address_space = ["10.0.0.0/16"]
@@ -55,7 +55,7 @@ module "local_vnet" {
 
 module "local_snet_default" {
   source           = "../../../subnet"
-  rg_name          = module.local_rg.name
+  resource_group_name          = module.local_rg.name
   name             = "vnet-${random_string.postfix.result}-hadoop-default"
   vnet_name        = module.local_vnet.name
   address_prefixes = ["10.0.6.0/24"]
@@ -65,7 +65,7 @@ module "local_storage_account" {
   source = "../../../storage-account"
 
   basename                = random_string.postfix.result
-  rg_name                 = module.local_rg.name
+  resource_group_name                 = module.local_rg.name
   location                = var.location
   hns_enabled             = true
   firewall_default_action = "Allow"
@@ -75,14 +75,14 @@ module "local_storage_account" {
 module "local_user_managed_identity" {
   source   = "../../../user-assigned-identity"
   basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
 }
 
 module "local_sql_database_server" {
   source                       = "../../../sql-database-server"
   basename                     = random_string.postfix.result
-  rg_name                      = module.local_rg.name
+  resource_group_name                      = module.local_rg.name
   location                     = var.location
   db_version                   = "12.0"
   administrator_login          = "sqladminuser"
@@ -93,7 +93,7 @@ module "local_sql_database_server" {
 module "local_sql_database_ambari" {
   source    = "../../../sql-database"
   basename  = "${random_string.postfix.result}ambari"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   location  = var.location
   server_id = module.local_sql_database_server.id
   collation = "SQL_Latin1_General_CP1_CI_AS"
@@ -102,7 +102,7 @@ module "local_sql_database_ambari" {
 module "local_sql_database_hive" {
   source    = "../../../sql-database"
   basename  = "${random_string.postfix.result}hive"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   location  = var.location
   server_id = module.local_sql_database_server.id
   collation = "SQL_Latin1_General_CP1_CI_AS"
@@ -111,7 +111,7 @@ module "local_sql_database_hive" {
 module "local_sql_database_oozie" {
   source    = "../../../sql-database"
   basename  = "${random_string.postfix.result}oozie"
-  rg_name   = module.local_rg.name
+  resource_group_name   = module.local_rg.name
   location  = var.location
   server_id = module.local_sql_database_server.id
   collation = "SQL_Latin1_General_CP1_CI_AS"

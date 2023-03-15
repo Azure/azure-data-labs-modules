@@ -2,7 +2,7 @@
 
 resource "azurerm_service_plan" "adl_sp" {
   name                         = "sp-${var.basename}"
-  resource_group_name          = var.rg_name
+  resource_group_name          = var.resource_group_name
   location                     = var.location
   os_type                      = var.os_type
   sku_name                     = var.sku_name

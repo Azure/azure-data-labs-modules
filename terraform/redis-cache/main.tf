@@ -4,7 +4,7 @@
 resource "azurerm_redis_cache" "adl_redis" {
   name                          = "redis-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   capacity                      = var.capacity
   family                        = var.family
   sku_name                      = var.sku_name
@@ -21,7 +21,7 @@ resource "azurerm_redis_cache" "adl_redis" {
 resource "azurerm_private_endpoint" "sql_pe_redis" {
   name                = "pe-${azurerm_redis_cache.adl_redis[0].name}-redis"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-redis-${var.basename}"

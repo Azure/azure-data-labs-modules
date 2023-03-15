@@ -8,13 +8,13 @@ data "http" "ip" {
 
 resource "azurerm_synapse_workspace" "adl_syn" {
   name                                 = "syn-${var.basename}"
-  resource_group_name                  = var.rg_name
+  resource_group_name                  = var.resource_group_name
   location                             = var.location
   storage_data_lake_gen2_filesystem_id = var.adls_id
   sql_administrator_login              = var.synadmin_username
   sql_administrator_login_password     = var.synadmin_password
   managed_virtual_network_enabled      = var.is_sec_module ? true : false
-  managed_resource_group_name          = "${var.rg_name}-syn-managed"
+  managed_resource_group_name          = "${var.resource_group_name}-syn-managed"
   public_network_access_enabled        = true
   identity {
     type = "SystemAssigned"
@@ -61,7 +61,7 @@ resource "azurerm_role_assignment" "syn_ws_sa_role_si_c" {
 resource "azurerm_private_endpoint" "syn_ws_pe_dev" {
   name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-dev"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-dev-${var.basename}"
@@ -81,7 +81,7 @@ resource "azurerm_private_endpoint" "syn_ws_pe_dev" {
 resource "azurerm_private_endpoint" "syn_ws_pe_sql" {
   name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-sql"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-sql-${var.basename}"
@@ -101,7 +101,7 @@ resource "azurerm_private_endpoint" "syn_ws_pe_sql" {
 resource "azurerm_private_endpoint" "syn_ws_pe_sqlondemand" {
   name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-sqlondemand"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-sqlondemand-${var.basename}"

@@ -3,7 +3,7 @@
 resource "azurerm_servicebus_namespace" "adl_sb" {
   name                          = "sb-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   sku                           = var.sku
   capacity                      = var.capacity
   public_network_access_enabled = var.is_sec_module ? false : true
@@ -25,7 +25,7 @@ resource "azurerm_servicebus_namespace_authorization_rule" "adl_sb_auth_rule" {
 resource "azurerm_private_endpoint" "sb_pe" {
   name                = "pe-${azurerm_servicebus_namespace.adl_sb[0].name}-namespace"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-sb-${var.basename}"

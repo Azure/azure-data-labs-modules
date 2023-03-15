@@ -3,10 +3,10 @@
 
 resource "azurerm_databricks_workspace" "adl_databricks" {
   name                                  = "adb-${var.basename}"
-  resource_group_name                   = var.rg_name
+  resource_group_name                   = var.resource_group_name
   location                              = var.location
   sku                                   = var.sku
-  managed_resource_group_name           = "${var.rg_name}-adb-managed"
+  managed_resource_group_name           = "${var.resource_group_name}-adb-managed"
   public_network_access_enabled         = var.is_sec_module && !(var.public_network_enabled) ? false : true
   network_security_group_rules_required = var.is_sec_module ? "NoAzureDatabricksRules" : "AllRules"
   custom_parameters {
@@ -25,7 +25,7 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
 resource "azurerm_private_endpoint" "databricks_pe_be" {
   name                = "pe-${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-be"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.backend_subnet_id
   private_service_connection {
     name                           = "psc-databricks-be-${var.basename}"
@@ -46,7 +46,7 @@ resource "azurerm_private_endpoint" "databricks_pe_be" {
 resource "azurerm_private_endpoint" "databricks_fe" {
   name                = "pe-${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-fe"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-databricks-fe-${var.basename}"
@@ -66,7 +66,7 @@ resource "azurerm_private_endpoint" "databricks_fe" {
 resource "azurerm_private_endpoint" "databricks_pe_sso" {
   name                = "pe-${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-sso"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-databricks-sso-${var.basename}"

@@ -10,7 +10,7 @@ module "data_share" {
 module "local_data_share_account" {
   source   = "../../data-share-account"
   basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
   tags     = {}
 }

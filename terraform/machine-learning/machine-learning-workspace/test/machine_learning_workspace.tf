@@ -1,7 +1,7 @@
 module "machine_learning_workspace" {
   source                  = "../"
   basename                = random_string.postfix.result
-  rg_name                 = module.local_rg.name
+  resource_group_name                 = module.local_rg.name
   location                = var.location
   storage_account_id      = module.local_storage_account.id
   key_vault_id            = module.local_key_vault.id
@@ -23,7 +23,7 @@ module "local_rg" {
 module "local_storage_account" {
   source                  = "../../../storage-account"
   basename                = random_string.postfix.result
-  rg_name                 = module.local_rg.name
+  resource_group_name                 = module.local_rg.name
   location                = var.location
   hns_enabled             = false
   firewall_default_action = "Allow"
@@ -33,7 +33,7 @@ module "local_storage_account" {
 module "local_key_vault" {
   source        = "../../../key-vault"
   basename      = random_string.postfix.result
-  rg_name       = module.local_rg.name
+  resource_group_name       = module.local_rg.name
   location      = var.location
   is_sec_module = false
 }
@@ -41,14 +41,14 @@ module "local_key_vault" {
 module "local_application_insights" {
   source   = "../../../application-insights"
   basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location = var.location
 }
 
 module "local_container_registry" {
   source        = "../../../container-registry"
   basename      = random_string.postfix.result
-  rg_name       = module.local_rg.name
+  resource_group_name       = module.local_rg.name
   location      = var.location
   is_sec_module = false
 }
