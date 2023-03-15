@@ -1,8 +1,8 @@
 module "load_balancer" {
-  source   = "../"
-  basename = random_string.postfix.result
-  resource_group_name  = module.local_rg.name
-  location = var.location
+  source              = "../"
+  basename            = random_string.postfix.result
+  resource_group_name = module.local_rg.name
+  location            = var.location
 
   tags = {}
 }

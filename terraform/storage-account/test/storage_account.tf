@@ -1,7 +1,7 @@
 module "storage_account" {
   source                              = "../"
   basename                            = random_string.postfix.result
-  resource_group_name                             = module.local_rg.name
+  resource_group_name                 = module.local_rg.name
   location                            = var.location
   subnet_id                           = module.local_snet_default.id
   private_dns_zone_ids_blob           = [module.local_pdnsz_st_blob.list[local.dns_st_blob].id]
@@ -26,40 +26,40 @@ module "local_rg" {
 }
 
 module "local_vnet" {
-  source        = "../../virtual-network"
-  resource_group_name       = module.local_rg.name
-  basename      = random_string.postfix.result
-  location      = var.location
-  address_space = ["10.0.0.0/16"]
+  source              = "../../virtual-network"
+  resource_group_name = module.local_rg.name
+  basename            = random_string.postfix.result
+  location            = var.location
+  address_space       = ["10.0.0.0/16"]
 }
 
 module "local_snet_default" {
-  source           = "../../subnet"
-  resource_group_name          = module.local_rg.name
-  name             = "vnet-${random_string.postfix.result}-st-default"
-  vnet_name        = module.local_vnet.name
-  address_prefixes = ["10.0.6.0/24"]
+  source              = "../../subnet"
+  resource_group_name = module.local_rg.name
+  name                = "vnet-${random_string.postfix.result}-st-default"
+  vnet_name           = module.local_vnet.name
+  address_prefixes    = ["10.0.6.0/24"]
 }
 
 module "local_pdnsz_st_blob" {
-  source    = "../../private-dns-zone"
-  resource_group_name   = module.local_rg.name
-  dns_zones = [local.dns_st_blob]
-  vnet_id   = module.local_vnet.id
+  source              = "../../private-dns-zone"
+  resource_group_name = module.local_rg.name
+  dns_zones           = [local.dns_st_blob]
+  vnet_id             = module.local_vnet.id
 }
 
 module "local_pdnsz_st_dfs" {
-  source    = "../../private-dns-zone"
-  resource_group_name   = module.local_rg.name
-  dns_zones = [local.dns_st_dfs]
-  vnet_id   = module.local_vnet.id
+  source              = "../../private-dns-zone"
+  resource_group_name = module.local_rg.name
+  dns_zones           = [local.dns_st_dfs]
+  vnet_id             = module.local_vnet.id
 }
 
 module "local_pdnsz_st_file" {
-  source    = "../../private-dns-zone"
-  resource_group_name   = module.local_rg.name
-  dns_zones = [local.dns_st_file]
-  vnet_id   = module.local_vnet.id
+  source              = "../../private-dns-zone"
+  resource_group_name = module.local_rg.name
+  dns_zones           = [local.dns_st_file]
+  vnet_id             = module.local_vnet.id
 }
 
 data "http" "ip" {

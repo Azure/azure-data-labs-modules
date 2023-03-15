@@ -8,13 +8,13 @@ resource "azurerm_data_factory_integration_runtime_self_hosted" "adl_adf_shir" {
 }
 
 module "virtual_machine" {
-  source            = "../../virtual-machine"
-  basename          = var.basename
-  resource_group_name           = var.resource_group_name
-  location          = var.location
-  subnet_id         = var.subnet_id
-  jumphost_username = var.virtual_machine_user
-  jumphost_password = var.virtual_machine_password
+  source              = "../../virtual-machine"
+  basename            = var.basename
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  subnet_id           = var.subnet_id
+  jumphost_username   = var.virtual_machine_user
+  jumphost_password   = var.virtual_machine_password
   storage_image_reference = {
     publisher : "MicrosoftWindowsServer",
     offer : "WindowsServer",

@@ -1,7 +1,7 @@
 module "linux_function_app" {
   source                     = "../"
   basename                   = random_string.postfix.result
-  resource_group_name                    = module.local_rg.name
+  resource_group_name        = module.local_rg.name
   location                   = var.location
   storage_account_name       = module.local_storage_account.name
   storage_account_access_key = module.local_storage_account.access_key
@@ -21,7 +21,7 @@ module "local_rg" {
 module "local_storage_account" {
   source                  = "../../../storage-account"
   basename                = random_string.postfix.result
-  resource_group_name                 = module.local_rg.name
+  resource_group_name     = module.local_rg.name
   location                = var.location
   hns_enabled             = true
   firewall_default_action = "Allow"
@@ -35,8 +35,8 @@ data "http" "ip" {
 }
 
 module "local_service_plan" {
-  source   = "../../../service-plan"
-  basename = random_string.postfix.result
-  resource_group_name  = module.local_rg.name
-  location = var.location
+  source              = "../../../service-plan"
+  basename            = random_string.postfix.result
+  resource_group_name = module.local_rg.name
+  location            = var.location
 }

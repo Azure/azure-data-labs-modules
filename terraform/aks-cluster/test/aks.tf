@@ -1,9 +1,9 @@
 module "aks" {
-  source     = "../"
-  basename   = random_string.postfix.result
-  resource_group_name    = module.local_rg.name
-  location   = var.location
-  dns_prefix = "azdatalbsaks"
+  source              = "../"
+  basename            = random_string.postfix.result
+  resource_group_name = module.local_rg.name
+  location            = var.location
+  dns_prefix          = "azdatalbsaks"
   default_node_pool = {
     name       = "default"
     node_count = 3

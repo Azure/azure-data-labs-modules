@@ -1,7 +1,7 @@
 module "redis_cache" {
   source               = "../"
   basename             = random_string.postfix.result
-  resource_group_name              = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location             = var.location
   subnet_id            = module.local_snet_default.id
   private_dns_zone_ids = [module.local_pdnsz_redis.list[local.dns_redis].id]
@@ -18,24 +18,24 @@ module "local_rg" {
 }
 
 module "local_vnet" {
-  source        = "../../virtual-network"
-  resource_group_name       = module.local_rg.name
-  basename      = random_string.postfix.result
-  location      = var.location
-  address_space = ["10.0.0.0/16"]
+  source              = "../../virtual-network"
+  resource_group_name = module.local_rg.name
+  basename            = random_string.postfix.result
+  location            = var.location
+  address_space       = ["10.0.0.0/16"]
 }
 
 module "local_snet_default" {
-  source           = "../../subnet"
-  resource_group_name          = module.local_rg.name
-  name             = "vnet-${random_string.postfix.result}-redis-default"
-  vnet_name        = module.local_vnet.name
-  address_prefixes = ["10.0.6.0/24"]
+  source              = "../../subnet"
+  resource_group_name = module.local_rg.name
+  name                = "vnet-${random_string.postfix.result}-redis-default"
+  vnet_name           = module.local_vnet.name
+  address_prefixes    = ["10.0.6.0/24"]
 }
 
 module "local_pdnsz_redis" {
-  source    = "../../private-dns-zone"
-  resource_group_name   = module.local_rg.name
-  dns_zones = [local.dns_redis]
-  vnet_id   = module.local_vnet.id
+  source              = "../../private-dns-zone"
+  resource_group_name = module.local_rg.name
+  dns_zones           = [local.dns_redis]
+  vnet_id             = module.local_vnet.id
 }

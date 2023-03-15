@@ -1,7 +1,7 @@
 module "mysql_database" {
   source              = "../"
   basename            = random_string.postfix.result
-  resource_group_name             = module.local_rg.name
+  resource_group_name = module.local_rg.name
   location            = var.location
   subnet_id           = module.local_snet_mysql.id
   private_dns_zone_id = module.local_pdnsz_mysql.list[local.dns_mysql_server].id
@@ -30,20 +30,20 @@ module "local_rg" {
 }
 
 module "local_vnet" {
-  source        = "../../virtual-network"
-  resource_group_name       = module.local_rg.name
-  basename      = random_string.postfix.result
-  location      = var.location
-  address_space = ["10.0.0.0/16"]
+  source              = "../../virtual-network"
+  resource_group_name = module.local_rg.name
+  basename            = random_string.postfix.result
+  location            = var.location
+  address_space       = ["10.0.0.0/16"]
 }
 
 module "local_snet_mysql" {
-  source            = "../../subnet"
-  resource_group_name           = module.local_rg.name
-  name              = "vnet-${random_string.postfix.result}-mysql-default"
-  vnet_name         = module.local_vnet.name
-  address_prefixes  = ["10.0.6.0/24"]
-  service_endpoints = ["Microsoft.Storage"]
+  source              = "../../subnet"
+  resource_group_name = module.local_rg.name
+  name                = "vnet-${random_string.postfix.result}-mysql-default"
+  vnet_name           = module.local_vnet.name
+  address_prefixes    = ["10.0.6.0/24"]
+  service_endpoints   = ["Microsoft.Storage"]
   subnet_delegation = {
     mysql-del = [
       {
@@ -57,22 +57,22 @@ module "local_snet_mysql" {
 }
 
 module "local_pdnsz_mysql" {
-  source    = "../../private-dns-zone"
-  resource_group_name   = module.local_rg.name
-  dns_zones = [local.dns_mysql_server]
-  vnet_id   = module.local_vnet.id
+  source              = "../../private-dns-zone"
+  resource_group_name = module.local_rg.name
+  dns_zones           = [local.dns_mysql_server]
+  vnet_id             = module.local_vnet.id
 }
 
 module "local_uami" {
-  source   = "../../user-assigned-identity"
-  resource_group_name  = module.local_rg.name
-  basename = random_string.postfix.result
-  location = var.location
+  source              = "../../user-assigned-identity"
+  resource_group_name = module.local_rg.name
+  basename            = random_string.postfix.result
+  location            = var.location
 }
 
 module "local_akv" {
   source                  = "../../key-vault"
-  resource_group_name                 = module.local_rg.name
+  resource_group_name     = module.local_rg.name
   basename                = random_string.postfix.result
   location                = var.location
   is_sec_module           = false
