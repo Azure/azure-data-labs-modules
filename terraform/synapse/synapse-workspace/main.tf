@@ -111,9 +111,9 @@ resource "azurerm_synapse_role_assignment" "syn_ws_role_default_user" {
 
 resource "time_sleep" "wait_40_seconds" {
   depends_on = [
-    azurerm_private_endpoint.syn_ws_pe_sqlondemand,
-    azurerm_private_endpoint.syn_ws_pe_sql,
-    azurerm_private_endpoint.syn_ws_pe_dev,
+    module.syn_ws_pe_sqlondemand,
+    module.syn_ws_pe_sql,
+    module.syn_ws_pe_dev,
     azurerm_synapse_firewall_rule.allow_my_ip
   ]
   create_duration = "40s"
