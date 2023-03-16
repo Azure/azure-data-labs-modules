@@ -51,12 +51,11 @@ variable "subresource_names" {
 
 variable "is_manual_connection" {
   type        = bool
-  description = "value"
+  description = "(Optional) Does the Private Endpoint require Manual Approval from the remote resource owner? Changing this forces a new resource to be created"
   default     = false
 }
 
 variable "private_dns_zone_ids" {
   type        = list(string)
   description = "(Required) Specifies the list of Private DNS Zones to include within the private_dns_zone_group."
-  default     = [""]
 }
