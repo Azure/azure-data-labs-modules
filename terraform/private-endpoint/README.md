@@ -17,8 +17,8 @@
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) The ID of the Subnet from which Private IP Addresses will be allocated for this Private Endpoint. Changing this forces a new resource to be created | `string` | n/a | yes |
 | <a name="input_private_connection_resource_id"></a> [private\_connection\_resource\_id](#input\_private\_connection\_resource\_id) | (Required) The ID of the Private Link Enabled Remote Resource which this Private Endpoint should be connected to. One of private\_connection\_resource\_id or private\_connection\_resource\_alias must be specified. Changing this forces a new resource to be created. For a web app or function app slot, the parent web app should be used in this field instead of a reference to the slot itself. | `string` | n/a | yes |
 | <a name="input_subresource_names"></a> [subresource\_names](#input\_subresource\_names) | (Optional) A list of subresource names which the Private Endpoint is able to connect to. subresource\_names corresponds to group\_id. Changing this forces a new resource to be created. | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
-| <a name="input_is_manual_connection"></a> [is\_manual\_connection](#input\_is\_manual\_connection) | value | `bool` | `false` | no |
-| <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | (Required) Specifies the list of Private DNS Zones to include within the private\_dns\_zone\_group. | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_is_manual_connection"></a> [is\_manual\_connection](#input\_is\_manual\_connection) | (Optional) Does the Private Endpoint require Manual Approval from the remote resource owner? Changing this forces a new resource to be created | `bool` | `false` | no |
+| <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | (Required) Specifies the list of Private DNS Zones to include within the private\_dns\_zone\_group. | `list(string)` | n/a | yes |
 
 ## Outputs
 
