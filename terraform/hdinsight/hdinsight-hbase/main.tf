@@ -2,7 +2,7 @@
 
 resource "azurerm_hdinsight_hbase_cluster" "adl_hdi_hbase" {
   name                = "hbase${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   cluster_version     = var.cluster_version
   tier                = var.tier

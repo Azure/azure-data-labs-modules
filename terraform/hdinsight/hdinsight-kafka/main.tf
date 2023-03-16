@@ -2,7 +2,7 @@
 
 resource "azurerm_hdinsight_kafka_cluster" "adl_hdi_kafka" {
   name                = "kafka${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   cluster_version     = var.cluster_version
   tier                = var.tier

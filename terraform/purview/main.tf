@@ -2,10 +2,10 @@
 
 resource "azurerm_purview_account" "adl_pview" {
   name                        = "pview-${var.basename}"
-  resource_group_name         = var.rg_name
+  resource_group_name         = var.resource_group_name
   location                    = var.location
   public_network_enabled      = var.is_sec_module ? false : true
-  managed_resource_group_name = "${var.rg_name}-pview-managed"
+  managed_resource_group_name = "${var.resource_group_name}-pview-managed"
   identity {
     type = "SystemAssigned"
   }
@@ -17,7 +17,7 @@ resource "azurerm_purview_account" "adl_pview" {
 resource "azurerm_private_endpoint" "purview_pe" {
   name                = "pe-${azurerm_purview_account.adl_pview[0].name}-purview"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-purview-${var.basename}"
@@ -37,7 +37,7 @@ resource "azurerm_private_endpoint" "purview_pe" {
 resource "azurerm_private_endpoint" "studio_pe" {
   name                = "pe-${azurerm_purview_account.adl_pview[0].name}-studio"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-studio-${var.basename}"

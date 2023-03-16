@@ -2,7 +2,7 @@
 
 resource "azurerm_mssql_managed_instance" "adl_sqlmi" {
   name                           = "sqlmi-${var.basename}"
-  resource_group_name            = var.rg_name
+  resource_group_name            = var.resource_group_name
   location                       = var.location
   license_type                   = var.license_type
   sku_name                       = var.sku_name
@@ -61,7 +61,7 @@ resource "azurerm_subnet_route_table_association" "adl_sqlmi_snet_rt_pe" {
 resource "azurerm_private_endpoint" "sqlmi_pe_server" {
   name                = "pe-${azurerm_mssql_managed_instance.adl_sqlmi[0].name}-sqlmi"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_private_enpoint_id
   private_service_connection {
     name                           = "psc-sqlmi-${var.basename}"

@@ -7,7 +7,7 @@ data "http" "ip" {
 resource "azurerm_cognitive_account" "adl_cog" {
   name                               = "cog-${var.basename}"
   location                           = var.location
-  resource_group_name                = var.rg_name
+  resource_group_name                = var.resource_group_name
   kind                               = var.kind
   sku_name                           = var.sku_name
   custom_subdomain_name              = "cog-${var.basename}"
@@ -28,7 +28,7 @@ resource "azurerm_cognitive_account" "adl_cog" {
 resource "azurerm_private_endpoint" "cog_pe" {
   name                = "pe-${azurerm_cognitive_account.adl_cog[0].name}-cog"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-cog-${var.basename}"

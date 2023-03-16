@@ -2,7 +2,7 @@
 
 resource "azurerm_log_analytics_cluster" "adl_logc" {
   name                = "logc-${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   size_gb             = var.size_gb
   identity {

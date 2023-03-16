@@ -2,7 +2,7 @@
 
 resource "azurerm_cosmosdb_mongo_database" "adl_cosmos_mongo" {
   name                = var.basename
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   account_name        = var.cosmosdb_account_name
   throughput          = var.throughput
 
@@ -12,7 +12,7 @@ resource "azurerm_cosmosdb_mongo_database" "adl_cosmos_mongo" {
 resource "azurerm_private_endpoint" "mongo_pe" {
   name                = "pe-${var.cosmosdb_account_name}-mongo"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-mongo-${var.basename}"

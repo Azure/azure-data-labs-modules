@@ -5,7 +5,7 @@
 resource "azurerm_redis_enterprise_cluster" "adl_redis_enterprise" {
   name                = "redis-enterprise-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   sku_name            = local.sku_name
   minimum_tls_version = var.minimum_tls_version
   tags                = var.tags
@@ -26,7 +26,7 @@ resource "azurerm_redis_enterprise_database" "adl_redis_database" {
 resource "azurerm_private_endpoint" "sql_pe_redis" {
   name                = "pe-${azurerm_redis_enterprise_cluster.adl_redis_enterprise[0].name}-redis-enterprise"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-redis-enterprise${var.basename}"

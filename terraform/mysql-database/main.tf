@@ -3,7 +3,7 @@
 resource "azurerm_mysql_flexible_server" "adl_mysql_server" {
   name                = "mysql-server-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   sku_name            = var.sku_name
   delegated_subnet_id = var.is_sec_module ? var.subnet_id : null
   private_dns_zone_id = var.is_sec_module ? var.private_dns_zone_id : null
@@ -39,7 +39,7 @@ resource "azurerm_mysql_flexible_server" "adl_mysql_server" {
 
 resource "azurerm_mysql_flexible_database" "adl_mysql" {
   name                = "mysql-${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_flexible_server.adl_mysql_server[0].name
   charset             = var.charset
   collation           = var.collation

@@ -7,7 +7,7 @@ data "http" "ip" {
 resource "azurerm_cosmosdb_account" "adl_cosmos" {
   name                                  = "cosmos-${var.basename}"
   location                              = var.location
-  resource_group_name                   = var.rg_name
+  resource_group_name                   = var.resource_group_name
   offer_type                            = var.offer_type
   kind                                  = var.kind
   network_acl_bypass_for_azure_services = var.network_acl_bypass_for_azure_services
