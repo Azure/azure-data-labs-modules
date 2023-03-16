@@ -3,8 +3,6 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_private_endpoint.purview_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
-| [azurerm_private_endpoint.studio_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_purview_account.adl_pview](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/purview_account) | resource |
 
 ## Inputs
