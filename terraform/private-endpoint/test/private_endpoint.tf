@@ -1,7 +1,7 @@
 module "private_endpoint" {
   source                         = "../"
   basename                       = "kv-${random_string.postfix.result}"
-  rg_name                        = module.local_rg.name
+  resource_group_name            = module.local_rg.name
   location                       = var.location
   subnet_id                      = module.local_snet_default.id
   private_connection_resource_id = module.local_key_vault.id

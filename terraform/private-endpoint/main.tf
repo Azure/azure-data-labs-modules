@@ -3,7 +3,7 @@
 resource "azurerm_private_endpoint" "adl_pe" {
   name                = "pe-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
 
   private_service_connection {

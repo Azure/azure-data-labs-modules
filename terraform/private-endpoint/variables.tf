@@ -7,11 +7,11 @@ variable "basename" {
   }
 }
 
-variable "rg_name" {
+variable "resource_group_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}$", var.rg_name)) && can(regex("[-\\w\\(\\)]+$", var.rg_name))
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}$", var.resource_group_name)) && can(regex("[-\\w\\(\\)]+$", var.resource_group_name))
     error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
@@ -36,13 +36,11 @@ variable "module_enabled" {
 variable "subnet_id" {
   type        = string
   description = "(Required) The ID of the Subnet from which Private IP Addresses will be allocated for this Private Endpoint. Changing this forces a new resource to be created"
-  default     = ""
 }
 
 variable "private_connection_resource_id" {
   type        = string
-  description = " (Optional) The ID of the Private Link Enabled Remote Resource which this Private Endpoint should be connected to. One of private_connection_resource_id or private_connection_resource_alias must be specified. Changing this forces a new resource to be created. For a web app or function app slot, the parent web app should be used in this field instead of a reference to the slot itself."
-  default     = ""
+  description = " (Required) The ID of the Private Link Enabled Remote Resource which this Private Endpoint should be connected to. One of private_connection_resource_id or private_connection_resource_alias must be specified. Changing this forces a new resource to be created. For a web app or function app slot, the parent web app should be used in this field instead of a reference to the slot itself."
 }
 
 variable "subresource_names" {
