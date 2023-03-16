@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_batch_account.adl_batch_account](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/batch_account) | resource |
-| [azurerm_private_endpoint.batchacc_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 
