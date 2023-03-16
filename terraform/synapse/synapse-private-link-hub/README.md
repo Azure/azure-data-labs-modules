@@ -3,7 +3,6 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_private_endpoint.synplh_pe_web](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_synapse_private_link_hub.syn_synplh](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/synapse_private_link_hub) | resource |
 
 ## Inputs
