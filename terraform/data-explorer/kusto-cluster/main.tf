@@ -7,7 +7,7 @@ data "http" "ip" {
 resource "azurerm_kusto_cluster" "adl_dec" {
   name                = "dec${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   sku {
     name     = var.sku_name
     capacity = var.sku_capacity
@@ -29,7 +29,7 @@ resource "azurerm_kusto_cluster" "adl_dec" {
 resource "azurerm_private_endpoint" "dec_pe" {
   name                = "pe-${azurerm_kusto_cluster.adl_dec[0].name}-dec"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-dec-${var.basename}"

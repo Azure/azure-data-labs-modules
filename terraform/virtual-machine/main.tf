@@ -3,7 +3,7 @@
 resource "azurerm_virtual_machine" "adl_vm" {
   name                             = "wvm-${var.basename}"
   location                         = var.location
-  resource_group_name              = var.rg_name
+  resource_group_name              = var.resource_group_name
   network_interface_ids            = [azurerm_network_interface.vm_nic[0].id]
   vm_size                          = "Standard_DS3_v2"
   delete_os_disk_on_termination    = true
@@ -39,7 +39,7 @@ resource "azurerm_virtual_machine" "adl_vm" {
 
 resource "azurerm_public_ip" "vm_pip" {
   name                = "vmpip-${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -50,7 +50,7 @@ resource "azurerm_public_ip" "vm_pip" {
 resource "azurerm_network_interface" "vm_nic" {
   name                = "nic-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   ip_configuration {
     name                          = "configuration"
     private_ip_address_allocation = "Dynamic"
@@ -65,7 +65,7 @@ resource "azurerm_network_interface" "vm_nic" {
 resource "azurerm_network_security_group" "vm_nsg" {
   name                = "nsg-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   security_rule {
     name                       = "RDP"
     priority                   = 1010

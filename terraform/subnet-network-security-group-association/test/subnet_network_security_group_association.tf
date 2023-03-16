@@ -14,24 +14,24 @@ module "local_rg" {
 }
 
 module "local_vnet" {
-  source        = "../../virtual-network"
-  rg_name       = module.local_rg.name
-  basename      = random_string.postfix.result
-  location      = var.location
-  address_space = ["10.0.0.0/16"]
+  source              = "../../virtual-network"
+  resource_group_name = module.local_rg.name
+  basename            = random_string.postfix.result
+  location            = var.location
+  address_space       = ["10.0.0.0/16"]
 }
 
 module "local_snet_default" {
-  source           = "../../subnet"
-  rg_name          = module.local_rg.name
-  name             = "vnet-${random_string.postfix.result}-snet-nsg-association-default"
-  vnet_name        = module.local_vnet.name
-  address_prefixes = ["10.0.6.0/24"]
+  source              = "../../subnet"
+  resource_group_name = module.local_rg.name
+  name                = "vnet-${random_string.postfix.result}-snet-nsg-association-default"
+  vnet_name           = module.local_vnet.name
+  address_prefixes    = ["10.0.6.0/24"]
 }
 
 module "local_network_security_group" {
-  source   = "../../network-security-group"
-  basename = random_string.postfix.result
-  rg_name  = module.local_rg.name
-  location = var.location
+  source              = "../../network-security-group"
+  basename            = random_string.postfix.result
+  resource_group_name = module.local_rg.name
+  location            = var.location
 }

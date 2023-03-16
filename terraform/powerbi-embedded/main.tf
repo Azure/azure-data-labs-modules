@@ -3,7 +3,7 @@
 resource "azurerm_powerbi_embedded" "adl_pbi" {
   name                = "pbi${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   sku_name            = var.sku_name
   administrators      = var.administrators
   mode                = var.mode

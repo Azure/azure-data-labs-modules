@@ -2,7 +2,7 @@
 
 resource "azurerm_kusto_database" "adl_dedb" {
   name                = "dedb-${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   cluster_name        = var.cluster_name
   hot_cache_period    = var.hot_cache_period

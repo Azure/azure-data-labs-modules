@@ -3,7 +3,7 @@
 resource "azurerm_postgresql_flexible_server" "adl_psql_server" {
   name                         = "psql-server-${var.basename}"
   location                     = var.location
-  resource_group_name          = var.rg_name
+  resource_group_name          = var.resource_group_name
   sku_name                     = var.sku_name
   delegated_subnet_id          = var.is_sec_module ? var.subnet_id : null
   private_dns_zone_id          = var.is_sec_module ? var.private_dns_zone_id : null

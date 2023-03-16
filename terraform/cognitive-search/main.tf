@@ -6,7 +6,7 @@ data "http" "ip" {
 
 resource "azurerm_search_service" "adl_srch" {
   name                          = "srch-${var.basename}"
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   location                      = var.location
   sku                           = var.sku
   partition_count               = var.partition_count
@@ -23,7 +23,7 @@ resource "azurerm_search_service" "adl_srch" {
 resource "azurerm_private_endpoint" "srch_pe" {
   name                = "pe-${azurerm_search_service.adl_srch[0].name}-service"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-srch-${var.basename}"

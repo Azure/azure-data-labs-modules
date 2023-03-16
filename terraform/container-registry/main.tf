@@ -6,7 +6,7 @@ data "http" "ip" {
 
 resource "azurerm_container_registry" "adl_cr" {
   name                          = "cr${var.basename}"
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   location                      = var.location
   sku                           = var.sku
   admin_enabled                 = var.admin_enabled
@@ -24,7 +24,7 @@ resource "azurerm_container_registry" "adl_cr" {
 resource "azurerm_private_endpoint" "cr_pe" {
   name                = "pe-${azurerm_container_registry.adl_cr[0].name}-acr"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-acr-${var.basename}"

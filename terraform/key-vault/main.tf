@@ -5,7 +5,7 @@ data "azurerm_client_config" "current" {}
 resource "azurerm_key_vault" "adl_kv" {
   name                          = "kv-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   tenant_id                     = data.azurerm_client_config.current.tenant_id
   sku_name                      = var.sku_name
   enabled_for_disk_encryption   = var.enabled_for_disk_encryption
@@ -29,7 +29,7 @@ resource "azurerm_key_vault" "adl_kv" {
 resource "azurerm_private_endpoint" "kv_pe" {
   name                = "pe-${azurerm_key_vault.adl_kv[0].name}-vault"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-kv-${var.basename}"
