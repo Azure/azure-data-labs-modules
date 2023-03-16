@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_cosmosdb_gremlin_database.adl_cosmos_gremlin](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_gremlin_database) | resource |
-| [azurerm_private_endpoint.gremlin_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 

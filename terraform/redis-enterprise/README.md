@@ -3,7 +3,6 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_private_endpoint.sql_pe_redis](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_redis_enterprise_cluster.adl_redis_enterprise](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_enterprise_cluster) | resource |
 | [azurerm_redis_enterprise_database.adl_redis_database](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_enterprise_database) | resource |
 

@@ -5,7 +5,6 @@
 |------|------|
 | [azurerm_mariadb_database.adl_mariadb](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_database) | resource |
 | [azurerm_mariadb_server.adl_mariadb_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mariadb_server) | resource |
-| [azurerm_private_endpoint.sql_pe_mariadb](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 

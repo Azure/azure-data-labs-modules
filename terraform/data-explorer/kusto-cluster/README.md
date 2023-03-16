@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_kusto_cluster.adl_dec](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kusto_cluster) | resource |
-| [azurerm_private_endpoint.dec_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [http_http.ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs

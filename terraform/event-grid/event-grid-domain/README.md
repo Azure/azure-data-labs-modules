@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_eventgrid_domain.adl_evgd](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_domain) | resource |
-| [azurerm_private_endpoint.evgd_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 

@@ -3,7 +3,6 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_private_endpoint.sql_pe_redis](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_redis_cache.adl_redis](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache) | resource |
 
 ## Inputs
