@@ -3,7 +3,6 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_private_endpoint.sb_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_servicebus_namespace.adl_sb](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace) | resource |
 | [azurerm_servicebus_namespace_authorization_rule.adl_sb_auth_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace_authorization_rule) | resource |
 
