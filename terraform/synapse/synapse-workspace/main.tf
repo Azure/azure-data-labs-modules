@@ -58,64 +58,46 @@ resource "azurerm_role_assignment" "syn_ws_sa_role_si_c" {
   count = var.module_enabled ? 1 : 0
 }
 
-resource "azurerm_private_endpoint" "syn_ws_pe_dev" {
-  name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-dev"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-dev-${var.basename}"
-    private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
-    subresource_names              = ["dev"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-dev"
-    private_dns_zone_ids = var.private_dns_zone_ids_dev
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "syn_ws_pe_dev" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_synapse_workspace.adl_syn[0].name}-dev"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
+  subresource_names              = ["dev"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_dev
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }
 
-resource "azurerm_private_endpoint" "syn_ws_pe_sql" {
-  name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-sql"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-sql-${var.basename}"
-    private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
-    subresource_names              = ["sql"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-sql"
-    private_dns_zone_ids = var.private_dns_zone_ids_sql
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "syn_ws_pe_sql" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_synapse_workspace.adl_syn[0].name}-sql"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
+  subresource_names              = ["sql"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_sql
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }
 
-resource "azurerm_private_endpoint" "syn_ws_pe_sqlondemand" {
-  name                = "pe-${azurerm_synapse_workspace.adl_syn[0].name}-sqlondemand"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-sqlondemand-${var.basename}"
-    private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
-    subresource_names              = ["sqlondemand"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-sqlondemand"
-    private_dns_zone_ids = var.private_dns_zone_ids_sql
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "syn_ws_pe_sqlondemand" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_synapse_workspace.adl_syn[0].name}-sqlondemand"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_synapse_workspace.adl_syn[0].id
+  subresource_names              = ["sqlondemand"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_sql
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }
 
 resource "azurerm_synapse_role_assignment" "syn_ws_role_default_user" {

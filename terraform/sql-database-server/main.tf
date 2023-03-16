@@ -31,22 +31,16 @@ resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
   count = var.is_sec_module ? 0 : 1
 }
 
-resource "azurerm_private_endpoint" "sql_pe_server" {
-  name                = "pe-${azurerm_mssql_server.adl_sql[0].name}-server"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-server-${var.basename}"
-    private_connection_resource_id = azurerm_mssql_server.adl_sql[0].id
-    subresource_names              = ["sqlServer"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-server"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "sql_pe_server" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_mssql_server.adl_sql[0].name}-server"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_mssql_server.adl_sql[0].id
+  subresource_names              = ["sqlServer"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

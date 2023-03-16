@@ -11,22 +11,16 @@ resource "azurerm_synapse_private_link_hub" "syn_synplh" {
 
 # Private Endpoint configuration
 
-resource "azurerm_private_endpoint" "synplh_pe_web" {
-  name                = "pe-${azurerm_synapse_private_link_hub.syn_synplh[0].name}-web"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-web-${var.basename}"
-    private_connection_resource_id = azurerm_synapse_private_link_hub.syn_synplh[0].id
-    subresource_names              = ["web"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-syn-web"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled ? 1 : 0
+module "synplh_pe_web" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_synapse_private_link_hub.syn_synplh[0].name}-web"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_synapse_private_link_hub.syn_synplh[0].id
+  subresource_names              = ["web"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled
 }
