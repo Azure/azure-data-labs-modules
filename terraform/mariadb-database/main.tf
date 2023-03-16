@@ -3,7 +3,7 @@
 resource "azurerm_mariadb_server" "adl_mariadb_server" {
   name                          = "mariadb-server-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   sku_name                      = var.sku_name
   storage_mb                    = var.storage_mb
   backup_retention_days         = var.backup_retention_days
@@ -21,7 +21,7 @@ resource "azurerm_mariadb_server" "adl_mariadb_server" {
 
 resource "azurerm_mariadb_database" "adl_mariadb" {
   name                = "mariadb${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   server_name         = azurerm_mariadb_server.adl_mariadb_server[0].name
   charset             = var.charset
   collation           = var.collation
@@ -32,7 +32,7 @@ resource "azurerm_mariadb_database" "adl_mariadb" {
 resource "azurerm_private_endpoint" "sql_pe_mariadb" {
   name                = "pe-${azurerm_mariadb_server.adl_mariadb_server[0].name}-mariadb"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-mariadb-${var.basename}"

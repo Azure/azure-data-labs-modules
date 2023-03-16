@@ -2,7 +2,7 @@
 
 resource "azurerm_synapse_private_link_hub" "syn_synplh" {
   name                = "synplh${var.basename}"
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   location            = var.location
   tags                = var.tags
 
@@ -14,7 +14,7 @@ resource "azurerm_synapse_private_link_hub" "syn_synplh" {
 resource "azurerm_private_endpoint" "synplh_pe_web" {
   name                = "pe-${azurerm_synapse_private_link_hub.syn_synplh[0].name}-web"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-web-${var.basename}"

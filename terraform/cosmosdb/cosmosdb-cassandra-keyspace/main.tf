@@ -2,7 +2,7 @@
 
 resource "azurerm_cosmosdb_cassandra_keyspace" "adl_cosmos_cassandra" {
   name                = var.basename
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   account_name        = var.cosmosdb_account_name
   throughput          = var.throughput
 
@@ -12,7 +12,7 @@ resource "azurerm_cosmosdb_cassandra_keyspace" "adl_cosmos_cassandra" {
 resource "azurerm_private_endpoint" "cassandra_pe" {
   name                = "pe-${var.cosmosdb_account_name}-cassandra"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-cassandra-${var.basename}"

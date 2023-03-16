@@ -18,7 +18,7 @@ module "local_rg" {
 module "local_synapse_workspace" {
   source               = "../../synapse-workspace"
   basename             = random_string.postfix.result
-  rg_name              = module.local_rg.name
+  resource_group_name  = module.local_rg.name
   location             = var.location
   adls_id              = module.local_storage_account.adls_id
   storage_account_id   = module.local_storage_account.id
@@ -33,7 +33,7 @@ module "local_synapse_workspace" {
 module "local_storage_account" {
   source                  = "../../../storage-account"
   basename                = random_string.postfix.result
-  rg_name                 = module.local_rg.name
+  resource_group_name     = module.local_rg.name
   location                = var.location
   hns_enabled             = true
   firewall_default_action = "Allow"

@@ -8,7 +8,7 @@ data "http" "ip" {
 
 resource "azurerm_storage_account" "adl_st" {
   name                          = "st${var.basename}"
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   location                      = var.location
   account_tier                  = var.account_tier
   account_replication_type      = var.account_replication_type
@@ -70,7 +70,7 @@ resource "azurerm_storage_account_network_rules" "firewall_rules" {
 resource "azurerm_private_endpoint" "st_pe_blob" {
   name                = "pe-${azurerm_storage_account.adl_st[0].name}-blob"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-blob-${var.basename}"
@@ -90,7 +90,7 @@ resource "azurerm_private_endpoint" "st_pe_blob" {
 resource "azurerm_private_endpoint" "st_pe_file" {
   name                = "pe-${azurerm_storage_account.adl_st[0].name}-file"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-file-${var.basename}"
@@ -110,7 +110,7 @@ resource "azurerm_private_endpoint" "st_pe_file" {
 resource "azurerm_private_endpoint" "st_pe_dfs" {
   name                = "pe-${azurerm_storage_account.adl_st[0].name}-dfs"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-dfs-${var.basename}"

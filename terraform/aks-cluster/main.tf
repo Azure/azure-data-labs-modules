@@ -35,7 +35,7 @@ locals {
 resource "azurerm_kubernetes_cluster" "adl_aks" {
   name                = "aks-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
   default_node_pool {
     name       = local.merged_default_node_pool.name

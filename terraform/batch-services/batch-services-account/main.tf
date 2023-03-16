@@ -3,7 +3,7 @@
 resource "azurerm_batch_account" "adl_batch_account" {
   name                                = "batchaccount${var.basename}"
   location                            = var.location
-  resource_group_name                 = var.rg_name
+  resource_group_name                 = var.resource_group_name
   pool_allocation_mode                = var.pool_allocation_mode
   storage_account_id                  = var.storage_account_id
   storage_account_authentication_mode = "StorageKeys"
@@ -24,7 +24,7 @@ resource "azurerm_batch_account" "adl_batch_account" {
 resource "azurerm_private_endpoint" "batchacc_pe" {
   name                = "pe-${azurerm_batch_account.adl_batch_account[0].name}-batchacc"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-batchacc-${var.basename}"

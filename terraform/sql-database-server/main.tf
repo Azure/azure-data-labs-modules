@@ -2,7 +2,7 @@
 
 resource "azurerm_mssql_server" "adl_sql" {
   name                         = "sql-${var.basename}"
-  resource_group_name          = var.rg_name
+  resource_group_name          = var.resource_group_name
   location                     = var.location
   version                      = var.db_version
   administrator_login          = var.administrator_login
@@ -34,7 +34,7 @@ resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
 resource "azurerm_private_endpoint" "sql_pe_server" {
   name                = "pe-${azurerm_mssql_server.adl_sql[0].name}-server"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-server-${var.basename}"

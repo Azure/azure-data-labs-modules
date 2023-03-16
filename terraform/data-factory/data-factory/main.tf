@@ -3,7 +3,7 @@
 resource "azurerm_data_factory" "adl_adf" {
   name                = "adf-${var.basename}"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
 
   identity {
     type = "SystemAssigned"
@@ -22,7 +22,7 @@ resource "azurerm_data_factory" "adl_adf" {
 resource "azurerm_private_endpoint" "df_pe" {
   name                = "pe-${azurerm_data_factory.adl_adf[0].name}-df"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
 
   private_service_connection {
@@ -43,7 +43,7 @@ resource "azurerm_private_endpoint" "df_pe" {
 resource "azurerm_private_endpoint" "portal_pe" {
   name                = "pe-${azurerm_data_factory.adl_adf[0].name}-portal"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
 
   private_service_connection {

@@ -7,11 +7,11 @@ variable "basename" {
   }
 }
 
-variable "rg_name" {
+variable "resource_group_name" {
   type        = string
   description = "Resource group name."
   validation {
-    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}$", var.rg_name)) && can(regex("[-\\w\\(\\)]+$", var.rg_name))
+    condition     = can(regex("^[-\\w\\.\\(\\)]{1,90}$", var.resource_group_name)) && can(regex("[-\\w\\(\\)]+$", var.resource_group_name))
     error_message = "Resource group names must be between 1 and 90 characters and can only include alphanumeric, underscore, parentheses, hyphen, period (except at end)."
   }
 }
@@ -42,7 +42,7 @@ variable "is_sec_module" {
 variable "subnet_id" {
   type        = string
   description = "The ID of the subnet from which private IP addresses will be allocated for the user access Private Endpoints."
-  default     = ""
+  default     = null
 }
 
 variable "backend_subnet_id" {
@@ -83,18 +83,20 @@ variable "public_subnet_name" {
   type        = string
   description = "The name of the Public Subnet within the Virtual Network."
   validation {
-    condition     = can(regex("^[-\\w\\.]{1,80}$", var.public_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.public_subnet_name)) && can(regex("[\\w]+$", var.public_subnet_name))
+    condition     = (can(regex("^[-\\w\\.]{1,80}$", var.public_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.public_subnet_name)) && can(regex("[\\w]+$", var.public_subnet_name))) || var.public_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
+  default = null
 }
 
 variable "private_subnet_name" {
   type        = string
   description = "The name of the Private Subnet within the Virtual Network."
   validation {
-    condition     = can(regex("^[-\\w\\.]{1,80}$", var.private_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.private_subnet_name)) && can(regex("[\\w]+$", var.private_subnet_name))
+    condition     = (can(regex("^[-\\w\\.]{1,80}$", var.private_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.private_subnet_name)) && can(regex("[\\w]+$", var.private_subnet_name))) || var.private_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
+  default = null
 }
 
 variable "maximum_network_security" {
@@ -106,16 +108,19 @@ variable "maximum_network_security" {
 variable "virtual_network_id" {
   type        = string
   description = "The ID of a Virtual Network where this Databricks Cluster should be created."
+  default     = null
 }
 
 variable "public_subnet_network_security_group_association_id" {
   type        = string
   description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the public_subnet_name field."
+  default     = null
 }
 
 variable "private_subnet_network_security_group_association_id" {
   type        = string
   description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the private_subnet_name field."
+  default     = null
 }
 
 variable "enable_ip_access_list" {

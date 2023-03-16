@@ -2,7 +2,7 @@
 
 resource "azurerm_virtual_network_peering" "adl_peer" {
   name                         = "vnet-${var.basename}"
-  resource_group_name          = var.rg_name
+  resource_group_name          = var.resource_group_name
   virtual_network_name         = var.virtual_network_name
   remote_virtual_network_id    = var.remote_virtual_network_id
   allow_virtual_network_access = var.allow_virtual_network_access

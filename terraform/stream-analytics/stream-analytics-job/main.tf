@@ -2,7 +2,7 @@
 
 resource "azurerm_stream_analytics_job" "adl_asa" {
   name                                     = "asa-${var.basename}"
-  resource_group_name                      = var.rg_name
+  resource_group_name                      = var.resource_group_name
   location                                 = var.location
   compatibility_level                      = var.compatibility_level
   data_locale                              = var.data_locale

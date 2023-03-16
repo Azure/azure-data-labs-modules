@@ -3,7 +3,7 @@
 resource "azurerm_eventgrid_topic" "adl_evgt" {
   name                          = "evgt-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   input_schema                  = var.input_schema
   public_network_access_enabled = var.is_sec_module ? false : true
   local_auth_enabled            = var.local_auth_enabled
@@ -17,7 +17,7 @@ resource "azurerm_eventgrid_topic" "adl_evgt" {
 resource "azurerm_private_endpoint" "evgt_pe" {
   name                = "pe-${azurerm_eventgrid_topic.adl_evgt[0].name}-topic"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-evgt-${var.basename}"

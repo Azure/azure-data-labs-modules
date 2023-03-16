@@ -3,7 +3,7 @@
 resource "azurerm_eventhub_namespace" "adl_evhns" {
   name                          = "evhns-${var.basename}"
   location                      = var.location
-  resource_group_name           = var.rg_name
+  resource_group_name           = var.resource_group_name
   sku                           = var.sku
   maximum_throughput_units      = var.maximum_throughput_units
   zone_redundant                = var.zone_redundant
@@ -23,7 +23,7 @@ resource "azurerm_eventhub_namespace" "adl_evhns" {
 resource "azurerm_private_endpoint" "evhns_pe" {
   name                = "pe-${azurerm_eventhub_namespace.adl_evhns[0].name}-evhns"
   location            = var.location
-  resource_group_name = var.rg_name
+  resource_group_name = var.resource_group_name
   subnet_id           = var.subnet_id
   private_service_connection {
     name                           = "psc-evhns-${var.basename}"
