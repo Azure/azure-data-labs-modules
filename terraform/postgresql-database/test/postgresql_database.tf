@@ -89,7 +89,9 @@ resource "azurerm_key_vault_access_policy" "akv_access_policy_terraform_principa
   key_permissions = [
     "Create",
     "Get",
-    "Delete"
+    "Delete",
+    "Recover",
+    "GetRotationPolicy"
   ]
 }
 
