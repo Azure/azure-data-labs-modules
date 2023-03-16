@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_eventhub_namespace.adl_evhns](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) | resource |
-| [azurerm_private_endpoint.evhns_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 
