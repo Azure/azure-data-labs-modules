@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_cosmosdb_cassandra_keyspace.adl_cosmos_cassandra](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_cassandra_keyspace) | resource |
-| [azurerm_private_endpoint.cassandra_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 
