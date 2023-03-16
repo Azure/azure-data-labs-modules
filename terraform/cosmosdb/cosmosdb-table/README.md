@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_cosmosdb_table.adl_cosmos_table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_table) | resource |
-| [azurerm_private_endpoint.table_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 
 ## Inputs
 
