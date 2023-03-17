@@ -19,46 +19,30 @@ resource "azurerm_data_factory" "adl_adf" {
 
 # Private Endpoint configuration
 
-resource "azurerm_private_endpoint" "df_pe" {
-  name                = "pe-${azurerm_data_factory.adl_adf[0].name}-df"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-
-  private_service_connection {
-    name                           = "psc-df-${var.basename}"
-    private_connection_resource_id = azurerm_data_factory.adl_adf[0].id
-    subresource_names              = ["dataFactory"]
-    is_manual_connection           = false
-  }
-
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-df"
-    private_dns_zone_ids = var.private_dns_zone_ids_df
-  }
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "df_pe" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_data_factory.adl_adf[0].name}-df"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_data_factory.adl_adf[0].id
+  subresource_names              = ["dataFactory"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_df
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }
 
-resource "azurerm_private_endpoint" "portal_pe" {
-  name                = "pe-${azurerm_data_factory.adl_adf[0].name}-portal"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-
-  private_service_connection {
-    name                           = "psc-portal-${var.basename}"
-    private_connection_resource_id = azurerm_data_factory.adl_adf[0].id
-    subresource_names              = ["portal"]
-    is_manual_connection           = false
-  }
-
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-portal"
-    private_dns_zone_ids = var.private_dns_zone_ids_portal
-  }
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
-
-  tags = var.tags
+module "portal_pe" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_data_factory.adl_adf[0].name}-portal"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_data_factory.adl_adf[0].id
+  subresource_names              = ["portal"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_portal
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

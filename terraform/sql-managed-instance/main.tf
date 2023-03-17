@@ -58,22 +58,16 @@ resource "azurerm_subnet_route_table_association" "adl_sqlmi_snet_rt_pe" {
   count = var.module_enabled && var.is_sec_module ? 1 : 0
 }
 
-resource "azurerm_private_endpoint" "sqlmi_pe_server" {
-  name                = "pe-${azurerm_mssql_managed_instance.adl_sqlmi[0].name}-sqlmi"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_private_enpoint_id
-  private_service_connection {
-    name                           = "psc-sqlmi-${var.basename}"
-    private_connection_resource_id = azurerm_mssql_managed_instance.adl_sqlmi[0].id
-    subresource_names              = ["managedInstance"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = var.private_dns_zone_group_name
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "sqlmi_pe_server" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_mssql_managed_instance.adl_sqlmi[0].name}-sqlmi"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_private_enpoint_id
+  private_connection_resource_id = azurerm_mssql_managed_instance.adl_sqlmi[0].id
+  subresource_names              = ["managedInstance"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

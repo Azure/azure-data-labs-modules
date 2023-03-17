@@ -29,22 +29,16 @@ resource "azurerm_mariadb_database" "adl_mariadb" {
   count = var.module_enabled ? 1 : 0
 }
 
-resource "azurerm_private_endpoint" "sql_pe_mariadb" {
-  name                = "pe-${azurerm_mariadb_server.adl_mariadb_server[0].name}-mariadb"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-mariadb-${var.basename}"
-    private_connection_resource_id = azurerm_mariadb_server.adl_mariadb_server[0].id
-    subresource_names              = ["mariadbServer"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-mariadb"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "sql_pe_mariadb" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_mariadb_server.adl_mariadb_server[0].name}-mariadb"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_mariadb_server.adl_mariadb_server[0].id
+  subresource_names              = ["mariadbServer"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

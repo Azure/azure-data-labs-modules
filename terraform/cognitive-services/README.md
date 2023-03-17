@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_cognitive_account.adl_cog](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_account) | resource |
-| [azurerm_private_endpoint.cog_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [http_http.ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs

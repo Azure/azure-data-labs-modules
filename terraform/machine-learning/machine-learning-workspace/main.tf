@@ -20,22 +20,16 @@ resource "azurerm_machine_learning_workspace" "adl_mlw" {
   tags = var.tags
 }
 
-resource "azurerm_private_endpoint" "mlw_pe" {
-  name                = "pe-${azurerm_machine_learning_workspace.adl_mlw.name}-amlw"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-aml-${var.basename}"
-    private_connection_resource_id = azurerm_machine_learning_workspace.adl_mlw.id
-    subresource_names              = ["amlworkspace"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-ws"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.is_sec_module ? 1 : 0
+module "mlw_pe" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_machine_learning_workspace.adl_mlw.name}-amlw"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_machine_learning_workspace.adl_mlw.id
+  subresource_names              = ["amlworkspace"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.is_sec_module
 }

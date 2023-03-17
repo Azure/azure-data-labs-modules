@@ -21,22 +21,16 @@ resource "azurerm_batch_account" "adl_batch_account" {
   count = var.module_enabled ? 1 : 0
 }
 
-resource "azurerm_private_endpoint" "batchacc_pe" {
-  name                = "pe-${azurerm_batch_account.adl_batch_account[0].name}-batchacc"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-batchacc-${var.basename}"
-    private_connection_resource_id = azurerm_batch_account.adl_batch_account[0].id
-    subresource_names              = ["account"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-cog"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.public_network_access_enabled ? 1 : 0
+module "batchacc_pe" {
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_batch_account.adl_batch_account[0].name}-batchacc"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_batch_account.adl_batch_account[0].id
+  subresource_names              = ["account"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.public_network_access_enabled
 }

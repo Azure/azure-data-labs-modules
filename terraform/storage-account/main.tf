@@ -67,62 +67,44 @@ resource "azurerm_storage_account_network_rules" "firewall_rules" {
   count = var.module_enabled ? 1 : 0
 }
 
-resource "azurerm_private_endpoint" "st_pe_blob" {
-  name                = "pe-${azurerm_storage_account.adl_st[0].name}-blob"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-blob-${var.basename}"
-    private_connection_resource_id = azurerm_storage_account.adl_st[0].id
-    subresource_names              = ["blob"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-blob"
-    private_dns_zone_ids = var.private_dns_zone_ids_blob
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_blob) != 0 ? 1 : 0
+module "st_pe_blob" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_storage_account.adl_st[0].name}-blob"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_storage_account.adl_st[0].id
+  subresource_names              = ["blob"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_blob
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_blob) != 0
 }
 
-resource "azurerm_private_endpoint" "st_pe_file" {
-  name                = "pe-${azurerm_storage_account.adl_st[0].name}-file"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-file-${var.basename}"
-    private_connection_resource_id = azurerm_storage_account.adl_st[0].id
-    subresource_names              = ["file"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-file"
-    private_dns_zone_ids = var.private_dns_zone_ids_file
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_file) != 0 ? 1 : 0
+module "st_pe_file" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_storage_account.adl_st[0].name}-file"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_storage_account.adl_st[0].id
+  subresource_names              = ["file"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_file
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_file) != 0
 }
 
-resource "azurerm_private_endpoint" "st_pe_dfs" {
-  name                = "pe-${azurerm_storage_account.adl_st[0].name}-dfs"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-dfs-${var.basename}"
-    private_connection_resource_id = azurerm_storage_account.adl_st[0].id
-    subresource_names              = ["dfs"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-dfs"
-    private_dns_zone_ids = var.private_dns_zone_ids_dfs
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0 ? 1 : 0
+module "st_pe_dfs" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_storage_account.adl_st[0].name}-dfs"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_storage_account.adl_st[0].id
+  subresource_names              = ["dfs"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids_dfs
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0
 }

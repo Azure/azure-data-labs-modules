@@ -71,13 +71,14 @@ module "local_uami" {
 }
 
 module "local_akv" {
-  source              = "../../key-vault"
-  resource_group_name = module.local_rg.name
-  basename            = random_string.postfix.result
-  location            = var.location
-  is_sec_module       = false
-  sku_name            = "standard"
-  firewall_ip_rules   = ["${data.http.ip.body}/32"]
+  source                  = "../../key-vault"
+  resource_group_name     = module.local_rg.name
+  basename                = random_string.postfix.result
+  location                = var.location
+  is_sec_module           = false
+  sku_name                = "standard"
+  firewall_default_action = "Allow"
+  firewall_ip_rules       = ["${data.http.ip.body}/32"]
 }
 
 data "azurerm_client_config" "current" {}
@@ -89,7 +90,9 @@ resource "azurerm_key_vault_access_policy" "akv_access_policy_terraform_principa
   key_permissions = [
     "Create",
     "Get",
-    "Delete"
+    "Delete",
+    "Recover",
+    "GetRotationPolicy"
   ]
 }
 

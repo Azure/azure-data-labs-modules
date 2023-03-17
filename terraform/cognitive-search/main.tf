@@ -20,22 +20,16 @@ resource "azurerm_search_service" "adl_srch" {
 
 # Private Endpoint configuration
 
-resource "azurerm_private_endpoint" "srch_pe" {
-  name                = "pe-${azurerm_search_service.adl_srch[0].name}-service"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-srch-${var.basename}"
-    private_connection_resource_id = azurerm_search_service.adl_srch[0].id
-    subresource_names              = ["searchService"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-srch"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "srch_pe" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_search_service.adl_srch[0].name}-service"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_search_service.adl_srch[0].id
+  subresource_names              = ["searchService"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

@@ -21,22 +21,16 @@ resource "azurerm_container_registry" "adl_cr" {
 
 # Private Endpoint configuration
 
-resource "azurerm_private_endpoint" "cr_pe" {
-  name                = "pe-${azurerm_container_registry.adl_cr[0].name}-acr"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
-  private_service_connection {
-    name                           = "psc-acr-${var.basename}"
-    private_connection_resource_id = azurerm_container_registry.adl_cr[0].id
-    subresource_names              = ["registry"]
-    is_manual_connection           = false
-  }
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group-acr"
-    private_dns_zone_ids = var.private_dns_zone_ids
-  }
-  tags = var.tags
-
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+module "cr_pe" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_container_registry.adl_cr[0].name}-acr"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.subnet_id
+  private_connection_resource_id = azurerm_container_registry.adl_cr[0].id
+  subresource_names              = ["registry"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_sec_module
 }

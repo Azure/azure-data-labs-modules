@@ -4,9 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_databricks_workspace.adl_databricks](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace) | resource |
-| [azurerm_private_endpoint.databricks_fe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
-| [azurerm_private_endpoint.databricks_pe_be](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
-| [azurerm_private_endpoint.databricks_pe_sso](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [databricks_ip_access_list.adb_ws_allow-list](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/ip_access_list) | resource |
 | [databricks_ip_access_list.adb_ws_block-list](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/ip_access_list) | resource |
 | [databricks_workspace_conf.adb_ws_conf](https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/workspace_conf) | resource |
