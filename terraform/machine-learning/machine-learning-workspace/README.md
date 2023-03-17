@@ -4,7 +4,6 @@
 | Name | Type |
 |------|------|
 | [azurerm_machine_learning_workspace.adl_mlw](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/machine_learning_workspace) | resource |
-| [azurerm_private_endpoint.mlw_pe](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [http_http.ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
