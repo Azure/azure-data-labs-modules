@@ -33,9 +33,9 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "is_sec_module" {
+variable "is_private_endpoint" {
   type        = bool
-  description = "Is secure module?"
+  description = "Whether private endpoints are enabled to access the resource."
   default     = true
 }
 
@@ -63,7 +63,7 @@ variable "input_schema" {
 
 variable "public_network_access_enabled" {
   type        = bool
-  description = "Whether or not public network access is allowed for this server."
+  description = "Whether or not public network access is allowed for this resource."
   default     = false
 }
 

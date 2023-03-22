@@ -41,7 +41,7 @@ module "local_key_vault" {
   resource_group_name = module.local_rg.name
   location            = var.location
   sku_name            = "standard"
-  is_sec_module       = false
+  is_private_endpoint = false
 }
 
 module "local_pdnsz_kv" {

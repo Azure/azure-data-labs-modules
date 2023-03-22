@@ -4,7 +4,7 @@ resource "azurerm_purview_account" "adl_pview" {
   name                        = "pview-${var.basename}"
   resource_group_name         = var.resource_group_name
   location                    = var.location
-  public_network_enabled      = var.is_sec_module ? false : true
+  public_network_enabled      = var.public_network_enabled
   managed_resource_group_name = "${var.resource_group_name}-pview-managed"
   identity {
     type = "SystemAssigned"
@@ -25,7 +25,7 @@ module "purview_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_account
   tags                           = var.tags
-  module_enabled                 = var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
 
 module "studio_pe" {
@@ -39,5 +39,5 @@ module "studio_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_portal
   tags                           = var.tags
-  module_enabled                 = var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

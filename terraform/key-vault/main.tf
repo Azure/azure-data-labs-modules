@@ -11,7 +11,7 @@ resource "azurerm_key_vault" "adl_kv" {
   enabled_for_disk_encryption   = var.enabled_for_disk_encryption
   soft_delete_retention_days    = var.soft_delete_retention_days
   purge_protection_enabled      = var.purge_protection_enabled
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   enabled_for_deployment        = var.enabled_for_deployment
   network_acls {
     default_action             = var.firewall_default_action
@@ -37,5 +37,5 @@ module "kv_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

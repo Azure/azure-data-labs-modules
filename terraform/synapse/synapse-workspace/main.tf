@@ -13,7 +13,7 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   storage_data_lake_gen2_filesystem_id = var.adls_id
   sql_administrator_login              = var.synadmin_username
   sql_administrator_login_password     = var.synadmin_password
-  managed_virtual_network_enabled      = var.is_sec_module ? true : false
+  managed_virtual_network_enabled      = var.public_network_access_enabled
   managed_resource_group_name          = "${var.resource_group_name}-syn-managed"
   public_network_access_enabled        = true
   identity {
@@ -36,8 +36,8 @@ resource "azurerm_synapse_workspace_aad_admin" "syn_aad_login" {
 resource "azurerm_synapse_firewall_rule" "allow_my_ip" {
   name                 = "AllowAll"
   synapse_workspace_id = azurerm_synapse_workspace.adl_syn[0].id
-  start_ip_address     = var.is_sec_module ? data.http.ip.response_body : "0.0.0.0"
-  end_ip_address       = var.is_sec_module ? data.http.ip.response_body : "255.255.255.255"
+  start_ip_address     = var.is_private_endpoint ? data.http.ip.response_body : "0.0.0.0"
+  end_ip_address       = var.is_private_endpoint ? data.http.ip.response_body : "255.255.255.255"
 
   count = var.module_enabled ? 1 : 0
 }
@@ -69,7 +69,7 @@ module "syn_ws_pe_dev" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_dev
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
 
 module "syn_ws_pe_sql" {
@@ -83,7 +83,7 @@ module "syn_ws_pe_sql" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_sql
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
 
 module "syn_ws_pe_sqlondemand" {
@@ -97,7 +97,7 @@ module "syn_ws_pe_sqlondemand" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_sql
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
 
 resource "azurerm_synapse_role_assignment" "syn_ws_role_default_user" {

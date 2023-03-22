@@ -69,7 +69,7 @@ module "local_storage_account" {
   location                = var.location
   hns_enabled             = true
   firewall_default_action = "Allow"
-  is_sec_module           = false
+  is_private_endpoint     = false
 }
 
 module "local_user_managed_identity" {
@@ -87,7 +87,7 @@ module "local_sql_database_server" {
   db_version                   = "12.0"
   administrator_login          = "sqladminuser"
   administrator_login_password = "ThisIsNotVerySecure!"
-  is_sec_module                = false
+  is_private_endpoint          = false
 }
 
 module "local_sql_database_ambari" {

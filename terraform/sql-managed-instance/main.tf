@@ -48,14 +48,14 @@ resource "azurerm_subnet_network_security_group_association" "adl_sqlmi_snet_nsg
   subnet_id                 = var.subnet_private_enpoint_id
   network_security_group_id = var.network_security_group_id
 
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  count = var.module_enabled && var.is_private_endpoint ? 1 : 0
 }
 
 resource "azurerm_subnet_route_table_association" "adl_sqlmi_snet_rt_pe" {
   subnet_id      = var.subnet_private_enpoint_id
   route_table_id = var.route_table_id
 
-  count = var.module_enabled && var.is_sec_module ? 1 : 0
+  count = var.module_enabled && var.is_private_endpoint ? 1 : 0
 }
 
 module "sqlmi_pe_server" {
@@ -69,5 +69,5 @@ module "sqlmi_pe_server" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

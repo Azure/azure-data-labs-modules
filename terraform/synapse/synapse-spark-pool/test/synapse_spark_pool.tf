@@ -24,7 +24,7 @@ module "local_synapse_workspace" {
   synadmin_username    = var.synadmin_username
   synadmin_password    = var.synadmin_password
   set_aad_login        = false
-  is_sec_module        = false
+  is_private_endpoint  = false
   tags                 = {}
 }
 
@@ -35,5 +35,5 @@ module "local_storage_account" {
   location                = var.location
   hns_enabled             = true
   firewall_default_action = "Allow"
-  is_sec_module           = false
+  is_private_endpoint     = false
 }

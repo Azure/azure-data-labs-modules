@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "adl_st" {
   account_kind                  = var.account_kind
   is_hns_enabled                = var.hns_enabled
   min_tls_version               = var.min_tls_version
-  public_network_access_enabled = true #var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   queue_properties {
     logging {
       delete                = true
@@ -78,7 +78,7 @@ module "st_pe_blob" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_blob
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_blob) != 0
+  module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_blob) != 0
 }
 
 module "st_pe_file" {
@@ -92,7 +92,7 @@ module "st_pe_file" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_file
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_file) != 0
+  module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_file) != 0
 }
 
 module "st_pe_dfs" {
@@ -106,5 +106,5 @@ module "st_pe_dfs" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_dfs
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module && length(var.private_dns_zone_ids_dfs) != 0
+  module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_dfs) != 0
 }

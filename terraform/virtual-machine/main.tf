@@ -44,7 +44,7 @@ resource "azurerm_public_ip" "vm_pip" {
   allocation_method   = "Static"
   sku                 = "Standard"
 
-  count = var.module_enabled && !var.is_sec_module ? 1 : 0
+  count = var.module_enabled && !var.is_private_endpoint ? 1 : 0
 }
 
 resource "azurerm_network_interface" "vm_nic" {
@@ -55,7 +55,7 @@ resource "azurerm_network_interface" "vm_nic" {
     name                          = "configuration"
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = var.subnet_id
-    public_ip_address_id          = !var.is_sec_module ? azurerm_public_ip.vm_pip[0].id : null
+    public_ip_address_id          = !var.is_private_endpoint ? azurerm_public_ip.vm_pip[0].id : null
   }
   tags = var.tags
 

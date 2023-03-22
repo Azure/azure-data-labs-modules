@@ -24,7 +24,7 @@ module "local_mlw" {
   key_vault_id            = module.local_key_vault.id
   application_insights_id = module.local_application_insights.id
   container_registry_id   = module.local_container_registry.id
-  is_sec_module           = false
+  is_private_endpoint     = false
 }
 
 module "local_aks" {
@@ -47,7 +47,7 @@ module "local_storage_account" {
   location                = var.location
   hns_enabled             = false
   firewall_default_action = "Allow"
-  is_sec_module           = false
+  is_private_endpoint     = false
 }
 
 module "local_key_vault" {
@@ -55,7 +55,7 @@ module "local_key_vault" {
   basename            = random_string.postfix.result
   resource_group_name = module.local_rg.name
   location            = var.location
-  is_sec_module       = false
+  is_private_endpoint = false
 }
 
 module "local_application_insights" {
@@ -70,5 +70,5 @@ module "local_container_registry" {
   basename            = random_string.postfix.result
   resource_group_name = module.local_rg.name
   location            = var.location
-  is_sec_module       = false
+  is_private_endpoint = false
 }

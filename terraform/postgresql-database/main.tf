@@ -5,8 +5,8 @@ resource "azurerm_postgresql_flexible_server" "adl_psql_server" {
   location                     = var.location
   resource_group_name          = var.resource_group_name
   sku_name                     = var.sku_name
-  delegated_subnet_id          = var.is_sec_module ? var.subnet_id : null
-  private_dns_zone_id          = var.is_sec_module ? var.private_dns_zone_id : null
+  delegated_subnet_id          = var.is_private_endpoint ? var.subnet_id : null
+  private_dns_zone_id          = var.is_private_endpoint ? var.private_dns_zone_id : null
   storage_mb                   = var.storage_mb
   backup_retention_days        = var.backup_retention_days
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled

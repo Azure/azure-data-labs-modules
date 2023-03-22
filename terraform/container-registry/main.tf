@@ -10,7 +10,7 @@ resource "azurerm_container_registry" "adl_cr" {
   location                      = var.location
   sku                           = var.sku
   admin_enabled                 = var.admin_enabled
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   network_rule_set {
     default_action = var.firewall_default_action
   }
@@ -32,5 +32,5 @@ module "cr_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

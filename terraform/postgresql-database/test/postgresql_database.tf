@@ -75,7 +75,7 @@ module "local_akv" {
   resource_group_name     = module.local_rg.name
   basename                = random_string.postfix.result
   location                = var.location
-  is_sec_module           = false
+  is_private_endpoint     = false
   sku_name                = "standard"
   firewall_default_action = "Allow"
   firewall_ip_rules       = ["${data.http.ip.body}/32"]
