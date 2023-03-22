@@ -20,7 +20,7 @@
 | <a name="input_location"></a> [location](#input\_location) | Location of the resource group. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags which should be assigned to the Resource Group. | `map(string)` | `{}` | no |
 | <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
-| <a name="input_is_sec_module"></a> [is\_sec\_module](#input\_is\_sec\_module) | Is secure module? | `bool` | `true` | no |
+| <a name="input_is_private_endpoint"></a> [is\_private\_endpoint](#input\_is\_private\_endpoint) | Whether private endpoints are enabled to access the resource. | `bool` | `true` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint. | `string` | `""` | no |
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | Defines the Tier to use for this storage account. | `string` | `"Standard"` | no |
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | Defines the type of replication to use for this storage account. | `string` | `"LRS"` | no |
@@ -34,6 +34,7 @@
 | <a name="input_private_dns_zone_ids_blob"></a> [private\_dns\_zone\_ids\_blob](#input\_private\_dns\_zone\_ids\_blob) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
 | <a name="input_private_dns_zone_ids_file"></a> [private\_dns\_zone\_ids\_file](#input\_private\_dns\_zone\_ids\_file) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
 | <a name="input_private_dns_zone_ids_dfs"></a> [private\_dns\_zone\_ids\_dfs](#input\_private\_dns\_zone\_ids\_dfs) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
+| <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Whether or not public network access is allowed for this resource. | `bool` | `true` | no |
 
 ## Outputs
 
