@@ -18,7 +18,7 @@
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Location of the resource group. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags which should be assigned to the deployed resource. | `map(string)` | `{}` | no |
-| <a name="input_is_sec_module"></a> [is\_sec\_module](#input\_is\_sec\_module) | Is secure module? | `bool` | `true` | no |
+| <a name="input_is_private_endpoint"></a> [is\_private\_endpoint](#input\_is\_private\_endpoint) | Whether private endpoints are enabled to access the resource. | `bool` | `true` | no |
 | <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
 | <a name="input_jumphost_username"></a> [jumphost\_username](#input\_jumphost\_username) | VM username. | `string` | n/a | yes |
 | <a name="input_jumphost_password"></a> [jumphost\_password](#input\_jumphost\_password) | VM password. | `string` | n/a | yes |
