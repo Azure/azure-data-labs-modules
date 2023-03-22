@@ -13,9 +13,9 @@ resource "azurerm_synapse_workspace" "adl_syn" {
   storage_data_lake_gen2_filesystem_id = var.adls_id
   sql_administrator_login              = var.synadmin_username
   sql_administrator_login_password     = var.synadmin_password
-  managed_virtual_network_enabled      = var.public_network_access_enabled
+  managed_virtual_network_enabled      = var.managed_virtual_network_enabled
   managed_resource_group_name          = "${var.resource_group_name}-syn-managed"
-  public_network_access_enabled        = true
+  public_network_access_enabled        = var.public_network_access_enabled
   identity {
     type = "SystemAssigned"
   }

@@ -9,7 +9,7 @@ resource "azurerm_data_factory" "adl_adf" {
     type = "SystemAssigned"
   }
 
-  public_network_enabled          = var.is_private_endpoint
+  public_network_enabled          = var.public_network_access_enabled
   managed_virtual_network_enabled = var.managed_virtual_network_enabled
 
   count = var.module_enabled ? 1 : 0
