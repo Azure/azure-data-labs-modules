@@ -22,7 +22,8 @@
 | <a name="input_location"></a> [location](#input\_location) | Location of the resource group. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags which should be assigned to the deployed resource. | `map(string)` | `{}` | no |
 | <a name="input_module_enabled"></a> [module\_enabled](#input\_module\_enabled) | Variable to enable or disable the module. | `bool` | `true` | no |
-| <a name="input_is_sec_module"></a> [is\_sec\_module](#input\_is\_sec\_module) | Is secure module? | `bool` | `true` | no |
+| <a name="input_is_private_endpoint"></a> [is\_private\_endpoint](#input\_is\_private\_endpoint) | Whether private endpoints are enabled to access the resource. | `bool` | `true` | no |
+| <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Whether or not public network access is allowed for this resource. | `bool` | `true` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet from which private IP addresses will be allocated for this Private Endpoint. | `string` | `""` | no |
 | <a name="input_adls_id"></a> [adls\_id](#input\_adls\_id) | The ID of the adls associated with the syn workspace. | `string` | n/a | yes |
 | <a name="input_storage_account_id"></a> [storage\_account\_id](#input\_storage\_account\_id) | The ID of the storage account associated with the syn workspace. | `string` | n/a | yes |
@@ -33,6 +34,7 @@
 | <a name="input_aad_login"></a> [aad\_login](#input\_aad\_login) | AAD login. | <pre>object({<br>    name      = string<br>    object_id = string<br>    tenant_id = string<br>  })</pre> | <pre>{<br>  "name": "AzureAD Admin",<br>  "object_id": "00000000-0000-0000-0000-000000000000",<br>  "tenant_id": "00000000-0000-0000-0000-000000000000"<br>}</pre> | no |
 | <a name="input_private_dns_zone_ids_sql"></a> [private\_dns\_zone\_ids\_sql](#input\_private\_dns\_zone\_ids\_sql) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
 | <a name="input_private_dns_zone_ids_dev"></a> [private\_dns\_zone\_ids\_dev](#input\_private\_dns\_zone\_ids\_dev) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
+| <a name="input_managed_virtual_network_enabled"></a> [managed\_virtual\_network\_enabled](#input\_managed\_virtual\_network\_enabled) | Is Virtual Network enabled for all computes in this workspace? Changing this forces a new resource to be created. | `bool` | `true` | no |
 
 ## Outputs
 
