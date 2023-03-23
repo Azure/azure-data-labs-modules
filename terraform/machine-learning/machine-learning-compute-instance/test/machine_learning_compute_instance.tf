@@ -54,11 +54,12 @@ module "local_storage_account" {
 }
 
 module "local_key_vault" {
-  source              = "../../../key-vault"
-  basename            = random_string.postfix.result
-  resource_group_name = module.local_rg.name
-  location            = var.location
-  is_private_endpoint = false
+  source                        = "../../../key-vault"
+  basename                      = random_string.postfix.result
+  resource_group_name           = module.local_rg.name
+  location                      = var.location
+  is_private_endpoint           = false
+  public_network_access_enabled = true
 }
 
 module "local_application_insights" {
