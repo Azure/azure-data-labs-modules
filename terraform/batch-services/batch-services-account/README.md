@@ -18,6 +18,7 @@
 | <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
 | <a name="input_pool_allocation_mode"></a> [pool\_allocation\_mode](#input\_pool\_allocation\_mode) | Specifies the mode to use for pool allocation. | `string` | `"BatchService"` | no |
 | <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Whether public network access is allowed for the Batch Services Account. | `bool` | `false` | no |
+| <a name="input_is_private_endpoint"></a> [is\_private\_endpoint](#input\_is\_private\_endpoint) | Whether private endpoints are enabled to access the resource. | `bool` | `true` | no |
 | <a name="input_storage_account_id"></a> [storage\_account\_id](#input\_storage\_account\_id) | Storage account ID for the Batch Service. | `string` | n/a | yes |
 | <a name="input_allowed_authentication_modes"></a> [allowed\_authentication\_modes](#input\_allowed\_authentication\_modes) | Specifies the allowed authentication modes for the Batch account. | `list(string)` | <pre>[<br>  "AAD",<br>  "SharedKey",<br>  "TaskAuthenticationToken"<br>]</pre> | no |
 
