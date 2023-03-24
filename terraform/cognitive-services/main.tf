@@ -11,8 +11,8 @@ resource "azurerm_cognitive_account" "adl_cog" {
   kind                               = var.kind
   sku_name                           = var.sku_name
   custom_subdomain_name              = "cog-${var.basename}"
-  public_network_access_enabled      = var.is_sec_module ? false : true
-  outbound_network_access_restricted = var.is_sec_module ? true : false
+  public_network_access_enabled      = var.public_network_access_enabled
+  outbound_network_access_restricted = var.outbound_network_access_restricted
   # network_acls {
   #   default_action = "Deny"
   #   ip_rules       = []
@@ -36,5 +36,5 @@ module "cog_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

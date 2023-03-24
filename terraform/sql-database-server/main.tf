@@ -28,7 +28,7 @@ resource "azurerm_mssql_firewall_rule" "metastore_server_rule" {
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
 
-  count = var.is_sec_module ? 0 : 1
+  count = var.module_enabled && var.is_private_endpoint ? 0 : 1
 }
 
 module "sql_pe_server" {
@@ -42,5 +42,5 @@ module "sql_pe_server" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

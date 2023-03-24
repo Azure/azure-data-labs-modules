@@ -5,7 +5,7 @@ resource "azurerm_eventgrid_domain" "adl_evgd" {
   location                                  = var.location
   resource_group_name                       = var.resource_group_name
   input_schema                              = var.input_schema
-  public_network_access_enabled             = var.is_sec_module ? false : true
+  public_network_access_enabled             = var.public_network_access_enabled
   local_auth_enabled                        = var.local_auth_enabled
   auto_create_topic_with_first_subscription = var.auto_create_topic_with_first_subscription
   auto_delete_topic_with_last_subscription  = var.auto_delete_topic_with_last_subscription
@@ -27,5 +27,5 @@ module "evgd_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

@@ -1,5 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace
 # https://registry.terraform.io/providers/databricks/databricks/latest/docs
+# https://learn.microsoft.com/en-us/azure/databricks/administration-guide/cloud-configurations/azure/private-link
 
 resource "azurerm_databricks_workspace" "adl_databricks" {
   name                = "adb-${var.basename}"
@@ -8,10 +9,10 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   sku                 = var.sku
 
   managed_resource_group_name           = "${var.resource_group_name}-adb-managed"
-  public_network_access_enabled         = var.public_network_enabled
-  network_security_group_rules_required = var.is_sec_module ? "NoAzureDatabricksRules" : "AllRules"
+  public_network_access_enabled         = var.public_network_access_enabled
+  network_security_group_rules_required = var.is_private_endpoint ? "NoAzureDatabricksRules" : "AllRules"
   custom_parameters {
-    no_public_ip                                         = var.is_sec_module
+    no_public_ip                                         = var.no_public_ip
     public_subnet_name                                   = var.public_subnet_name
     private_subnet_name                                  = var.private_subnet_name
     virtual_network_id                                   = var.virtual_network_id
@@ -24,13 +25,18 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
 
   lifecycle {
     precondition {
-      condition     = (var.is_sec_module || var.public_network_enabled)
-      error_message = "Deny public access requires a private link endpoint (is_sec_module set to 'true')"
+      condition     = (var.is_private_endpoint || var.public_network_access_enabled)
+      error_message = "Deny public access requires a private link endpoint (is_private_endpoint set to 'true')"
     }
 
     precondition {
-      condition     = (!var.enable_ip_access_list || var.public_network_enabled)
-      error_message = "IP access list only applies to requests made over the Internet (public_network_enabled set to 'true')"
+      condition     = (!var.is_private_endpoint || var.no_public_ip)
+      error_message = "Private link endpoint requires No Public IP (no_public_ip set to 'true')"
+    }
+
+    precondition {
+      condition     = (!var.enable_ip_access_list || var.public_network_access_enabled)
+      error_message = "IP access list only applies to requests made over the Internet (public_network_access_enabled set to 'true')"
     }
   }
 }
@@ -73,18 +79,32 @@ resource "databricks_ip_access_list" "adb_ws_block-list" {
 
 # Private Endpoint configuration
 
+module "adb_be_pe" {
+  source                         = "../private-endpoint"
+  basename                       = "${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-be"
+  resource_group_name            = var.resource_group_name
+  location                       = var.location
+  subnet_id                      = var.backend_subnet_id
+  private_connection_resource_id = azurerm_databricks_workspace.adl_databricks[0].id
+  subresource_names              = ["databricks_ui_api"]
+  is_manual_connection           = false
+  private_dns_zone_ids           = var.backend_private_dns_zone_ids
+  tags                           = var.tags
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
+}
+
 module "adb_fe_pe" {
   source                         = "../private-endpoint"
   basename                       = "${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-fe"
   resource_group_name            = var.resource_group_name
   location                       = var.location
-  subnet_id                      = var.subnet_id
+  subnet_id                      = var.frontend_subnet_id
   private_connection_resource_id = azurerm_databricks_workspace.adl_databricks[0].id
   subresource_names              = ["databricks_ui_api"]
   is_manual_connection           = false
-  private_dns_zone_ids           = var.private_dns_zone_ids
+  private_dns_zone_ids           = var.frontend_private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint && (var.private_link_deployment_type == "standard")
 }
 
 module "adb_sso_pe" {
@@ -92,25 +112,11 @@ module "adb_sso_pe" {
   basename                       = "${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-sso"
   resource_group_name            = var.resource_group_name
   location                       = var.location
-  subnet_id                      = var.subnet_id
-  private_connection_resource_id = azurerm_databricks_workspace.adl_databricks[0].id
+  subnet_id                      = var.private_link_deployment_type == "standard" ? var.frontend_subnet_id : var.backend_subnet_id
+  private_connection_resource_id = (var.private_web_auth_workspace != null) ? var.private_web_auth_workspace : azurerm_databricks_workspace.adl_databricks[0].id
   subresource_names              = ["browser_authentication"]
   is_manual_connection           = false
-  private_dns_zone_ids           = var.private_dns_zone_ids
+  private_dns_zone_ids           = var.frontend_private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
-}
-
-module "adb_be_pe" {
-  source                         = "../private-endpoint"
-  basename                       = "${azurerm_databricks_workspace.adl_databricks[0].name}-databricks-be"
-  resource_group_name            = var.resource_group_name
-  location                       = var.location
-  subnet_id                      = var.subnet_id
-  private_connection_resource_id = azurerm_databricks_workspace.adl_databricks[0].id
-  subresource_names              = ["databricks_ui_api"]
-  is_manual_connection           = false
-  private_dns_zone_ids           = var.backend_private_dns_zone_ids
-  tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module && var.maximum_network_security
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

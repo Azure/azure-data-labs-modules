@@ -61,6 +61,12 @@ variable "public_network_access_enabled" {
   default     = false
 }
 
+variable "is_private_endpoint" {
+  type        = bool
+  description = "Whether private endpoints are enabled to access the resource."
+  default     = true
+}
+
 variable "storage_account_id" {
   type        = string
   description = "Storage account ID for the Batch Service."

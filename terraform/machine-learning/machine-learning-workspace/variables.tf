@@ -27,9 +27,15 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
-variable "is_sec_module" {
+variable "module_enabled" {
   type        = bool
-  description = "Is secure module?"
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
+variable "is_private_endpoint" {
+  type        = bool
+  description = "Whether private endpoints are enabled to access the resource."
   default     = true
 }
 

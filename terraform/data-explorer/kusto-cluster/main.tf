@@ -15,7 +15,7 @@ resource "azurerm_kusto_cluster" "adl_dec" {
   auto_stop_enabled             = var.auto_stop_enabled
   disk_encryption_enabled       = var.disk_encryption_enabled
   streaming_ingestion_enabled   = var.streaming_ingestion_enabled
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   purge_enabled                 = var.purge_enabled
   zones                         = var.zones
   engine                        = var.engine
@@ -37,5 +37,5 @@ module "dec_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

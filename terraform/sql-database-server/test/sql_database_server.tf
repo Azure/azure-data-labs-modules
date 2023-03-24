@@ -8,7 +8,7 @@ module "sql_database_server" {
   db_version                   = "12.0"
   administrator_login          = "sqladminuser"
   administrator_login_password = "ThisIsNotVerySecure!"
-  is_sec_module                = var.is_sec_module
+  is_private_endpoint          = var.is_private_endpoint
   azuread_administrator = {
     aad_admin = {
       # Ideally should get the UPN using data.azuread_user.current.user_principal_name

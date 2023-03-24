@@ -33,9 +33,9 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "is_sec_module" {
+variable "is_private_endpoint" {
   type        = bool
-  description = "Is secure module?"
+  description = "Whether private endpoints are enabled to access the resource."
   default     = true
 }
 
@@ -70,7 +70,7 @@ variable "public_network_access_enabled" {
   default     = false
 }
 
-variable "outbound_network_access_restrited" {
+variable "outbound_network_access_restricted" {
   type        = bool
   description = "Whether outbound network access is restricted for the Cognitive Account."
   default     = true

@@ -9,8 +9,8 @@ resource "azurerm_data_factory" "adl_adf" {
     type = "SystemAssigned"
   }
 
-  public_network_enabled          = var.is_sec_module ? false : true
-  managed_virtual_network_enabled = var.is_sec_module ? true : false
+  public_network_enabled          = var.public_network_access_enabled
+  managed_virtual_network_enabled = var.managed_virtual_network_enabled
 
   count = var.module_enabled ? 1 : 0
 
@@ -30,7 +30,7 @@ module "df_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_df
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
 
 module "portal_pe" {
@@ -44,5 +44,5 @@ module "portal_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids_portal
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

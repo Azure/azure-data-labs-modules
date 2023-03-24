@@ -27,7 +27,7 @@ module "local_storage_account" {
   firewall_default_action = "Allow"
   firewall_ip_rules       = [data.http.ip.response_body]
   firewall_bypass         = ["AzureServices"]
-  is_sec_module           = false
+  is_private_endpoint     = false
 }
 
 data "http" "ip" {

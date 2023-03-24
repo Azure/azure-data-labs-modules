@@ -71,14 +71,15 @@ module "local_uami" {
 }
 
 module "local_akv" {
-  source                  = "../../key-vault"
-  resource_group_name     = module.local_rg.name
-  basename                = random_string.postfix.result
-  location                = var.location
-  is_sec_module           = false
-  sku_name                = "standard"
-  firewall_default_action = "Allow"
-  firewall_ip_rules       = ["${data.http.ip.body}/32"]
+  source                        = "../../key-vault"
+  resource_group_name           = module.local_rg.name
+  basename                      = random_string.postfix.result
+  location                      = var.location
+  is_private_endpoint           = false
+  public_network_access_enabled = true
+  sku_name                      = "standard"
+  firewall_default_action       = "Allow"
+  firewall_ip_rules             = ["${data.http.ip.body}/32"]
 }
 
 data "azurerm_client_config" "current" {}

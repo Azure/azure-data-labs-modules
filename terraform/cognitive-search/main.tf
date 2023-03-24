@@ -11,7 +11,7 @@ resource "azurerm_search_service" "adl_srch" {
   sku                           = var.sku
   partition_count               = var.partition_count
   replica_count                 = var.replica_count
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   # allowed_ips                   = [data.http.ip.body]
   tags = var.tags
 
@@ -31,5 +31,5 @@ module "srch_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

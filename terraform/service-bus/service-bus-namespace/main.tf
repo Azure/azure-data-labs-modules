@@ -6,7 +6,7 @@ resource "azurerm_servicebus_namespace" "adl_sb" {
   resource_group_name           = var.resource_group_name
   sku                           = var.sku
   capacity                      = var.capacity
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   tags                          = var.tags
 
   count = var.module_enabled ? 1 : 0
@@ -33,5 +33,5 @@ module "sb_pe" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

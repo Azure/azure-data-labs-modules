@@ -10,7 +10,7 @@ resource "azurerm_redis_cache" "adl_redis" {
   sku_name                      = var.sku_name
   enable_non_ssl_port           = var.enable_non_ssl_port
   minimum_tls_version           = var.minimum_tls_version
-  public_network_access_enabled = var.is_sec_module ? false : true
+  public_network_access_enabled = var.public_network_access_enabled
   redis_configuration {
   }
   tags = var.tags
@@ -29,5 +29,5 @@ module "sql_pe_redis" {
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.is_sec_module
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }

@@ -29,9 +29,15 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "is_sec_module" {
+variable "is_private_endpoint" {
   type        = bool
-  description = "Is secure module?"
+  description = "Whether private endpoints are enabled to access the resource."
+  default     = true
+}
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Whether or not public network access is allowed for this resource."
   default     = true
 }
 
@@ -100,4 +106,10 @@ variable "private_dns_zone_ids_dev" {
   type        = list(string)
   description = "Specifies the list of Private DNS Zones to include."
   default     = []
+}
+
+variable "managed_virtual_network_enabled" {
+  type        = bool
+  description = "Is Virtual Network enabled for all computes in this workspace? Changing this forces a new resource to be created."
+  default     = true
 }

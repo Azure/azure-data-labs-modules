@@ -11,6 +11,10 @@ module "self_hosted_integration_runtime" {
   virtual_machine_user       = "azureuser"
   virtual_machine_password   = "ThisIsNotVerySecure!"
   tags                       = local.tags
+
+  depends_on = [
+    time_sleep.wait_40_seconds
+  ]
 }
 
 # Module dependencies
@@ -32,11 +36,19 @@ module "storage_account" {
   resource_group_name                 = module.local_rg.name
   location                            = var.location
   subnet_id                           = module.local_snet_default.id
-  is_sec_module                       = true
+  is_private_endpoint                 = true
   private_dns_zone_ids_blob           = [module.local_pdnsz_st_blob.list[local.dns_st_blob].id]
   firewall_ip_rules                   = [data.http.ip.response_body]
   firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
   tags                                = local.tags
+}
+
+# Wait for pe auto approval for VM Extension to access script
+resource "time_sleep" "wait_40_seconds" {
+  depends_on = [
+    module.storage_account
+  ]
+  create_duration = "40s"
 }
 
 module "local_rg" {

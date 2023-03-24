@@ -33,42 +33,6 @@ variable "module_enabled" {
   default     = true
 }
 
-variable "is_sec_module" {
-  type        = bool
-  description = "Is secure module?"
-  default     = true
-}
-
-variable "subnet_id" {
-  type        = string
-  description = "The ID of the subnet from which private IP addresses will be allocated for the user access Private Endpoints."
-  default     = null
-}
-
-variable "backend_subnet_id" {
-  type        = string
-  description = "Only used when maximum_network_security is true. The ID of the subnet from which private IP addresses will be allocated for the backend Private Endpoint."
-  default     = null
-}
-
-variable "public_network_enabled" {
-  type        = bool
-  description = "Should the Purview Account be visible to the public network?"
-  default     = true
-}
-
-variable "private_dns_zone_ids" {
-  type        = list(string)
-  description = "Specifies the list of Private DNS Zones to include."
-  default     = []
-}
-
-variable "backend_private_dns_zone_ids" {
-  type        = list(string)
-  description = "Only used when maximum_network_security is true. Specifies the list of Private DNS Zones to include for the backend."
-  default     = null
-}
-
 variable "sku" {
   type        = string
   description = "The sku to use for the Databricks Workspace."
@@ -81,7 +45,7 @@ variable "sku" {
 
 variable "public_subnet_name" {
   type        = string
-  description = "The name of the Public Subnet within the Virtual Network."
+  description = "The name of the Public (Host) Subnet within the Virtual Network."
   validation {
     condition     = (can(regex("^[-\\w\\.]{1,80}$", var.public_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.public_subnet_name)) && can(regex("[\\w]+$", var.public_subnet_name))) || var.public_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
@@ -91,18 +55,12 @@ variable "public_subnet_name" {
 
 variable "private_subnet_name" {
   type        = string
-  description = "The name of the Private Subnet within the Virtual Network."
+  description = "The name of the Private (Container) Subnet within the Virtual Network."
   validation {
     condition     = (can(regex("^[-\\w\\.]{1,80}$", var.private_subnet_name)) && can(regex("^[0-9a-zA-Z]+", var.private_subnet_name)) && can(regex("[\\w]+$", var.private_subnet_name))) || var.private_subnet_name == null
     error_message = "The name for the subnet must begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens."
   }
   default = null
-}
-
-variable "maximum_network_security" {
-  type        = bool
-  description = "Separate private endpoints for backend and frontend?"
-  default     = false
 }
 
 variable "virtual_network_id" {
@@ -120,6 +78,64 @@ variable "public_subnet_network_security_group_association_id" {
 variable "private_subnet_network_security_group_association_id" {
   type        = string
   description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the private_subnet_name field."
+  default     = null
+}
+
+variable "no_public_ip" {
+  type        = bool
+  description = "Are public IP Addresses not allowed?"
+  default     = true
+}
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Should the Databricks Workspace be accesible through the public network?"
+  default     = false
+}
+
+variable "is_private_endpoint" {
+  type        = bool
+  description = "Whether private endpoints are enabled to access the resource."
+  default     = true
+}
+
+variable "private_link_deployment_type" {
+  type        = string
+  description = "Type of configuration for Private Link. In Standard configuration, there are separate private endpoints for frontend and backend."
+  validation {
+    condition     = contains(["standard", "simplified"], lower(var.private_link_deployment_type))
+    error_message = "Valid values for private_link_deployment_type are \"standard\" or \"simplified\"."
+  }
+  default = "simplified"
+}
+
+variable "frontend_private_dns_zone_ids" {
+  type        = list(string)
+  description = "Specifies the list of Private DNS Zones to include for the frontend. Must be provided when private_link_deployment_type is standard"
+  default     = []
+}
+
+variable "backend_private_dns_zone_ids" {
+  type        = list(string)
+  description = "Specifies the list of Private DNS Zones to include for the backend. Must be provided when is_private_endpoint is true"
+  default     = []
+}
+
+variable "frontend_subnet_id" {
+  type        = string
+  description = "The ID of the subnet from which private IP addresses will be allocated for the user access Private Endpoints. Must be provided when private_link_deployment_type is standard"
+  default     = null
+}
+
+variable "backend_subnet_id" {
+  type        = string
+  description = "The ID of the subnet from which private IP addresses will be allocated for the backend Private Endpoint. Must be provided when is_private_endpoint is true"
+  default     = null
+}
+
+variable "private_web_auth_workspace" {
+  type        = string
+  description = "Azure Databricks Workspace Instance Resource identifier for Private Endpoint Web Authentication. Defaults to the created workspace if not provided"
   default     = null
 }
 

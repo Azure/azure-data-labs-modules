@@ -10,7 +10,7 @@ module "sql_managed_instance" {
   administrator_login            = "sqladminuser"
   administrator_login_password   = "ThisIsNotVerySecure!"
   module_enabled                 = true
-  is_sec_module                  = var.is_sec_module
+  is_private_endpoint            = var.is_private_endpoint
   tags                           = {}
   license_type                   = "BasePrice"
   sku_name                       = "GP_Gen5"

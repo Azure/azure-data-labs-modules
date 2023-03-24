@@ -12,7 +12,7 @@ module "storage_account" {
   firewall_ip_rules                   = [data.http.ip.response_body]
   firewall_bypass                     = var.firewall_bypass
   firewall_virtual_network_subnet_ids = var.firewall_virtual_network_subnet_ids
-  is_sec_module                       = var.is_sec_module
+  is_private_endpoint                 = var.is_private_endpoint
   tags                                = {}
 }
 

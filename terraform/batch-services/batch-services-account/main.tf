@@ -28,9 +28,9 @@ module "batchacc_pe" {
   location                       = var.location
   subnet_id                      = var.subnet_id
   private_connection_resource_id = azurerm_batch_account.adl_batch_account[0].id
-  subresource_names              = ["account"]
+  subresource_names              = ["batchAccount"]
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
-  module_enabled                 = var.module_enabled && var.public_network_access_enabled
+  module_enabled                 = var.module_enabled && var.is_private_endpoint
 }
