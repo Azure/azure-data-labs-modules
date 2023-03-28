@@ -229,9 +229,9 @@ resource "azurerm_key_vault_access_policy" "managed_disks" {
 #}
 
 resource "azurerm_key_vault_access_policy" "managed_services" {
-  key_vault_id   = module.key_vault.id
-  tenant_id      = data.azurerm_client_config.current.tenant_id
-  object_id      = "7ad74a38-e242-4ddc-b7bc-a7ad17e2cbd2" #data.azuread_application.azuredatabricks.object_id
+  key_vault_id = module.key_vault.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = "7ad74a38-e242-4ddc-b7bc-a7ad17e2cbd2" #data.azuread_application.azuredatabricks.object_id
 
   key_permissions = [
     "Get",
