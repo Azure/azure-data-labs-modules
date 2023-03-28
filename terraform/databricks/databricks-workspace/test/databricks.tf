@@ -25,8 +25,18 @@ module "databricks" {
   tags                                                 = {}
 }
 
+resource "time_sleep" "time_sleep" {
+  depends_on = [
+    module.databricks
+  ]
+  create_duration = "40s"
+}
+
 resource "azurerm_databricks_workspace_customer_managed_key" "adl_adb_ws_cmk" {
-  depends_on = [azurerm_key_vault_access_policy.databricks]
+  depends_on = [
+    azurerm_key_vault_access_policy.databricks,
+    time_sleep.time_sleep
+  ]
 
   workspace_id     = module.databricks.id
   key_vault_key_id = azurerm_key_vault_key.adl_adb_ws_cmk.id
