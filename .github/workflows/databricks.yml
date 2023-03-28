@@ -6,11 +6,11 @@ on:
       - main  
     paths:
       - '.github/workflows/databricks.yml'
-      - 'terraform/databricks/**'
+      - 'terraform/databricks/databricks-workspace/**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/databricks"  
+  terraform_workingdir: "terraform/databricks/databricks-workspace"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:

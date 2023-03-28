@@ -69,6 +69,12 @@ variable "virtual_network_id" {
   default     = null
 }
 
+variable "vnet_address_prefix" {
+  type        = string
+  description = "Address prefix for Managed virtual network. Changing this forces a new resource to be created."
+  default     = "10.139"
+}
+
 variable "public_subnet_network_security_group_association_id" {
   type        = string
   description = "The resource ID of the azurerm_subnet_network_security_group_association resource which is referred to by the public_subnet_name field."
@@ -101,10 +107,10 @@ variable "is_private_endpoint" {
 
 variable "private_link_deployment_type" {
   type        = string
-  description = "Type of configuration for Private Link. In Standard configuration, there are separate private endpoints for frontend and backend."
+  description = "Type of configuration for Private Link. In Standard configuration, there are separate private endpoints for frontend and backend. In Simplified configuration, there is a single private endpoint for UI and API. In Webauth configuration, only a webauth private endpoint is configured."
   validation {
-    condition     = contains(["standard", "simplified"], lower(var.private_link_deployment_type))
-    error_message = "Valid values for private_link_deployment_type are \"standard\" or \"simplified\"."
+    condition     = contains(["standard", "simplified", "webauth"], lower(var.private_link_deployment_type))
+    error_message = "Valid values for private_link_deployment_type are \"standard\", \"simplified\" or  \"webauth\"."
   }
   default = "simplified"
 }
@@ -120,6 +126,11 @@ variable "backend_private_dns_zone_ids" {
   description = "Specifies the list of Private DNS Zones to include for the backend. Must be provided when is_private_endpoint is true"
   default     = []
 }
+variable "backend_dbfs_private_dns_zone_ids" {
+  type        = list(string)
+  description = "Specifies the list of Private DNS Zones to include for the backend connection to the Databricks File System Storage Account. Must be provided when is_private_endpoint is true"
+  default     = []
+}
 
 variable "frontend_subnet_id" {
   type        = string
@@ -133,10 +144,10 @@ variable "backend_subnet_id" {
   default     = null
 }
 
-variable "private_web_auth_workspace" {
+variable "is_web_auth_workspace" {
   type        = string
-  description = "Azure Databricks Workspace Instance Resource identifier for Private Endpoint Web Authentication. Defaults to the created workspace if not provided"
-  default     = null
+  description = "Should this Azure Databricks Workspace Instance be used for Private Endpoint Web Authentication? There must be only one per region."
+  default     = false
 }
 
 variable "enable_ip_access_list" {
@@ -163,4 +174,74 @@ variable "block_ip_list" {
     error_message = "Invalid IP or IP range in CIDR format found in the list."
   }
   default = []
+}
+
+variable machine_learning_workspace_id {
+  type        = string
+  description = "The ID of a Azure Machine Learning workspace to link with Databricks workspace. Changing this forces a new resource to be created."
+  default     = null
+}
+
+variable storage_account_name {
+  type        = string
+  description = "Default Databricks File Storage account name. Defaults to a randomized name(e.g. dbstoragel6mfeghoe5kxu). Changing this forces a new resource to be created."
+  default     = null
+}
+
+variable storage_account_sku_name {
+  type        = string
+  description = "Storage account SKU name. Possible values include Standard_LRS, Standard_GRS, Standard_RAGRS, Standard_GZRS, Standard_RAGZRS, Standard_ZRS, Premium_LRS or Premium_ZRS. Changing this forces a new resource to be created."
+  validation {
+    condition     = contains(["Standard_LRS", "Standard_GRS", "Standard_RAGRS", "Standard_GZRS", "Standard_RAGZRS", "Standard_ZRS", "Premium_LRS", "StandardPremium_ZRS_GRS"], var.storage_account_sku_name)
+    error_message = "Valid values for storage_account_sku_name include Standard_LRS, Standard_GRS, Standard_RAGRS, Standard_GZRS, Standard_RAGZRS, Standard_ZRS, Premium_LRS or Premium_ZRS."
+  }
+  default = "Standard_GRS"
+}
+
+variable infrastructure_encryption_enabled {
+  type        = bool
+  description = "Is the Databricks File System root file system enabled with a secondary layer of encryption with platform managed keys? This field is only valid if the Databricks Workspace sku is set to premium. Changing this forces a new resource to be created."
+  default     = false
+}
+
+variable customer_managed_key_enabled {
+  type        = bool
+  description = "Is the workspace enabled for customer managed key encryption? If true this enables the Managed Identity for the managed storage account. This field is only valid if the Databricks Workspace sku is set to premium."
+  default     = false
+}
+
+variable managed_services_cmk_key_vault_key_id {
+  type        = string
+  description = "Customer managed encryption properties for the Databricks Workspace managed resources(e.g. Notebooks and Artifacts)."
+  default     = null
+}
+
+variable managed_disk_cmk_key_vault_key_id {
+  type        = string
+  description = "Customer managed encryption properties for the Databricks Workspace managed disks."
+  default     = null
+}
+
+variable managed_disk_cmk_rotation_to_latest_version_enabled {
+  type        = bool
+  description = "Whether customer managed keys for disk encryption will automatically be rotated to the latest version."
+  default     = false
+}
+
+variable load_balancer_backend_address_pool_id {
+  type        = string
+  description = "Resource ID of the Outbound Load balancer Backend Address Pool for Secure Cluster Connectivity (No Public IP) workspace. Changing this forces a new resource to be created."
+  default     = null
+}
+
+variable nat_gateway_name {
+  type        = string
+  description = "Name of the NAT gateway for Secure Cluster Connectivity (No Public IP) workspace subnets. Changing this forces a new resource to be created."
+  default     = "nat-gateway"
+}
+
+variable public_ip_name {
+  type        = string
+  description = "Name of the Public IP for No Public IP workspace with managed vNet. Changing this forces a new resource to be created."
+  default     = "nat-gw-public-ip"
 }

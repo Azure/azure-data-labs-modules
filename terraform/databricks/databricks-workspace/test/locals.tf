@@ -6,4 +6,6 @@ locals {
   }
 
   dns_databricks = "privatelink.azuredatabricks.net"
+  dns_dbfs_dfs   = "privatelink.dfs.core.windows.net"
+  dns_key_vault  = "privatelink.vaultcore.azure.net"
 }
