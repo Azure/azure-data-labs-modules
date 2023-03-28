@@ -26,6 +26,8 @@ module "purview_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids_account
   tags                           = var.tags
   module_enabled                 = var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "studio_pe" {
@@ -40,4 +42,6 @@ module "studio_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids_portal
   tags                           = var.tags
   module_enabled                 = var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }

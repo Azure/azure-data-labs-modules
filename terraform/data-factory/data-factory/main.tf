@@ -31,6 +31,8 @@ module "df_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids_df
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "portal_pe" {
@@ -45,4 +47,6 @@ module "portal_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids_portal
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }

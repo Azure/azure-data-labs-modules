@@ -37,4 +37,6 @@ module "cog_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }

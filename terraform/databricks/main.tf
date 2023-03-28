@@ -72,6 +72,8 @@ module "adb_fe_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "adb_sso_pe" {
@@ -86,6 +88,8 @@ module "adb_sso_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "adb_be_pe" {
@@ -100,4 +104,6 @@ module "adb_be_pe" {
   private_dns_zone_ids           = var.backend_private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_sec_module && var.maximum_network_security
+
+  count = var.module_enabled ? 1 : 0
 }
