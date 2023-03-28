@@ -169,7 +169,10 @@ module "key_vault" {
 }
 
 resource "azurerm_key_vault_key" "adl_adb_ws_cmk" {
-  depends_on = [azurerm_key_vault_access_policy.terraform]
+  depends_on = [
+    azurerm_key_vault_access_policy.terraform,
+    azurerm_key_vault_access_policy.managed_services
+  ]
 
   name         = "databricks-cmk-certificate"
   key_vault_id = module.key_vault.id
