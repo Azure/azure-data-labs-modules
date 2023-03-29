@@ -70,6 +70,8 @@ module "syn_ws_pe_dev" {
   private_dns_zone_ids           = var.private_dns_zone_ids_dev
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "syn_ws_pe_sql" {
@@ -84,6 +86,8 @@ module "syn_ws_pe_sql" {
   private_dns_zone_ids           = var.private_dns_zone_ids_sql
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "syn_ws_pe_sqlondemand" {
@@ -98,6 +102,8 @@ module "syn_ws_pe_sqlondemand" {
   private_dns_zone_ids           = var.private_dns_zone_ids_sql
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint
+
+  count = var.module_enabled ? 1 : 0
 }
 
 resource "azurerm_synapse_role_assignment" "syn_ws_role_default_user" {
