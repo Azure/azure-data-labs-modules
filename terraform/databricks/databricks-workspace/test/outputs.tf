@@ -13,3 +13,7 @@ output "name" {
 output "resource_group_name" {
   value = module.databricks.resource_group_name
 }
+
+output "cmk_id" {
+  value = azurerm_databricks_workspace_customer_managed_key.adl_adb_ws_cmk.id
+}
