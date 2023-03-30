@@ -145,7 +145,7 @@ module "adb_sso_pe" {
   private_connection_resource_id = azurerm_databricks_workspace.adl_databricks[0].id
   subresource_names              = ["browser_authentication"]
   is_manual_connection           = false
-  private_dns_zone_ids           = var.frontend_private_dns_zone_ids
+  private_dns_zone_ids           = var.private_link_deployment_type == "simplified" ? var.backend_private_dns_zone_ids : var.frontend_private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint && (var.is_web_auth_workspace || var.private_link_deployment_type == "webauth")
 }
