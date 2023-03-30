@@ -79,6 +79,8 @@ module "st_pe_blob" {
   private_dns_zone_ids           = var.private_dns_zone_ids_blob
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_blob) != 0
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "st_pe_file" {
@@ -93,6 +95,8 @@ module "st_pe_file" {
   private_dns_zone_ids           = var.private_dns_zone_ids_file
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_file) != 0
+
+  count = var.module_enabled ? 1 : 0
 }
 
 module "st_pe_dfs" {
@@ -107,4 +111,6 @@ module "st_pe_dfs" {
   private_dns_zone_ids           = var.private_dns_zone_ids_dfs
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint && length(var.private_dns_zone_ids_dfs) != 0
+
+  count = var.module_enabled ? 1 : 0
 }
