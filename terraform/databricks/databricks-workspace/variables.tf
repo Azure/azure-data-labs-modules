@@ -225,7 +225,7 @@ variable "managed_disk_cmk_key_vault_key_id" {
 variable "managed_disk_cmk_rotation_to_latest_version_enabled" {
   type        = bool
   description = "Whether customer managed keys for disk encryption will automatically be rotated to the latest version."
-  default     = false
+  default     = null
 }
 
 variable "load_balancer_backend_address_pool_id" {
