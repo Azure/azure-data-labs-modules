@@ -230,7 +230,7 @@ variable "managed_disk_cmk_rotation_to_latest_version_enabled" {
 
 variable "load_balancer_backend_address_pool_id" {
   type        = string
-  description = "Resource ID of the Outbound Load balancer Backend Address Pool for Secure Cluster Connectivity (No Public IP) workspace. Changing this forces a new resource to be created."
+  description = "Resource ID of the Outbound Load balancer Backend Address Pool for Secure Cluster Connectivity (No Public IP) workspace. Changing this forces a new resource to be created. This property is currently disabled and has no effect."
   default     = null
 }
 
