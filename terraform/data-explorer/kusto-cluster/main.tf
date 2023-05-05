@@ -28,7 +28,7 @@ resource "azurerm_kusto_cluster" "adl_dec" {
 
 module "dec_pe" {
   source                         = "../../private-endpoint"
-  basename                       = "${azurerm_kusto_cluster.adl_dec[0].name}-dec"
+  basename                       = "${azurerm_kusto_cluster.adl_dec[0].name}-cluster"
   resource_group_name            = var.resource_group_name
   location                       = var.location
   subnet_id                      = var.subnet_id
@@ -38,4 +38,6 @@ module "dec_pe" {
   private_dns_zone_ids           = var.private_dns_zone_ids
   tags                           = var.tags
   module_enabled                 = var.module_enabled && var.is_private_endpoint
+
+  count = var.module_enabled ? 1 : 0
 }
