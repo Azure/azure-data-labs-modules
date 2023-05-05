@@ -15,7 +15,8 @@ resource "azurerm_databricks_workspace" "adl_databricks" {
   managed_disk_cmk_rotation_to_latest_version_enabled = var.managed_disk_cmk_rotation_to_latest_version_enabled
   public_network_access_enabled                       = var.public_network_access_enabled
   network_security_group_rules_required               = var.is_private_endpoint ? "NoAzureDatabricksRules" : "AllRules"
-  load_balancer_backend_address_pool_id               = var.load_balancer_backend_address_pool_id
+  # Disabling due to https://github.com/Azure/azure-data-labs-modules/issues/227
+  #load_balancer_backend_address_pool_id               = var.load_balancer_backend_address_pool_id
   custom_parameters {
     nat_gateway_name                                     = var.nat_gateway_name
     public_ip_name                                       = var.public_ip_name
