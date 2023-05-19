@@ -1,0 +1,63 @@
+locals {
+  storage_account_length = length(var.sub) < 6 ? 14 : 20
+}
+
+output "standard" {
+  description = "Return list of calculated standard names for deployment of Azure resources"
+  value = {
+    afw_rule                    = lower("afwrule-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    afw_rule_collection         = lower("afwrulecol-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    automation-account          = lower("auto-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    availability-set            = lower("avs-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    azure-firewall              = lower("azfw-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    backend-pool                = lower("bep-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    connection                  = lower("con-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    customer-managed-key        = lower("cmk-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    ddos-protection-plan        = lower("ddos-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")                   
+    monitor_diagnostic_setting  = lower("diag-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    event-hub                   = lower("evh-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    event-hub-consumer-group    = lower("evcg-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    event-hub-namespace         = lower("evn-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    eventhub_authorization_rule = lower("ehar-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    expressroute-circuit        = lower("erc-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    expressroute-filter         = lower("erf-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    external-load-balancer      = lower("elb-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    internal-load-balancer      = lower("ilb-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    ip-config                   = lower("ipcfg-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    key-vault                   = lower("kv-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    var-network-gateway         = lower("lng-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    light-house                 = lower("lh-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    log-analytics-workspace     = lower("law-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    management_group_name       = lower("${var.app_name}")
+    network-interface           = lower("nic${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    network-security-group      = lower("nsg-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    public-ip-address           = lower("pip-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    private-link-endpoint       = lower("ple-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    private-link-connection     = lower("plc-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    public-ip-dns               = lower("pipdns${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    resource-group              = lower("rg-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    route-table                 = lower("rt-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    recovery-vault              = lower("rsv-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    sentinel                    = lower("sen-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    shared-image-gallery        = lower("sig${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    sql-database                = lower("sqldb${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    sql-server                  = lower("sql${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    standard-output             = lower("${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    storage-account             = lower("sa${var.app_name}-${var.env}${var.location-map[var.location]}${substr(md5("sa${var.app_name}${var.location-map[var.location]}${var.sequence}"), 0, local.storage_account_length - length("sa${var.app_name}${var.location-map[var.location]}${var.sequence}"))}${var.sequence}") # only alpha numerics allowed in storage accounts
+    storage-account-provisioner = lower("st${var.app_name}-${var.env}${var.location-map[var.location]}${substr(md5("sa${var.app_name}${var.location-map[var.location]}${var.sequence}"), 0, local.storage_account_length - length("sa${var.app_name}${var.location-map[var.location]}${var.sequence}"))}${var.sequence}") # only alpha numerics allowed in storage accounts
+    storage-alerts              = lower("stalert${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    storage-boot-diags          = lower("stdiag${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    storage-flow-logs           = lower("stflow${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}")
+    storage-os-disk             = lower("osdisk-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    subnet                      = lower("sn-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    subscription_name           = lower("${var.app_name}-sub")
+    virtual-machine             = lower("lvm-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    virtual-machine-scaleset    = lower("vmss-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    virtual-machine-windows     = lower("wvm-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    vm-windows-computer-name    = lower(substr("${var.app_name}-${var.env}${var.location-map[var.location]}${var.sequence}", 0, 10))
+    virtual-network             = lower("vnet-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    virtual-network-link        = lower("vlink-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    vnet-gateway                = lower("gwy-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+    vnet-peering                = lower("peer-${var.app_name}-${var.env}-${var.location-map[var.location]}-${var.sequence}")
+  }
+}
