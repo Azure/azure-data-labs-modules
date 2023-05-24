@@ -4,6 +4,9 @@ This repository includes a library of curated [Terraform](https://registry.terra
 
 All modules follows the naming convention outlined in the [Cloud Adoption Framework](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations). Resources will be prefixed with the appropriate abbreviations.
 
+Looking for **built-in templates**? Check out [Azure Data Labs templates](https://github.com/Azure/azure-data-labs) repository to deploy built-in templates with Terraform and GitHub Actions.
+
+
 > Ideas? Contributions? Bugs? If you'd like to add more resources or you run into any issues, feel free to [create a pull request](https://github.com/Azure/azure-data-labs-modules/pulls) or [open an issue](https://github.com/Azure/azure-data-labs-modules/issues) in this repository.
 
 ## Available Modules
