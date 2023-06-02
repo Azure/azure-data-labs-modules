@@ -4,6 +4,9 @@ This repository includes a library of curated [Terraform](https://registry.terra
 
 All modules follows the naming convention outlined in the [Cloud Adoption Framework](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations). Resources will be prefixed with the appropriate abbreviations.
 
+Looking for **built-in templates**? Check out [Azure Data Labs templates](https://github.com/Azure/azure-data-labs) repository to deploy built-in templates with Terraform and GitHub Actions.
+
+
 > Ideas? Contributions? Bugs? If you'd like to add more resources or you run into any issues, feel free to [create a pull request](https://github.com/Azure/azure-data-labs-modules/pulls) or [open an issue](https://github.com/Azure/azure-data-labs-modules/issues) in this repository.
 
 ## Available Modules
@@ -35,6 +38,7 @@ All modules follows the naming convention outlined in the [Cloud Adoption Framew
 | [Event Grid / Topic](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/event-grid/event-grid-topic) | [![Module:event-grid-topic](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-grid-topic.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-grid-topic.yml)
 | [Event Hubs / Event Hubs](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/event-hubs/event-hubs) | [![Module:event-hubs-namespace](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-hubs.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-hubs.yml)
 | [Event Hubs / Namespace](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/event-hubs/event-hubs-namespace) | [![Module:event-hubs-namespace](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-hubs-namespace.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/event-hubs-namespace.yml)
+| [Fabric / Capacity](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/fabric/fabric-capacity) | TBC
 | [Firewall](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/firewall) | [![Module:firewall](https://github.com/Azure/azure-data-labs-modules/actions/workflows/firewall.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/firewall.yml)
 | [Function App / Linux Function App](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/function-app/linux-function-app) | [![Module:linux-function-app](https://github.com/Azure/azure-data-labs-modules/actions/workflows/linux-function-app.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/linux-function-app.yml)
 | [HDInsight / Hadoop Cluster](https://github.com/Azure/azure-data-labs-modules/tree/main/terraform/hdinsight/hdinsight-hadoop) | [![Module:hdinsight-hadoop](https://github.com/Azure/azure-data-labs-modules/actions/workflows/hdinsight-hadoop.yml/badge.svg)](https://github.com/Azure/azure-data-labs-modules/actions/workflows/hdinsight-hadoop.yml) |
