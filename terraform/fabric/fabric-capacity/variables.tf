@@ -23,13 +23,19 @@ variable "tags" {
   description = "A mapping of tags which should be assigned to the deployed resource."
 }
 
+variable "module_enabled" {
+  type        = bool
+  description = "Variable to enable or disable the module."
+  default     = true
+}
+
 variable "sku" {
   type        = string
   default     = "F2"
-  description = ""
+  description = "SKU name"
 }
 
 variable "admin_email" {
   type        = string
-  description = ""
+  description = "Fabric administrator email"
 }

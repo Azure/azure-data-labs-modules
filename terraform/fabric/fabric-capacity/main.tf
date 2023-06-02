@@ -1,4 +1,4 @@
-resource "azapi_resource" "fabric_capacity" {
+resource "azapi_resource" "fab_capacity" {
   type                      = "Microsoft.Fabric/capacities@2022-07-01-preview"
   name                      = "fab${var.basename}"
   parent_id                 = var.resource_group_id
@@ -19,4 +19,6 @@ resource "azapi_resource" "fabric_capacity" {
     }
   })
   tags = var.tags
+
+  count = var.module_enabled ? 1 : 0
 }
