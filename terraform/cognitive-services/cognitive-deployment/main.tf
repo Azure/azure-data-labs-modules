@@ -1,8 +1,8 @@
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_deployment
 
 resource "azurerm_cognitive_deployment" "adl_cog_dpl" {
-  name                               = "cog-dpl-${var.basename}"
-  cognitive_account_id               = var.cognitive_account_id
+  name                 = "cog-dpl-${var.basename}"
+  cognitive_account_id = var.cognitive_account_id
   model {
     format  = var.model_format
     name    = var.model_name
