@@ -26,7 +26,7 @@ resource "azurerm_cognitive_account" "adl_cog" {
 }
 
 module "cog_pe" {
-  source                         = "../private-endpoint"
+  source                         = "../../private-endpoint"
   basename                       = "${azurerm_cognitive_account.adl_cog[0].name}-cog"
   resource_group_name            = var.resource_group_name
   location                       = var.location
