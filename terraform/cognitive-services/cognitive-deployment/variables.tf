@@ -42,6 +42,12 @@ variable "scale_type" {
   default = "Standard"
 }
 
+variable "rai_policy_name" {
+  type        = string
+  description = "The name of RAI policy. Changing this forces a new resource to be created."
+  default     = null
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}
