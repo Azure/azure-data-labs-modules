@@ -1,7 +1,7 @@
 locals {
   tags = {
     Project = "Azure/azure-data-labs-modules"
-    Module  = "cognitive-services"
+    Module  = "cognitive-deployment"
     Toolkit = "Terraform"
   }
 
