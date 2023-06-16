@@ -13,7 +13,5 @@ resource "azurerm_cognitive_deployment" "adl_cog_dpl" {
   }
   rai_policy_name = var.rai_policy_name
 
-  tags = var.tags
-
   count = var.module_enabled ? 1 : 0
 }
