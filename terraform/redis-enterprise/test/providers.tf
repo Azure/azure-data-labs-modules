@@ -15,5 +15,15 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      # This flag is set to mitigate the issue described in:
+      #    https://github.com/hashicorp/terraform-provider-azurerm/issues/18026
+      #    https://feedback.azure.com/d365community/idea/cdb1fc68-bb4f-ed11-a81b-000d3adfeb99
+      #    https://github.com/hashicorp/terraform-provider-azurerm/issues/16124
+      # Meanwhile, we must set this flag on each and every configuration which deploys,
+      # directly or indirectly, a resource of type azurerm_application_insights. 
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
