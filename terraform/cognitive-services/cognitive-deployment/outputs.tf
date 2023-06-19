@@ -13,11 +13,3 @@ output "name" {
   )
   description = "The name of the Cognitive Deployment."
 }
-
-output "resource_group_name" {
-  value = (
-    length(azurerm_cognitive_deployment.adl_cog_dpl) > 0 ?
-    azurerm_cognitive_deployment.adl_cog_dpl[0].resource_group_name : ""
-  )
-  description = "Resource Group where the Cognitive Deployment exists."
-}
