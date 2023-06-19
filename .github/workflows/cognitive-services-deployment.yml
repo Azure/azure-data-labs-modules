@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/cognitive-services.yml'
-      - 'terraform/cognitive-services/**'
+      - '.github/workflows/cognitive-services-deployment.yml'
+      - 'terraform/cognitive-services/cognitive-deployment**'
 #      - '.github/actions/**'
 
 env:
-  terraform_workingdir: "terraform/cognitive-services"  
+  terraform_workingdir: "terraform/cognitive-services/cognitive-deployment"  
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:     
   terraform-lint:

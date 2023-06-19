@@ -4,7 +4,7 @@ data "http" "ip" {
   url = "https://ifconfig.me"
 }
 
-resource "azurerm_cognitive_account" "adl_cog" {
+resource "azurerm_cognitive_account" "adl_cog_acc" {
   name                               = "cog-${var.basename}"
   location                           = var.location
   resource_group_name                = var.resource_group_name
@@ -26,12 +26,12 @@ resource "azurerm_cognitive_account" "adl_cog" {
 }
 
 module "cog_pe" {
-  source                         = "../private-endpoint"
-  basename                       = "${azurerm_cognitive_account.adl_cog[0].name}-cog"
+  source                         = "../../private-endpoint"
+  basename                       = "${azurerm_cognitive_account.adl_cog_acc[0].name}-cog"
   resource_group_name            = var.resource_group_name
   location                       = var.location
   subnet_id                      = var.subnet_id
-  private_connection_resource_id = azurerm_cognitive_account.adl_cog[0].id
+  private_connection_resource_id = azurerm_cognitive_account.adl_cog_acc[0].id
   subresource_names              = ["account"]
   is_manual_connection           = false
   private_dns_zone_ids           = var.private_dns_zone_ids

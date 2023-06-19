@@ -3,7 +3,7 @@
 
 | Name | Type |
 |------|------|
-| [azurerm_cognitive_account.adl_cog](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_account) | resource |
+| [azurerm_cognitive_account.adl_cog_acc](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_account) | resource |
 | [http_http.ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs

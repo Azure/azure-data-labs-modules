@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "rg-adl-terraform-state"
     storage_account_name = "stadlterraformstate"
     container_name       = "default"
-    key                  = "cognitiveservices.terraform.tfstate"
+    key                  = "cognitiveaccount.terraform.tfstate"
   }
 
   required_providers {
