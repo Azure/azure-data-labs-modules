@@ -16,7 +16,7 @@ resource "azurerm_databricks_access_connector" "adl_adb_access_connector" {
 
   lifecycle {
     precondition {
-      condition     = length(var.identity_ids) > 1
+      condition     = length(var.identity_ids) < 2
       error_message = "Only one User Assigned Managed Identity ID is supported per Databricks Access Connector resource."
     }
   }
