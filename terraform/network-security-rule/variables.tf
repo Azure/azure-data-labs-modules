@@ -56,6 +56,13 @@ variable "destination_port_range" {
 variable "source_address_prefix" {
   type        = string
   description = "CIDR or destination IP range or * to match any IP."
+  default = "" 
+}
+
+variable "source_address_prefixes" {
+  type        = optional(string)
+  description = "List of source address prefixes."
+  default = ""
 }
 
 variable "destination_address_prefix" {

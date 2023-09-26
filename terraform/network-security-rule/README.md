@@ -19,6 +19,7 @@
 | <a name="input_source_port_range"></a> [source\_port\_range](#input\_source\_port\_range) | List of source ports or port ranges. | `string` | n/a | yes |
 | <a name="input_destination_port_range"></a> [destination\_port\_range](#input\_destination\_port\_range) | List of destination ports or port ranges. | `string` | `"Destination Port or Range"` | no |
 | <a name="input_source_address_prefix"></a> [source\_address\_prefix](#input\_source\_address\_prefix) | CIDR or destination IP range or * to match any IP. | `string` | n/a | yes |
+| <a name="input_source_address_prefixes"></a> [source\_address\_prefixes](#input\_source\_address\_prefix) | Optional. List of source address prefixes. Do not enter source_address_prefix if this one has values. | `List(string)` | n/a | no |
 | <a name="input_destination_address_prefix"></a> [destination\_address\_prefix](#input\_destination\_address\_prefix) | List of destination address prefixes. | `string` | n/a | yes |
 | <a name="input_network_security_group_name"></a> [network\_security\_group\_name](#input\_network\_security\_group\_name) | The name of the Network Security Group that we want to attach the rule to. | `string` | n/a | yes |
 
