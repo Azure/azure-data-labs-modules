@@ -21,13 +21,3 @@ output "resource_group_name" {
   )
   description = "Resource Group where the Azure Key Vault exists."
 }
-
-output "data_client_id" {
-  value = data.azurerm_client_config.current.client_id
-}
-output "data_object_id" {
-  value = data.azurerm_client_config.current.object_id
-}
-output "data_id" {
-  value = data.azurerm_client_config.current.id
-}
