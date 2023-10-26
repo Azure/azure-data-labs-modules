@@ -36,4 +36,7 @@
 | <a name="output_id"></a> [id](#output\_id) | Resource identifier of the instance of Azure Key Vault. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the Azure Key Vault. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | Resource Group where the Azure Key Vault exists. |
+| <a name="output_data_client_id"></a> [data\_client\_id](#output\_data\_client\_id) | n/a |
+| <a name="output_data_object_id"></a> [data\_object\_id](#output\_data\_object\_id) | n/a |
+| <a name="output_data_id"></a> [data\_id](#output\_data\_id) | n/a |
 <!-- END_TF_DOCS -->
