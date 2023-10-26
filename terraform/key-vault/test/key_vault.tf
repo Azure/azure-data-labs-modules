@@ -40,3 +40,15 @@ module "local_pdnsz_kv" {
   dns_zones           = [local.dns_kv_vault]
   vnet_id             = module.local_vnet.id
 }
+
+
+//Test data
+output "data_client_id" {
+  value = module.key_vault.data_client_id
+}
+output "data_object_id" {
+  value = module.key_vault.data_object_id
+}
+output "data_id" {
+  value = module.key_vault.data_id
+}
