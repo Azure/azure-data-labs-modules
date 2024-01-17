@@ -16,5 +16,5 @@ variable "sku" {
 
 variable "admin_email" {
   type    = string
-  default = "aimurg@microsoft.com"
+  default = "<>"
 }
