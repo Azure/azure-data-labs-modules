@@ -5,7 +5,7 @@ module "powerbi_embedded" {
   resource_group_name = module.local_rg.name
   location            = var.location
 
-  administrators = ["aimurg@microsoft.com"]
+  administrators = ["<>"]
 
   tags = {}
 }
