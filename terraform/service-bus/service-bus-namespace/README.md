@@ -24,6 +24,7 @@
 | <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | Specifies the list of Private DNS Zones to include. | `list(string)` | `[]` | no |
 | <a name="input_sku"></a> [sku](#input\_sku) | Defines which tier to use. | `string` | `"Premium"` | no |
 | <a name="input_capacity"></a> [capacity](#input\_capacity) | Specifies the capacity. | `number` | `1` | no |
+| <a name="input_premium_messaging_partitions"></a> [premium\_messaging\_partitions](#input\_premium\_messaging\_partitions) | Specifies the number messaging partitions. | `number` | `1` | no |
 
 ## Outputs
 
