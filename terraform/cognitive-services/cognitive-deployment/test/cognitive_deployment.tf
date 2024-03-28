@@ -4,7 +4,7 @@ module "cognitive_deployment" {
   cognitive_account_id = module.cognitive_account.id
   model_format         = "OpenAI"
   model_name           = "text-embedding-ada-002"
-  model_version        = "1"
+  model_version        = "2"
   scale_type           = "Standard"
   tags                 = {}
 }
