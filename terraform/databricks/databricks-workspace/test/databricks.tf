@@ -32,7 +32,7 @@ resource "time_sleep" "time_sleep" {
   create_duration = "40s"
 }
 
-resource "azurerm_databricks_workspace_customer_managed_key" "adl_adb_ws_cmk" {
+resource "azurerm_databricks_workspace_root_dbfs_customer_managed_key" "adl_adb_ws_cmk" {
   depends_on = [
     azurerm_key_vault_access_policy.databricks,
     time_sleep.time_sleep
