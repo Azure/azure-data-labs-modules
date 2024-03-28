@@ -90,6 +90,8 @@ jobs:
     needs: 
       - terratest
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Check out code
