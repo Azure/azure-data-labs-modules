@@ -6,7 +6,7 @@ resource "random_string" "postfix" {
 
 variable "location" {
   type    = string
-  default = "West Europe"
+  default = "West US"
 }
 
 variable "kind" {
