@@ -13,12 +13,12 @@ module "postgresql_database" {
     }
   }
   tags       = {}
-  depends_on = [module.local_pdnsz_psql, module.time_sleep]
+  depends_on = [module.local_pdnsz_psql, time_sleep.wait_30_seconds]
 }
 
 # Latency to avoid serviceAssociationLinks element to prevent destroy.
 resource "time_sleep" "wait_30_seconds" {
-  depends_on = [module.previlocal_snet_psqlous]
+  depends_on = [module.local_snet_psql]
 
   destroy_duration = "30s"
 }
