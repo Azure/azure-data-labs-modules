@@ -6,6 +6,7 @@ resource "azurerm_servicebus_namespace" "adl_sb" {
   resource_group_name           = var.resource_group_name
   sku                           = var.sku
   capacity                      = var.capacity
+  premium_messaging_partitions  = var.premium_messaging_partitions
   public_network_access_enabled = var.public_network_access_enabled
   tags                          = var.tags
 
