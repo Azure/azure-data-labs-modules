@@ -12,7 +12,7 @@ resource "azurerm_search_service" "adl_srch" {
   partition_count               = var.partition_count
   replica_count                 = var.replica_count
   public_network_access_enabled = var.public_network_access_enabled
-  # allowed_ips                   = [data.http.ip.body]
+  # allowed_ips                   = [data.http.ip.response_body]
   tags = var.tags
 
   count = var.module_enabled ? 1 : 0

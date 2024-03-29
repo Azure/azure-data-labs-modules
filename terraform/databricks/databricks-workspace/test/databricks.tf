@@ -164,7 +164,7 @@ module "key_vault" {
   public_network_access_enabled = true
   is_private_endpoint           = false
   firewall_default_action       = "Allow"
-  firewall_ip_rules             = ["${data.http.ip.body}/32"]
+  firewall_ip_rules             = ["${data.http.ip.response_body}/32"]
   tags                          = {}
 }
 
