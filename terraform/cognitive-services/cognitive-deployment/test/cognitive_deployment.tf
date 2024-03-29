@@ -3,8 +3,8 @@ module "cognitive_deployment" {
   basename             = random_string.postfix.result
   cognitive_account_id = module.cognitive_account.id
   model_format         = "OpenAI"
-  model_name           = "text-ada-001"
-  model_version        = "1"
+  model_name           = "text-embedding-ada-002"
+  model_version        = "2"
   scale_type           = "Standard"
   tags                 = {}
 }
