@@ -82,3 +82,9 @@ variable "capacity" {
   description = "Specifies the capacity."
   default     = 1
 }
+
+variable "premium_messaging_partitions" {
+  type        = number
+  description = "Specifies the number messaging partitions."
+  default     = 1
+}
