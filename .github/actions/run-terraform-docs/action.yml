@@ -4,13 +4,13 @@ description: --
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
       with:
         ref: ${{ github.event.pull_request.head.ref }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
 
     - name: Render terraform docs and push changes back to PR
-      uses: terraform-docs/gh-actions@main
+      uses: terraform-docs/gh-actions@6de6da0cefcc6b4b7a5cbea4d79d97060733093c # v1.4.1
       with:
         working-dir: "${{ env.terraform_workingdir }}"
         output-file: README.md
