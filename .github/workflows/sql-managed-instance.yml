@@ -22,8 +22,8 @@ jobs:
           working-directory: "${{ env.terraform_workingdir }}"
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: hashicorp/setup-terraform@v2
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
+    - uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
 
     - name: Terraform fmt
       id: fmt
@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@main
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Run tfsec with reviewdog output on the PR
       uses: ./.github/actions/run-terraform-sec
@@ -57,11 +57,11 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
 
       
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@bfdd3570ce990073878bf10f6b2d79082de49492 # v2.2.0
       with:
           go-version: 1.18.2
       
@@ -95,7 +95,7 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v3
+      uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
 
     - name: Render terraform docs and push changes back to PR
       uses: ./.github/actions/run-terraform-docs
